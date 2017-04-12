@@ -1,4 +1,4 @@
-package Classes.Example;
+package Example;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

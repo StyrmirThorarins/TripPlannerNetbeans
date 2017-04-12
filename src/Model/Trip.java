@@ -1,4 +1,4 @@
-package Classes.Model;
+package Model;
 
 // Gunnar M 27.03.17
 public class Trip {

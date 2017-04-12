@@ -1,4 +1,4 @@
-package Classes.Example;
+package Example;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,7 +11,7 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 
-import Classes.Example.GameState;
+import Example.GameState;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;

@@ -1,7 +1,7 @@
-package Classes.Controller;
+package Controller;
 
-import Classes.Model.Basket;
-import Classes.Model.User;
+import Model.Basket;
+import Model.User;
 
 /**
  * Created by Styrmir on 22.3.2017.

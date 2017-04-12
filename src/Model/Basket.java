@@ -1,8 +1,8 @@
-package Classes.Model;
+package Model;
 
 import java.util.List;
 
-public class Basket {
+public class Basket {        
     private List<Flight> flights;
     private List<Hotel> hotels;
     private List<Trip> trips;

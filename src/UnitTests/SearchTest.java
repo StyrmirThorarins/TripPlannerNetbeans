@@ -1,10 +1,10 @@
-//package Classes.UnitTests;
+package UnitTests;
 
-import Classes.Controller.Search;
-import Classes.Model.Basket;
-import Classes.Model.Flight;
-import Classes.Model.Hotel;
-import Classes.Model.Trip;
+import Controller.Search;
+import Model.Basket;
+import Model.Flight;
+import Model.Hotel;
+import Model.Trip;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,8 +1,8 @@
-package Classes.UnitTests;
+package UnitTests;
 
-import Classes.Model.Image;
-import Classes.Model.User;
-import Classes.Model.UserProfile;
+import Model.Image;
+import Model.User;
+import Model.UserProfile;
 
 /**
  * Created by Styrmir on 4/7/2017.
