@@ -11,10 +11,19 @@ package View;
  */
 public class JFrameMain extends javax.swing.JFrame {
 
+    /*
+        Set up other JPanels that are displayed in the main frame
+    */
+    private JPanelLoginRegister loginPanel;
+    private JPanelSearch searchPanel;
+    
     /**
      * Creates new form JFrameMain
      */
     public JFrameMain() {
+        loginPanel = new JPanelLoginRegister();
+        searchPanel = new JPanelSearch();
+        
         initComponents();
     }
 
@@ -27,33 +36,71 @@ public class JFrameMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jPanelMain = new javax.swing.JPanel();
+        jLabelSplash = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuFile = new javax.swing.JMenu();
+        jMenuItemLoginRegister = new javax.swing.JMenuItem();
+        jMenuItemExit = new javax.swing.JMenuItem();
+        jMenuSearch = new javax.swing.JMenu();
+        jMenuItemSearch = new javax.swing.JMenuItem();
+        jMenuBasket = new javax.swing.JMenu();
+        jMenuItemBasketCurrent = new javax.swing.JMenuItem();
+        jMenuItemBasketPrevious = new javax.swing.JMenuItem();
+
+        jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Trip Planner");
+        setName("frameMain"); // NOI18N
 
-        jLabel1.setText("Trip Planner");
+        jPanelMain.setLayout(new java.awt.CardLayout());
 
-        jButton1.setText("Do Something");
+        jLabelSplash.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSplash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/On-bike-from-Laki-to-Landmannalaugar-IMB71.jpg"))); // NOI18N
 
-        jMenu1.setText("File");
+        jMenuFile.setText("File");
 
-        jMenuItem1.setText("Exit");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemLoginRegister.setText("Login/Register");
+        jMenuItemLoginRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemLoginRegisterActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenuFile.add(jMenuItemLoginRegister);
 
-        jMenuBar1.add(jMenu1);
+        jMenuItemExit.setText("Exit");
+        jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExitActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemExit);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuFile);
+
+        jMenuSearch.setText("Search");
+
+        jMenuItemSearch.setText("Search");
+        jMenuItemSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSearchActionPerformed(evt);
+            }
+        });
+        jMenuSearch.add(jMenuItemSearch);
+
+        jMenuBar1.add(jMenuSearch);
+
+        jMenuBasket.setText("Basket");
+
+        jMenuItemBasketCurrent.setText("Current");
+        jMenuBasket.add(jMenuItemBasketCurrent);
+
+        jMenuItemBasketPrevious.setText("Previous");
+        jMenuBasket.add(jMenuItemBasketPrevious);
+
+        jMenuBar1.add(jMenuBasket);
 
         setJMenuBar(jMenuBar1);
 
@@ -62,30 +109,41 @@ public class JFrameMain extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(162, 162, 162)
-                .addComponent(jButton1)
-                .addContainerGap(139, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 9, Short.MAX_VALUE)
+                        .addComponent(jLabelSplash, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jLabelSplash, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItemExitActionPerformed
+
+    private void jMenuItemLoginRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLoginRegisterActionPerformed
+        clearPanel();
+        jPanelMain.add(loginPanel);
+        repaint();
+    }//GEN-LAST:event_jMenuItemLoginRegisterActionPerformed
+
+    private void jMenuItemSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSearchActionPerformed
+        clearPanel();
+        jPanelMain.add(searchPanel);
+        repaint();
+    }//GEN-LAST:event_jMenuItemSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,12 +180,30 @@ public class JFrameMain extends javax.swing.JFrame {
         });
     }
 
+    /*
+        clears the jPanelMain
+    */
+    private void clearPanel(){
+        jLabelSplash.setVisible(false);
+        jPanelMain.setVisible(false);
+        jPanelMain.removeAll();
+        jPanelMain.invalidate();
+        jPanelMain.repaint();
+        jPanelMain.setVisible(true);                 
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JLabel jLabelSplash;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu jMenuBasket;
+    private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItemBasketCurrent;
+    private javax.swing.JMenuItem jMenuItemBasketPrevious;
+    private javax.swing.JMenuItem jMenuItemExit;
+    private javax.swing.JMenuItem jMenuItemLoginRegister;
+    private javax.swing.JMenuItem jMenuItemSearch;
+    private javax.swing.JMenu jMenuSearch;
+    private javax.swing.JPanel jPanelMain;
     // End of variables declaration//GEN-END:variables
 }

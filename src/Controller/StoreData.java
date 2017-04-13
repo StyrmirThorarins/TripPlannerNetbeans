@@ -3,14 +3,12 @@ package Controller;
 
 import Model.Basket;
 import Model.User;
-import Model.UserProfile;
 
 /**
  * Created by Styrmir on 22.3.2017.
  */
 public class StoreData {
-    private User user;
-    private UserProfile userProfile;
+    private User user;    
     private Basket basket;
 
     //constructors
@@ -23,14 +21,6 @@ public class StoreData {
 
     public void setUser(User user){
         this.user = user;
-    }
-
-    public UserProfile getUserProfile(){
-        return this.userProfile;
-    }
-
-    public void setUserProfile(UserProfile userProfile){
-        this.userProfile = userProfile;
     }
 
     public Basket getBasket(){

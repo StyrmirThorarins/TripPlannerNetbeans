@@ -8,18 +8,19 @@ public class User {
 	// a new profile we need to create new instance
 	// Recommend negative int for id for "fake" profiles
 	private final int id;
-	private UserProfile userProfile;
 	private String name;
 	private char sex;
 	private String address;
 	private String email;
 	private String phone;
 	private String nationality;
+        
+        // preference settings
+        private String preferences;        
 
 
 	public User(int id) {
-		this.id = id;
-		userProfile = new UserProfile(this.id);
+		this.id = id;		
 	};
 
 	// setters, getters
@@ -37,14 +38,6 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public UserProfile getUserProfile() {
-		return this.userProfile;
-	}
-
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
 	}
 
 	public char getSex() {
@@ -87,4 +80,11 @@ public class User {
 		this.nationality = nationality;
 	}
 
+	public String getPreferences() {
+		return this.preferences;
+	}
+
+	public void setPreferences(String preferences) {
+		this.preferences = preferences;
+	}                
 }

@@ -2,7 +2,6 @@ package UnitTests;
 
 import Model.Image;
 import Model.User;
-import Model.UserProfile;
 
 /**
  * Created by Styrmir on 4/7/2017.
@@ -15,8 +14,7 @@ public class UserSetupTest {
     public static void main(String[] args){
         UserSetupTest test = new UserSetupTest();
 
-        Image image = new Image(0);
-        UserProfile userProfile = new UserProfile(0);
+        Image image = new Image(0);        
         User user = new User(0);
 
         //Image
@@ -27,16 +25,6 @@ public class UserSetupTest {
         */
         image.setFileName("UnitTests image.jpg");
         image.setPath("../Images/");
-
-
-        //UserProfile
-        /*
-            private final int id;
-            private Image image;
-            private String preferences;
-        */
-        userProfile.setImage(image);
-        userProfile.setPreferences("234,232,2,2,55,61,3,5,223,5232");
 
 
         //User
@@ -50,14 +38,13 @@ public class UserSetupTest {
 	        private String phone;
 	        private String nationality;
 	    */
-        user.setName("Name 1");
-        user.setUserProfile(userProfile);
+        user.setName("Name 1");        
         user.setSex('M');
         user.setAddress("Address 1");
         user.setEmail("email1@email.com");
         user.setPhone("846-5484-2648");
         user.setNationality("Netherlands");
-
+        user.setPreferences("234,232,2,2,55,61,3,5,223,5232");
 
     }
 
