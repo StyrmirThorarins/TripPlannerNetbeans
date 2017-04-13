@@ -3,6 +3,11 @@ package Controller;
 /**
  * Created by Styrmir on 22.3.2017.
  */
+import model.Trip;
+import controller.TripController;
+import java.sql.Time;
+import java.sql.Date;
+
 import Model.Basket;
 import Model.Preference;
 import Model.User;
@@ -11,6 +16,8 @@ import java.util.*;
 
 public class Search {
     private User user;
+    private Date day;
+    private int people;
     private Date dateStart;
     private Date dateEnd;
     private double priceRangeMin;
@@ -82,6 +89,8 @@ public class Search {
 
     //methods
     public Basket SearchAll(){
+        //List<Basket> results;
+        //results.add(Basket);
         return new Basket();
     }
 
@@ -94,7 +103,10 @@ public class Search {
     }
 
     public Basket SearchTrips(){
+        List<Basket> resul;
+        //Trip[] results = TripController.searchTrips("", day, null, null, "description", false, false, 0, 20000, "Preferance", "");
         return new Basket();
+        //results = controller.searchTrips("", days, startTime, endTime, description, familyFriendly, accessible, minPrice, maxPrice, type, location);
     }
 
     public Basket SearchByUserProfileTags(){

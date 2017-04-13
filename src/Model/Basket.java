@@ -1,5 +1,6 @@
 package Model;
 
+import model.Trip;
 import java.util.List;
 
 public class Basket {        
@@ -72,7 +73,7 @@ public class Basket {
             priceTotal =+ hotels.get(i).getPrice();
         return priceTotal;
     }
-
+/*
     public String getPriceCurrency(){
         String pricecurrency1="1";
         String pricecurrency2="2";
@@ -97,7 +98,7 @@ public class Basket {
             return "Currency does not Match";
         return pricecurrency1;
     }
-
+*/
     public Basket getAll(){
         return this;
     }

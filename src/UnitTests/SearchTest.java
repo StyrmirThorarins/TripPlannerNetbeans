@@ -4,7 +4,7 @@ import Controller.Search;
 import Model.Basket;
 import Model.Flight;
 import Model.Hotel;
-import Model.Trip;
+import model.Trip;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,16 +48,6 @@ public class SearchTest {
         flight2.setPriceCurrency("GBP");
 
         //flight 1
-        Trip trip1 = new Trip();
-        trip1.setPrice(5000.00);
-        trip1.setPriceCurrency("ISK");
-
-        //flight 1
-        Trip trip2 = new Trip();
-        trip2.setPrice(8000.00);
-        trip2.setPriceCurrency("ISK");
-
-        //flight 1
         Hotel hotel1 = new Hotel();
         hotel1.setPrice(10000.00);
         hotel1.setPriceCurrency("ISK");
@@ -70,8 +60,6 @@ public class SearchTest {
 
         basket.addFlight(flight1);
         basket.addFlight(flight2);
-        basket.addTrip(trip1);
-        basket.addTrip(trip2);
         basket.addHotel(hotel1);
         basket.addHotel(hotel2);
 
@@ -124,8 +112,9 @@ public class SearchTest {
     }
 
     //4) check currency type == set currency price
-    @Test
+/*    @Test
     public void testCurrency(){
         assertEquals(basket.getPriceCurrency(),"ISK");
     }
+*/
 }
