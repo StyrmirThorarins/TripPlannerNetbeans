@@ -16,6 +16,7 @@ public class JFrameMain extends javax.swing.JFrame {
     */
     private JPanelLoginRegister loginPanel;
     private JPanelSearch searchPanel;
+    private JPanelBasket basketPanel;
     
     /**
      * Creates new form JFrameMain
@@ -23,6 +24,7 @@ public class JFrameMain extends javax.swing.JFrame {
     public JFrameMain() {
         loginPanel = new JPanelLoginRegister();
         searchPanel = new JPanelSearch();
+        basketPanel = new JPanelBasket();
         
         initComponents();
     }
@@ -43,11 +45,9 @@ public class JFrameMain extends javax.swing.JFrame {
         jMenuFile = new javax.swing.JMenu();
         jMenuItemLoginRegister = new javax.swing.JMenuItem();
         jMenuItemExit = new javax.swing.JMenuItem();
-        jMenuSearch = new javax.swing.JMenu();
+        jMenuActions = new javax.swing.JMenu();
         jMenuItemSearch = new javax.swing.JMenuItem();
-        jMenuBasket = new javax.swing.JMenu();
-        jMenuItemBasketCurrent = new javax.swing.JMenuItem();
-        jMenuItemBasketPrevious = new javax.swing.JMenuItem();
+        jMenuItemBasket = new javax.swing.JMenuItem();
 
         jMenuItem5.setText("jMenuItem5");
 
@@ -80,7 +80,7 @@ public class JFrameMain extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuFile);
 
-        jMenuSearch.setText("Search");
+        jMenuActions.setText("Actions");
 
         jMenuItemSearch.setText("Search");
         jMenuItemSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -88,19 +88,17 @@ public class JFrameMain extends javax.swing.JFrame {
                 jMenuItemSearchActionPerformed(evt);
             }
         });
-        jMenuSearch.add(jMenuItemSearch);
+        jMenuActions.add(jMenuItemSearch);
 
-        jMenuBar1.add(jMenuSearch);
+        jMenuItemBasket.setText("Basket");
+        jMenuItemBasket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBasketActionPerformed(evt);
+            }
+        });
+        jMenuActions.add(jMenuItemBasket);
 
-        jMenuBasket.setText("Basket");
-
-        jMenuItemBasketCurrent.setText("Current");
-        jMenuBasket.add(jMenuItemBasketCurrent);
-
-        jMenuItemBasketPrevious.setText("Previous");
-        jMenuBasket.add(jMenuItemBasketPrevious);
-
-        jMenuBar1.add(jMenuBasket);
+        jMenuBar1.add(jMenuActions);
 
         setJMenuBar(jMenuBar1);
 
@@ -108,19 +106,18 @@ public class JFrameMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 9, Short.MAX_VALUE)
-                        .addComponent(jLabelSplash, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelSplash, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabelSplash, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelSplash, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -144,6 +141,12 @@ public class JFrameMain extends javax.swing.JFrame {
         jPanelMain.add(searchPanel);
         repaint();
     }//GEN-LAST:event_jMenuItemSearchActionPerformed
+
+    private void jMenuItemBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBasketActionPerformed
+        clearPanel();
+        jPanelMain.add(basketPanel);        
+        repaint();        
+    }//GEN-LAST:event_jMenuItemBasketActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,16 +197,14 @@ public class JFrameMain extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelSplash;
+    private javax.swing.JMenu jMenuActions;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuBasket;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItemBasketCurrent;
-    private javax.swing.JMenuItem jMenuItemBasketPrevious;
+    private javax.swing.JMenuItem jMenuItemBasket;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemLoginRegister;
     private javax.swing.JMenuItem jMenuItemSearch;
-    private javax.swing.JMenu jMenuSearch;
     private javax.swing.JPanel jPanelMain;
     // End of variables declaration//GEN-END:variables
 }
