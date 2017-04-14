@@ -107,4 +107,8 @@ public class Basket {
     public boolean storeBasket(){
         return true;
     }
+    
+    public void ClearTrips(){
+        this.trips = null;
+    }
 }
