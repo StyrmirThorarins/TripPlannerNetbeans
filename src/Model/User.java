@@ -20,7 +20,7 @@ public class User {
 
 
 	public User(int id) {
-		this.id = id;		
+		this.id = id;	
 	};
 
 	// setters, getters
@@ -65,6 +65,9 @@ public class User {
 	}
 
 	public String getPhone() {
+            if (this.phone == null) {
+                return "0";
+            }
 		return this.phone;
 	}
 

@@ -42,7 +42,7 @@ public class Search {
             preferences[i]=new Preference();
             
         }
-        //dateRange = DifferenceInDays(dateStart, dateEnd);
+        dateRange = DifferenceInDays(dateStart, dateEnd);
     }
 
     //getters, setters
@@ -216,10 +216,32 @@ public class Search {
     
     public final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
 
-    
+    /***
+     * finds the difference in number of days between dates
+     * @param from earlier date
+     * @param to later date
+     * @return difference in dates
+     */
     public static int DifferenceInDays(Date from, Date to) {
         return (int)((to.getTime() - from.getTime()) / MILLISECONDS_IN_DAY);
     }
+    
+    
+    /***
+     * Returns date incremented by one day
+     * @param date value to increment
+     * @return 
+     */
+    public static Date incrimentDate(Date date){
+        return incrimentDate(date, 1);
+    }
+    
+    /***
+     * Returns date incremented by a number of days
+     * @param date value to increment
+     * @param dayDiff number of days to increment by, can be negative to decrement
+     * @return 
+     */
     public static Date incrimentDate(Date date, int dayDiff){
         date.setTime(MILLISECONDS_IN_DAY*dayDiff + date.getTime());
         return date;
@@ -228,6 +250,7 @@ public class Search {
     
     
      public static void main(String[] args){
+        
         Search search = new Search();
         search.SearchTripsList();
     }
