@@ -1,5 +1,6 @@
 package Model;
 
+import hotel3h.Hotel;
 import model.Trip;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class Basket {
         return trips.get(index);
     }
 
-
+/*
     public double getPrice(){
         double priceTotal =0;
         for(int i=0;i < flights.size();i++)
@@ -73,7 +74,8 @@ public class Basket {
             priceTotal =+ hotels.get(i).getPrice();
         return priceTotal;
     }
-/*
+*/
+    /*
     public String getPriceCurrency(){
         String pricecurrency1="1";
         String pricecurrency2="2";

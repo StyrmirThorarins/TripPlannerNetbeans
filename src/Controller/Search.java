@@ -3,6 +3,10 @@ package Controller;
 /**
  * Created by Styrmir on 22.3.2017.
  */
+import hotel3h.Room;
+import hotel3h.Hotel;
+import hotel3h.HotelDatabaseManager;
+import hotel3h.SearchManager;
 import model.Trip;
 import controller.TripController;
 import java.sql.Time;
@@ -11,8 +15,9 @@ import java.sql.Date;
 import Model.Basket;
 import Model.Preference;
 import Model.User;
-import java.sql.SQLException;
 
+
+import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -106,8 +111,6 @@ public class Search {
 
     //methods
     public Basket SearchAll(){
-        //List<Basket> results;
-        //results.add(Basket);
         return new Basket();
     }
 
@@ -115,8 +118,11 @@ public class Search {
         return new Basket();
     }
 
-    public Basket SearchHotels(){
-        return new Basket();
+    public List<Hotel> SearchHotels(){
+       int[] heild={};
+       SearchManager sm = new SearchManager(heild);
+       List<Hotel> a = sm.searchHotel();
+       return a;
     }
 
     /***
