@@ -12,6 +12,8 @@ public class Flight{
 	private String priceCurrency;
 
 	public Flight(){}
+        
+
 
 	public void setId(int id){
 		this.id = id;

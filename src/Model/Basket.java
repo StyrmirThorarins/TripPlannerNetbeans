@@ -11,7 +11,11 @@ public class Basket {
 
 
     //constructors
-    public Basket(){}
+    /***
+     * Creates a new basket, all values set as null
+     */
+    public Basket(){
+    }
 
 
     //getters, setters
@@ -26,6 +30,27 @@ public class Basket {
     public void addTrip(Trip trip){
         trips.add(trip);
     }
+    
+    /***
+     * Merges all values from the input into this basket
+     * @param basket basket where the data is taken from
+     */
+    public void mergeBasket(Basket basket){
+        if(this != basket){
+            for (Flight flight : basket.getFlights()) {
+                flights.add(flight);
+            }
+        
+            for (Hotel hotel : basket.getHotels()) {
+                hotels.add(hotel);
+            }
+        
+            for (Trip trip : basket.getTrips()) {
+                trips.add(trip);
+            }
+        }
+    }
+
 
     public void setFlights(List<Flight> flights){
         this.flights = flights;
@@ -62,6 +87,7 @@ public class Basket {
     public Trip getTrip(int index){
         return trips.get(index);
     }
+    
 
 /*
     public double getPrice(){

@@ -107,12 +107,35 @@ public class Search {
         this.preferences = preferences;
     }
 
+    
+    
 
 
     //methods
     public Basket SearchAll(){
+        
+        
+        
         return new Basket();
     }
+    
+    public Basket SearchAll(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, Preference[] prefrence){
+        this.dateStart = startDate;
+        this.dateEnd = endDate;
+        this.priceRangeMin = minPrice;
+        this.priceRangeMax = maxPrice;
+        
+        this.currencyType = curency;
+        this.people = numberOfCustomers;
+
+
+        
+        return new Basket();
+    }
+    
+    
+    
+    
 
     public Basket SearchFlights(){
         return new Basket();

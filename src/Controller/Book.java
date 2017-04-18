@@ -80,7 +80,8 @@ public class Book {
         try {
             tc = new TripController();
             try {
-                tc.bookTrip(user.getName(),Integer.parseInt(user.getPhone()) , user.getAddress(), user.getEmail(), trip, numberOfTravelers, hotelPickup, active);
+                tc.bookTrip(user.getName(),user.getPhoneInt() , user.getAddress(), user.getEmail(), trip, numberOfTravelers, hotelPickup, active);
+                //tc.bookTrip("asd",10, "  ", "", trip, numberOfTravelers, hotelPickup, active);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Book.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
@@ -98,7 +99,7 @@ public class Book {
         Trip t = new Trip(0, "", new Date(2017, 04, 04), new Time(5, 5, 5), new Time(6, 6, 6), "", 0, "", "", "", 0, true, true, new TourCompany(0, "", 0, "", ""), 0);
         User u = new User(5);
         
-        b.BookTrip(t, u, 0, Boolean.TRUE, Boolean.TRUE);
+        b.BookTrip(t, u, 0, Boolean.TRUE, Boolean.FALSE);
     }
 
 }
