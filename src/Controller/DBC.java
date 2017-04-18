@@ -117,7 +117,7 @@ public class DBC {
             String SQL = "SELECT * FROM Users WHERE Users.Users LIKE '%"+ uName+"%'";
             //Hvert results fara
             ResultSet rs = stmt.executeQuery( SQL );
-            int id_col =rs.getInt("Id");
+            int id_col = rs.getInt("Id");
             foundId = id_col;
         } catch (SQLException e) {
             System.out.println(e.getMessage());

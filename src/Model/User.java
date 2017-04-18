@@ -16,8 +16,7 @@ public class User {
 	private String nationality;
         
         // preference settings
-        private String preferences;        
-
+        private String preferences;                       
 
 	public User(int id) {
 		this.id = id;	

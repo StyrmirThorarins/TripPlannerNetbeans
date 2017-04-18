@@ -59,6 +59,11 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
         jLabel7.setText("Phone");
 
         jButtonLogin.setText("Login");
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoginActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Nationality");
 
@@ -192,6 +197,10 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
         String phone = jTextFieldRegisterSex.getText();
         Controller.DBC.UserInsert(uName, sex, address, email, phone, nationality);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLoginActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
