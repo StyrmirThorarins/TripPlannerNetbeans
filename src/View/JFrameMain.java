@@ -23,10 +23,18 @@ public class JFrameMain extends javax.swing.JFrame {
      */
     public JFrameMain() {
         loginPanel = new JPanelLoginRegister();
-        searchPanel = new JPanelSearch();
+        searchPanel = new JPanelSearch(this);
         basketPanel = new JPanelBasket();
         
         initComponents();
+    }
+    
+    public void displayBasket(Model.Basket basket){
+        basketPanel = new JPanelBasket(basket);
+        initComponents();
+        clearPanel();
+        jPanelMain.add(basketPanel);        
+        repaint(); 
     }
 
     /**
@@ -117,9 +125,10 @@ public class JFrameMain extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabelSplash, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -186,7 +195,7 @@ public class JFrameMain extends javax.swing.JFrame {
     /*
         clears the jPanelMain
     */
-    private void clearPanel(){
+    public void clearPanel(){
         jLabelSplash.setVisible(false);
         jPanelMain.setVisible(false);
         jPanelMain.removeAll();

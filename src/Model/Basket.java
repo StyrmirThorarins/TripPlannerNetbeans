@@ -13,6 +13,11 @@ public class Basket {
     //constructors
     public Basket(){}
 
+    public Basket(Basket basket){
+        flights = basket.flights;
+        hotels = basket.hotels;
+        trips = basket.trips;
+    }
 
     //getters, setters
     public void addFlight(Flight flight){
