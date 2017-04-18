@@ -3,14 +3,14 @@ package Model;
 /**
  * Created by Styrmir on 22.3.2017.
  */
-public class Preference {
+public class DEPRECIATED_Preference {
     private int id;
     private String name;
     private String summary;
     private String description;
 
     //constructor
-    public Preference(){}
+    public DEPRECIATED_Preference(){}
 
     //getters, setters
     public int getId(){

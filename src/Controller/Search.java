@@ -13,7 +13,7 @@ import java.sql.Time;
 import java.sql.Date;
 import ViewModel.SearchVM;
 import Model.Basket;
-import Model.Preference;
+import Model.DEPRECIATED_Preference;
 import Model.User;
 
 import Controller.DBC;
@@ -46,10 +46,7 @@ public class Search {
     }
 
     //methods
-    public Basket SearchAll(){
-        
-        
-        
+    public Basket SearchAll(){                     
         return new Basket();
     }
     
@@ -67,7 +64,7 @@ public class Search {
      * @param searchTrip whether or not to search in trips, returns null if false
      * @return basket containing all data matching the atributes
      */
-    public Basket SearchAll(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, Preference[] prefrence, boolean searchHotel, boolean searchFlight, boolean searchTrip){
+    public Basket SearchAll(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence, boolean searchHotel, boolean searchFlight, boolean searchTrip){
         Basket basket = new Basket();
         
 
@@ -98,7 +95,7 @@ public class Search {
         return new Basket();
     }
     
-    private Basket SearchFlights(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, Preference[] prefrence) {
+    private Basket SearchFlights(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return new Basket();
     }
@@ -126,7 +123,7 @@ public class Search {
     }*/
     
     
-    private Basket SearchHotels(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, Preference[] prefrence) {
+    private Basket SearchHotels(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return new Basket();
     }
@@ -216,7 +213,7 @@ public class Search {
         
     }
     
-    private Basket searchTrips(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, Preference[] prefrence) {
+    private Basket searchTrips(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return new Basket();
     }

@@ -6,15 +6,15 @@ package Model;
 
 //github comment test
 
-public class Image {
+public class DEPRECIATED_Image {
     private int id;
     private String path;
     private String fileName;
 
     //constructor
-    public Image(){}
+    public DEPRECIATED_Image(){}
 
-    public Image(int id){
+    public DEPRECIATED_Image(int id){
         this.id = id;
     }
 
