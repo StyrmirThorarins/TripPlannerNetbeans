@@ -5,7 +5,7 @@
  */
 package ViewModel;
 
-import Model.Preference;
+import Model.DEPRECIATED_Preference;
 import Model.User;
 import java.sql.Date;
 
@@ -23,7 +23,7 @@ public class SearchVM {
     private double priceRangeMin;   
     private double priceRangeMax;
     private String currencyType;
-    private Preference[] preferences;
+    private DEPRECIATED_Preference[] preferences;
     
     private int dateRange;
 

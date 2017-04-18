@@ -190,7 +190,7 @@ public class JPanelSearch extends javax.swing.JPanel {
     }//GEN-LAST:event_jCheckBoxHotelsActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonToBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToBasketActionPerformed

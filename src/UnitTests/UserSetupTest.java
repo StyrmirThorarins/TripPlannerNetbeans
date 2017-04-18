@@ -1,6 +1,6 @@
 package UnitTests;
 
-import Model.Image;
+import Model.DEPRECIATED_Image;
 import Model.User;
 
 /**
@@ -14,7 +14,7 @@ public class UserSetupTest {
     public static void main(String[] args){
         UserSetupTest test = new UserSetupTest();
 
-        Image image = new Image(0);        
+        DEPRECIATED_Image image = new DEPRECIATED_Image(0);        
         User user = new User(0);
 
         //Image

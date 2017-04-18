@@ -13,7 +13,7 @@ import java.sql.Time;
 import java.sql.Date;
 
 import Model.Basket;
-import Model.Preference;
+import Model.DEPRECIATED_Preference;
 import Model.User;
 
 import Controller.DBC;

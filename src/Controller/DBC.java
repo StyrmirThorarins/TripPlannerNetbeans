@@ -44,6 +44,33 @@ public class DBC {
         }        
     }
     
+    public void dbInsert(Connection conn, String sqlString){
+        try {
+            Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            stmt.executeUpdate(sqlString);
+            stmt.close();
+        
+            conn.commit();
+            conn.close();
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public ResultSet dbQuery(Connection conn, String sqlString){               
+        try{
+            Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = stmt.executeQuery( sqlString );
+            return rs;
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+            
+        return null;
+    }
+    
     //N: UserAllPrint():
     //F: gagnagrunnur TPData er til en ótengdur
     //E: búið er að tengjast TPData gagnagrunni og Prenta út öll gögn úr honum
@@ -132,7 +159,7 @@ public class DBC {
     //N: CindUserId(uName);
     //F: gagnagrunnur TPData er til en ótengdur, uName er strengur
     //E: búið er að skila Id sem samsvarar User sem inniheldur strenginn uName
-    public static int CatchUserId(String uName) 
+    public static int GetUserId(String uName) 
     {
         int foundId = 0;
         Connection conn = null;
