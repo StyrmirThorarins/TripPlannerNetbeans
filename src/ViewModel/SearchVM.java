@@ -5,10 +5,78 @@
  */
 package ViewModel;
 
+import Model.Preference;
+import Model.User;
+import java.sql.Date;
+
 /**
  *
  * @author Hobby
  */
 public class SearchVM {
+  
+    private User user;
+    private Date day;
+    private int people;
+    private Date dateStart;
+    private Date dateEnd;
+    private double priceRangeMin;   
+    private double priceRangeMax;
+    private String currencyType;
+    private Preference[] preferences;
     
+    private int dateRange;
+
+    //constructors
+    public SearchVM(){
+    }
+
+    //getters, setters
+    public User getUser(){
+        return this.user;
+    }
+
+    public void setUser(User user){
+        this.user = user;
+    }
+
+    public Date getDateStart(){
+        return this.dateStart;
+    }
+
+    public void setDateStart(Date dateStart){
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd(){
+        return this.dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd){
+        this.dateEnd = dateEnd;
+    }
+
+    public double getPriceRangeMin(){
+        return this.priceRangeMin;
+    }
+
+    public void setPriceRangeMin(double priceRangeMin){
+        this.priceRangeMin = priceRangeMin;
+    }
+
+    public double getPriceRangeMax(){
+        return this.priceRangeMax;
+    }
+
+    public void setPriceRangeMax(double priceRangeMax){
+        this.priceRangeMax = priceRangeMax;
+    }
+
+    public String getCurrencyType(){
+        return this.currencyType;
+    }
+
+    public void setCurrencyType(String currencyType){
+        this.currencyType = currencyType;
+    }
 }

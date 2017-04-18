@@ -16,6 +16,8 @@ import Model.Basket;
 import Model.Preference;
 import Model.User;
 
+import Controller.DBC;
+
 
 import java.sql.SQLException;
 import java.util.*;

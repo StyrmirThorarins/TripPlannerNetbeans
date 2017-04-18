@@ -15,6 +15,35 @@ import java.sql.ResultSet;
  * @author Máni
  */
 public class DBC {
+    
+    //return connection connection to database
+    public Connection dbConnect(){
+        Connection conn = null;
+        //attempt local DB connection
+        try {            
+            String url = "jdbc:sqlite:src/Data/TPData.db";            
+            conn = DriverManager.getConnection(url);
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());            
+        }
+        
+        return conn;
+        
+    }
+    
+    //disconnect database connection
+    public void dbDisconnect(Connection conn){
+        try {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }        
+    }
+    
     //N: UserAllPrint():
     //F: gagnagrunnur TPData er til en ótengdur
     //E: búið er að tengjast TPData gagnagrunni og Prenta út öll gögn úr honum
