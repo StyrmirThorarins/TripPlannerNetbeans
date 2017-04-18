@@ -6,6 +6,10 @@
 package View;
 
 import Controller.Search;
+import Model.Basket;
+import Model.Preference;
+import Model.User;
+import java.sql.Date;
 
 /**
  *
@@ -207,7 +211,16 @@ public class JPanelSearch extends javax.swing.JPanel {
     }//GEN-LAST:event_jCheckBoxHotelsActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-        
+        User user = new User(-1);
+        Date day = null;
+        int people;
+        Date dateStart;
+        Date dateEnd = null;
+        double priceRangeMin;   
+        double priceRangeMax = 0;
+        String currencyType = null;
+        Preference[] preferences = null;
+        Basket SearchAll = search.SearchAll(dateEnd, day, priceRangeMax, priceRangeMax, currencyType, PROPERTIES, preferences, true, true, true);
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonToBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToBasketActionPerformed

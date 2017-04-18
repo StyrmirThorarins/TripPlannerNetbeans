@@ -59,9 +59,16 @@ public class Basket {
     public void setHotels(List<Hotel> hotels){
         this.hotels = hotels;
     }
+    
+    public void setHotels(Basket hotels){
+        this.hotels = hotels.getHotels();
+    }
 
     public void setTrips(List<Trip> trips){
         this.trips = trips;
+    }
+    public void setTrips(Basket trips){
+        this.trips = trips.getTrips();
     }
 
     public List<Flight> getFlights(){
@@ -138,5 +145,9 @@ public class Basket {
     
     public void ClearTrips(){
         this.trips = null;
+    }
+
+    public void setFlights() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
