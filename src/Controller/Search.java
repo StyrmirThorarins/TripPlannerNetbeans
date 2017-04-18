@@ -25,93 +25,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Search {
-    private User user;
-    private Date day;
-    private int people;
-    private Date dateStart;
-    private Date dateEnd;
-    private double priceRangeMin;   
-    private double priceRangeMax;
-    private String currencyType;
-    private Preference[] preferences;
     
-    private int dateRange;
+    private ViewModel.SearchVM searchVM;   
 
     //constructors
-    public Search(){
-        day = new Date(2017, 04, 13);
-        people = 10;
-        dateStart = day;
-        dateEnd = day;
-        
-        preferences = new Preference[5];
-        for (int i = 0; i < preferences.length; i++) {
-            preferences[i]=new Preference();
-            
-        }
-        dateRange = DifferenceInDays(dateStart, dateEnd);
+    public Search(){      
+    }
+    
+    public Search(ViewModel.SearchVM searchVM){      
+        this.searchVM = searchVM;
     }
 
     //getters, setters
-    public User getUser(){
-        return this.user;
+    public void setSearchVM(ViewModel.SearchVM searchVM){
+        this.searchVM = searchVM;
     }
 
-    public void setUser(User user){
-        this.user = user;
+    public ViewModel.SearchVM getSearchVM(){
+        return this.searchVM;
     }
-
-    public Date getDateStart(){
-        return this.dateStart;
-    }
-
-    public void setDateStart(Date dateStart){
-        this.dateStart = dateStart;
-    }
-
-    public Date getDateEnd(){
-        return this.dateEnd;
-    }
-
-    public void setDateEnd(Date dateEnd){
-        this.dateEnd = dateEnd;
-    }
-
-    public double getPriceRangeMin(){
-        return this.priceRangeMin;
-    }
-
-    public void setPriceRangeMin(double priceRangeMin){
-        this.priceRangeMin = priceRangeMin;
-    }
-
-    public double getPriceRangeMax(){
-        return this.priceRangeMax;
-    }
-
-    public void setPriceRangeMax(double priceRangeMax){
-        this.priceRangeMax = priceRangeMax;
-    }
-
-    public String getCurrencyType(){
-        return this.currencyType;
-    }
-
-    public void setCurrencyType(String currencyType){
-        this.currencyType = currencyType;
-    }
-
-    public Preference[] getPreferences(){
-        return this.preferences;
-    }
-
-    public void setPreferences(Preference[] preferences){
-        this.preferences = preferences;
-    }
-
-    
-    
-
 
     //methods
     public Basket SearchAll(){
@@ -137,13 +69,7 @@ public class Search {
      */
     public Basket SearchAll(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, Preference[] prefrence, boolean searchHotel, boolean searchFlight, boolean searchTrip){
         Basket basket = new Basket();
-        this.dateStart = startDate;
-        this.dateEnd = endDate;
-        this.priceRangeMin = minPrice;
-        this.priceRangeMax = maxPrice;
         
-        this.currencyType = curency;
-        this.people = numberOfCustomers;
 
         
         if(searchFlight){
@@ -177,26 +103,28 @@ public class Search {
         return new Basket();
     }
 
+    /*
     public List<Hotel> SearchHotels(){
        //create calander instance and get required params
        Calendar cal = Calendar.getInstance();
-       cal.setTime(dateStart);
+       //cal.setTime(dateStart);
        int month1 = cal.get(Calendar.MONTH);
        int day1 = cal.get(Calendar.DAY_OF_MONTH);
        int year1 = cal.get(Calendar.YEAR);
-       cal.setTime(dateEnd);
+       //cal.setTime(dateEnd);
        int month2 = cal.get(Calendar.MONTH);
        int day2 = cal.get(Calendar.DAY_OF_MONTH);
        int year2 = cal.get(Calendar.YEAR);
        //initializer fyrir hótel leit
        // int type,gym,spa,pool,hottub,wifi,conference,restaurant,bar,inclusive,breakfast,cancellation,roomservice,wheelchair,elevator,flybus,minPrice,maxPrice,minSize,maxSize,minBeds,areaCode;
        //int[] startDate,endDate; 
-       int[] heild={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99999,0,99999,people,0,day1,month1,year1,day2,month2,year2};
-       SearchManager sm = new SearchManager(heild);
-       List<Hotel> results = sm.searchHotel();
+       //int[] heild={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99999,0,99999,people,0,day1,month1,year1,day2,month2,year2};
+       //SearchManager sm = new SearchManager(heild);
+       //List<Hotel> results = sm.searchHotel();
        return results;
        
-    }
+    }*/
+    
     
     private Basket SearchHotels(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, Preference[] prefrence) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
