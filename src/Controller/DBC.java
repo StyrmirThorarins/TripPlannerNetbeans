@@ -66,7 +66,7 @@ public class DBC {
         Connection conn = null;
         try {
             // Tenging við DB
-            String url = "jdbc:sqlite:TPData.db";
+            String url = "jdbc:sqlite:src/Data/TPData.db";
             // Tenging komið á
             conn = DriverManager.getConnection(url);
             //Command insert
@@ -109,7 +109,7 @@ public class DBC {
         Connection conn = null;
         try {
             // Tenging við DB
-            String url = "jdbc:sqlite:TPData.db";
+            String url = "jdbc:sqlite:src/Data/TPData.db";
             // Tenging komið á
             conn = DriverManager.getConnection(url);
             //Command insert
@@ -137,14 +137,14 @@ public class DBC {
      * F:TPData gagnagrunnur er til
      * E:Búið er að bæta við gögnum í Users töfluna í TPData gagnagrunninum
      */
-      public static void UserInsert(String uName, int sex,
-              String address, String email, int phone, String nationality) 
+      public static void UserInsert(String uName, String sex,
+              String address, String email, String phone, String nationality) 
     {
         int foundId = 0;
         Connection conn = null;
         try {
             // Tenging við DB
-            String url = "jdbc:sqlite:TPData.db";
+            String url = "jdbc:sqlite:src/Data/TPData.db";
             // Tenging komið á
             conn = DriverManager.getConnection(url);
             //Command insert

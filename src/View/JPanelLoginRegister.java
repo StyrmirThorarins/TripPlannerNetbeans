@@ -75,6 +75,11 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
         jTextField6.setText("jTextField2");
 
         jButton1.setText("Register");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Name");
 
@@ -83,6 +88,11 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
         jLabel2.setText("Login");
 
         jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setText("jTextField2");
 
@@ -192,6 +202,21 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
                 .addGap(5, 5, 5))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String uName = jTextField1.getText();
+        String sex = jTextField2.getText();
+        String address = jTextField3.getText();
+        String email = jTextField4.getText();
+        String nationality = jTextField5.getText();
+        String phone = jTextField6.getText();
+        Controller.DBC.UserInsert(uName, sex, address, email, phone, nationality);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
