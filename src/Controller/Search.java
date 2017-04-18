@@ -11,7 +11,7 @@ import model.Trip;
 import controller.TripController;
 import java.sql.Time;
 import java.sql.Date;
-
+import ViewModel.SearchVM;
 import Model.Basket;
 import Model.Preference;
 import Model.User;
@@ -76,7 +76,7 @@ public class Search {
             Basket SearchFlights = SearchFlights(startDate, endDate, minPrice, maxPrice, curency, numberOfCustomers, prefrence);
             basket.setFlights(SearchFlights.getFlights());
         }
-        if (searchHotel) {
+        if (searchHotel){
              
             Basket hotels = SearchHotels(startDate, endDate, minPrice, maxPrice, curency, numberOfCustomers, prefrence);
             basket.setHotels(hotels);
@@ -135,7 +135,7 @@ public class Search {
      * Returns a basket containing list of all available trips
      * @return 
      */
-    public Basket SearchTrips(){
+   /* public Basket SearchTrips(){
         Basket result = new Basket();
         
         List<Trip> t = SearchTripsList();
@@ -146,23 +146,23 @@ public class Search {
         
         return result;
     }
-    
+    */
     /***
      * Inserts list of all available trips onto a basket
      * @param oldBasket Basket that the list of Trips will be inserted into
      * @return 
      */
-    public Basket SearchTrips(Basket oldBasket){
+  /*  public Basket SearchTrips(Basket oldBasket){
         
         return SearchTrips(oldBasket,false);
     }
-    /***
+   */ /***
       * Inserts list of all available trips onto a basket
       * @param oldBasket Basket that the list of Trips will be inserted into
       * @param clearOld chose whether or not do delete old list
       * @return 
       */
-    public Basket SearchTrips(Basket oldBasket, Boolean clearOld){
+   /* public Basket SearchTrips(Basket oldBasket, Boolean clearOld){
         Basket result = oldBasket;
         if (clearOld) {
             result.ClearTrips();
@@ -175,12 +175,12 @@ public class Search {
         }
         return result;
     }
-    
+   */ 
     /***
      * Returns a list of all available trips
      * @return 
      */
-    public List<Trip> SearchTripsList(){
+    public List<Trip> SearchTripsList(SearchVM SVM){
         List<Trip> t = null;
         Trip[] results= null;
         try {
@@ -189,16 +189,16 @@ public class Search {
                 //for (int i = 0; i < preferences.length; i++) {
                     results = tc.searchTrips(
                             "",
-                            Date.valueOf("2017-06-22"),
-                            Time.valueOf("10:00:00"),
-                            Time.valueOf("13:00:00"),
+                            SVM.day(),
+                            Time.valueOf("00:01:00"),
+                            Time.valueOf("23:59:00"),
                             "",
                             false,
                             false,
                             5000,
                             30000,
-                            "Horse Trips",
-                            "Western region", 
+                            SVM.getPref(),
+                            SVM.getArea(), 
                             true);
                    // for (Trip result : results) {
                    //     t.add(result);
@@ -269,9 +269,12 @@ public class Search {
     
     
      public static void main(String[] args){
-        
         Search search = new Search();
-        List<Trip> trips = search.SearchTripsList();
+        SearchVM SVM = new SearchVM();
+        SVM.setDateStart(Date.valueOf("2017-06-22"));
+        SVM.setPref("Horse Trips");
+        SVM.setArea("Western Region");
+        List<Trip> trips = search.SearchTripsList(SVM);
         for(Trip t: trips) {
             System.out.println(t.getName() + ", " + t.getAvailablePlaces() + ", " + t.getDate() + ", " + t.getTourCompany().getName() + ", " + t.getType() + ", " + t.getArea() + ", " + t.getLocation());
         }
