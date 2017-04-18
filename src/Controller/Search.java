@@ -45,14 +45,58 @@ public class Search {
         return this.searchVM;
     }
 
-
-
     //methods
-    public Basket SearchAll(){
+    public Basket SearchAll(){                     
         return new Basket();
     }
+    
+    /***
+     * searches flights, hotels, and cutomers at the same time
+     * @param startDate starting date of search, inclusive
+     * @param endDate ending date of search, inclusive
+     * @param minPrice minimum price, inclusive
+     * @param maxPrice maximum price, inclusive
+     * @param curency curency of the transaction
+     * @param numberOfCustomers number of customers in the order
+     * @param prefrence list of prefrences 
+     * @param searchHotel whether or not to search in hotels, returns null if false
+     * @param searchFlight whether or not to search in flights, returns null if false
+     * @param searchTrip whether or not to search in trips, returns null if false
+     * @return basket containing all data matching the atributes
+     */
+    public Basket SearchAll(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence, boolean searchHotel, boolean searchFlight, boolean searchTrip){
+        Basket basket = new Basket();
+        
+
+        
+        if(searchFlight){
+            Basket SearchFlights = SearchFlights(startDate, endDate, minPrice, maxPrice, curency, numberOfCustomers, prefrence);
+            basket.setFlights(SearchFlights.getFlights());
+        }
+        if (searchHotel) {
+             
+            Basket hotels = SearchHotels(startDate, endDate, minPrice, maxPrice, curency, numberOfCustomers, prefrence);
+            basket.setHotels(hotels);
+        }
+        if (searchTrip) {
+            Basket trips = searchTrips(startDate, endDate, minPrice, maxPrice, curency, numberOfCustomers, prefrence);
+            basket.setTrips(trips);
+        }
+
+        
+        return basket;
+    }
+    
+    
+    
+    
 
     public Basket SearchFlights(){
+        return new Basket();
+    }
+    
+    private Basket SearchFlights(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return new Basket();
     }
 
@@ -76,8 +120,13 @@ public class Search {
        //List<Hotel> results = sm.searchHotel();
        return results;
        
-       
     }*/
+    
+    
+    private Basket SearchHotels(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new Basket();
+    }
 
     /***
      * Returns a basket containing list of all available trips
@@ -164,6 +213,11 @@ public class Search {
         
     }
     
+    private Basket searchTrips(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new Basket();
+    }
+    
     
 
     public Basket SearchByUserProfileTags(){
@@ -219,4 +273,10 @@ public class Search {
             System.out.println(t.getName() + ", " + t.getAvailablePlaces() + ", " + t.getDate() + ", " + t.getTourCompany().getName() + ", " + t.getType() + ", " + t.getArea() + ", " + t.getLocation());
         }
     }
+
+    
+
+    
+
+    
 }

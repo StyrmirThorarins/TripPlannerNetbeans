@@ -69,6 +69,17 @@ public class User {
             }
 		return this.phone;
 	}
+        
+        /***
+         * Returns a persons phone number as an Integer
+         * @return persons phone number, returns 0 if not set
+         */
+        public int getPhoneInt(){
+            if (this.phone == null) {
+                return 0;
+            }
+		return Integer.parseInt(this.phone);
+        }
 
 	public void setPhone(String phone) {
 		this.name = phone;
