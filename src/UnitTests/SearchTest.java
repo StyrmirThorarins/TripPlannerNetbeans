@@ -24,12 +24,12 @@ public class SearchTest {
         this.basket = new Basket();
 
         //search pricemin
-        search.setPriceRangeMin(10000);
-        search.setCurrencyType("ISK");
+       // search.setPriceRangeMin(10000);
+        //search.setCurrencyType("ISK");
 
         //search pricemax
-        search.setPriceRangeMax(100000);
-        search.setCurrencyType("ISK");
+        //search.setPriceRangeMax(100000);
+        //search.setCurrencyType("ISK");
 
         //flight 1
         Flight flight1 = new Flight();
