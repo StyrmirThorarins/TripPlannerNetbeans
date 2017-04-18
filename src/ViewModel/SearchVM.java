@@ -15,6 +15,8 @@ import java.sql.Date;
  */
 public class SearchVM {
   
+    private String area;
+    private String pref;
     private User user;
     private Date day;
     private int people;
@@ -40,7 +42,7 @@ public class SearchVM {
         this.user = user;
     }
 
-    public Date getDateStart(){
+    public Date day(){
         return this.dateStart;
     }
 
@@ -78,5 +80,21 @@ public class SearchVM {
 
     public void setCurrencyType(String currencyType){
         this.currencyType = currencyType;
+    }
+    
+    public String getPref(){
+        return this.pref;
+    }
+
+    public void setPref(String pref){
+        this.pref = pref;
+    }
+    
+    public String getArea(){
+        return this.area;
+    }
+
+    public void setArea(String area){
+        this.area = area;
     }
 }
