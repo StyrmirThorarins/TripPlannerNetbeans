@@ -119,10 +119,25 @@ public class Search {
     }
 
     public List<Hotel> SearchHotels(){
-       int[] heild={};
+       //create calander instance and get required params
+       Calendar cal = Calendar.getInstance();
+       cal.setTime(dateStart);
+       int month1 = cal.get(Calendar.MONTH);
+       int day1 = cal.get(Calendar.DAY_OF_MONTH);
+       int year1 = cal.get(Calendar.YEAR);
+       cal.setTime(dateEnd);
+       int month2 = cal.get(Calendar.MONTH);
+       int day2 = cal.get(Calendar.DAY_OF_MONTH);
+       int year2 = cal.get(Calendar.YEAR);
+       //initializer fyrir hótel leit
+       // int type,gym,spa,pool,hottub,wifi,conference,restaurant,bar,inclusive,breakfast,cancellation,roomservice,wheelchair,elevator,flybus,minPrice,maxPrice,minSize,maxSize,minBeds,areaCode;
+       //int[] startDate,endDate; 
+       int[] heild={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99999,0,99999,people,0,day1,month1,year1,day2,month2,year2};
        SearchManager sm = new SearchManager(heild);
-       List<Hotel> a = sm.searchHotel();
-       return a;
+       List<Hotel> results = sm.searchHotel();
+       return results;
+       
+       
     }
 
     /***
@@ -176,37 +191,37 @@ public class Search {
      */
     public List<Trip> SearchTripsList(){
         List<Trip> t = null;
-        Trip[] results;
+        Trip[] results= null;
         try {
             TripController tc = new TripController();
             try {
-                for (int i = 0; i < preferences.length; i++) {
+                //for (int i = 0; i < preferences.length; i++) {
                     results = tc.searchTrips(
                             "",
-                            day,
-                            new Time(00, 00, 01),
-                            new Time(23, 59, 59),
+                            Date.valueOf("2017-06-22"),
+                            Time.valueOf("10:00:00"),
+                            Time.valueOf("13:00:00"),
                             "",
                             false,
                             false,
-                            0,
-                            Integer.MAX_VALUE,
-                            preferences[i].getName(),
-                            "ADD HOTEL LOCATION");
-                    for (Trip result : results) {
-                        t.add(result);
-                    }
-                }
-            } catch (ClassNotFoundException ex) {
+                            5000,
+                            30000,
+                            "Horse Trips",
+                            "Western region", 
+                            true);
+                   // for (Trip result : results) {
+                   //     t.add(result);
+                   // }
+               // }
+              } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
-        return t;
-        //results = controller.searchTrips("tripname", days, startTime, endTime, description, familyFriendly, accessible, minPrice, maxPrice, type, location);
+        return Arrays.asList(results);
+        //results = controller.searchTrips("tripname", days, startTime, endTime, description, familyFriendly, accessible, minPrice, maxPrice, type, location,boolean showAllFromDate);
         
     }
     
@@ -252,12 +267,17 @@ public class Search {
         date.setTime(MILLISECONDS_IN_DAY*dayDiff + date.getTime());
         return date;
     }
+    
+
 
     
     
      public static void main(String[] args){
         
         Search search = new Search();
-        search.SearchTripsList();
+        List<Trip> trips = search.SearchTripsList();
+        for(Trip t: trips) {
+            System.out.println(t.getName() + ", " + t.getAvailablePlaces() + ", " + t.getDate() + ", " + t.getTourCompany().getName() + ", " + t.getType() + ", " + t.getArea() + ", " + t.getLocation());
+        }
     }
 }
