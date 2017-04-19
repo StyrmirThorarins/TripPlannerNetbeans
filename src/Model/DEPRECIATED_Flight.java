@@ -1,7 +1,7 @@
 package Model;
 
 // Gunnar M 27.03.17
-public class Flight{
+public class DEPRECIATED_Flight{
 	private int id;
 	private String name;
 	//private Date time;
@@ -11,7 +11,7 @@ public class Flight{
 	private double price;
 	private String priceCurrency;
 
-	public Flight(){}
+	public DEPRECIATED_Flight(){}
         
 
 

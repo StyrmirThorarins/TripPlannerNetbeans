@@ -5,7 +5,7 @@
  */
 package View;
 
-import Model.Flight;
+import model.Flight;
 import hotel3h.Hotel;
 import java.util.Iterator;
 import java.util.List;
@@ -64,7 +64,7 @@ public class JPanelBasket extends javax.swing.JPanel {
         
         //create lists
         for(Flight flight: basket.getFlights()){
-            basketFlightList.addElement(flight.getName() + " " + flight.getPriceCurrency() + flight.getPrice());
+            basketFlightList.addElement(flight.getDeparture_from() + " " + flight.getArrival_to() + flight.getTicket_price());
         }
         for(Hotel hotel: basket.getHotels()){
             basketHotelList.addElement(hotel.getName());
@@ -92,7 +92,7 @@ public class JPanelBasket extends javax.swing.JPanel {
         
         //add together price
         for(Flight flight: basket.getFlights()){
-            sum += flight.getPrice();
+            sum += flight.getTicket_price();
         }
         for(Hotel hotel: basket.getHotels()){
             //sum += hotel.getRooms().

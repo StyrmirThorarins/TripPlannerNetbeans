@@ -1,8 +1,9 @@
 package UnitTests;
 
+import model.Flight;
 import Controller.Search;
 import Model.Basket;
-import Model.Flight;
+import Model.DEPRECIATED_Flight;
 import hotel3h.Hotel;
 import model.Trip;
 import org.junit.After;
@@ -32,7 +33,7 @@ public class SearchTest {
         //search.setCurrencyType("ISK");
 
         //flight 1
-        Flight flight1 = new Flight();
+        DEPRECIATED_Flight flight1 = new DEPRECIATED_Flight();
         flight1.setName("FI200");
         flight1.setDepartureLocation("CPH");
         flight1.setArrivalLocation("RVK");
@@ -40,7 +41,7 @@ public class SearchTest {
         flight1.setPriceCurrency("ISK");
 
         //flight 2
-        Flight flight2 = new Flight();
+        DEPRECIATED_Flight flight2 = new DEPRECIATED_Flight();
         flight1.setName("KK999");
         flight1.setDepartureLocation("RVK");
         flight1.setArrivalLocation("NWY");
@@ -48,14 +49,14 @@ public class SearchTest {
         flight2.setPriceCurrency("GBP");
 
 
-
+/*
         basket.addFlight(flight1);
         basket.addFlight(flight2);
 
         flightsearch.addFlight(flight1);
         flightsearch.addFlight(flight2);
         
-
+*/
     }
 
 

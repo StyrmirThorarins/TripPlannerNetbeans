@@ -5,6 +5,7 @@
  */
 package View;
 
+import model.Flight;
 import Controller.Search;
 import Model.Basket;
 import Model.DEPRECIATED_Preference;
@@ -26,6 +27,7 @@ public class JPanelSearch extends javax.swing.JPanel {
 
     User user;
     Basket basket;
+    Basket selectedBasket;
 
     private Controller.Search search;
 
@@ -96,11 +98,16 @@ public class JPanelSearch extends javax.swing.JPanel {
         this.jFormattedTextFieldDateEnd.setText(curDateS);
 
         basket = new Basket();
+        selectedBasket = new Basket();
         UpdateSelectPanels();
     }
 
     private void UpdateSelectPanels() {
         this.UpdateSelectPanels(this.basket);
+    }
+    
+    public Basket getSelectedBasket(){
+        return(this.selectedBasket);
     }
 
     private void UpdateSelectPanels(Basket basket) {
@@ -108,7 +115,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         DefaultListModel<String> flightsModel = new DefaultListModel<>();
         if (flights != null) {
             for (Flight flight : flights) {
-                flightsModel.addElement(flight.getName());
+                flightsModel.addElement(flight.getAirline());
             }
         }
         this.jListSearchResultsFlights.setModel(flightsModel);
@@ -452,6 +459,15 @@ public class JPanelSearch extends javax.swing.JPanel {
         int[] flightIndex = this.jListSearchResultsFlights.getSelectedIndices();
         int[] hotelIndex  = this.jListSearchResultsHotels.getSelectedIndices();
         int[] tripIndex   = this.jListSearchResultsTrips.getSelectedIndices();
+        for(int t=0;t<tripIndex.length;t++){
+        selectedBasket.addTrip(basket.getTrip(tripIndex[t]));
+        }
+        for(int h=0;h<hotelIndex.length;h++){
+        selectedBasket.addHotel(basket.getHotel(hotelIndex[h]));
+        }
+        for(int f=0;f<tripIndex.length;f++){
+        selectedBasket.addFlight(basket.getFlight(flightIndex[f]));
+        }
     }//GEN-LAST:event_jButtonToBasketActionPerformed
 
 

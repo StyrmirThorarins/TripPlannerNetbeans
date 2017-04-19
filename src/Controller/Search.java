@@ -3,6 +3,8 @@ package Controller;
 /**
  * Created by Styrmir on 22.3.2017.
  */
+import storage.DatabaseManager;
+import model.Flight;
 import hotel3h.Room;
 import hotel3h.Hotel;
 import hotel3h.HotelDatabaseManager;
@@ -22,6 +24,7 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 public class Search {
 
@@ -91,12 +94,13 @@ public class Search {
     public Basket SearchFlights() {
         return new Basket();
     }
-
-    private Basket SearchFlights(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return new Basket();
+/*
+    private List<Flight> SearchFlights(SearchVM SVM) {
+        DatabaseManager DBM = new DatabaseManager();
+        List<Flight>results = DBM.findFlights(toWhere, SVM.get, numbofPpl, fromWhere);
+        return List<Flight> results;
     }
-
+*/
     public List<Hotel> SearchHotels(SearchVM SVM) {
         //create calander instance and get required params
         Calendar cal = Calendar.getInstance();
@@ -199,7 +203,7 @@ public class Search {
                         30000,
                         SVM.getPref(),
                         SVM.getArea(),
-                        false);
+                        true);
                 // for (Trip result : results) {
                 //     t.add(result);
                 // }

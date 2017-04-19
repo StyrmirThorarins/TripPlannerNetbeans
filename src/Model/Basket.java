@@ -1,5 +1,6 @@
 package Model;
 
+import model.Flight;
 import hotel3h.Hotel;
 import java.util.ArrayList;
 import model.Trip;
