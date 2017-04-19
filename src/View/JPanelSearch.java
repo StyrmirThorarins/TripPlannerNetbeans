@@ -9,7 +9,9 @@ import Controller.Search;
 import Model.Basket;
 import Model.DEPRECIATED_Preference;
 import Model.User;
+import ViewModel.SearchVM;
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -35,6 +37,13 @@ public class JPanelSearch extends javax.swing.JPanel {
     public JPanelSearch() {
         initComponents();
         search = new Search();
+        
+        Date curDate = Date.valueOf(LocalDate.now());
+        String curDateS = curDate.toString();
+        this.jFormattedTextFieldDateStart.setText(curDateS);
+        this.jFormattedTextFieldDateEnd.setText(curDateS);
+        
+        
     }
 
     /**
@@ -67,6 +76,10 @@ public class JPanelSearch extends javax.swing.JPanel {
         jButtonToBasket = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jFormattedTextFieldNumberOfCustomers = new javax.swing.JFormattedTextField();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
 
         jCheckBoxFlights.setText("Flights");
 
@@ -89,15 +102,18 @@ public class JPanelSearch extends javax.swing.JPanel {
 
         jLabel5.setText("Maximum Price");
 
-        jFormattedTextFieldDateStart.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/yy"))));
-        jFormattedTextFieldDateStart.setText("d/M/yy");
+        jFormattedTextFieldDateStart.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        jFormattedTextFieldDateStart.setToolTipText("yyyy-MM-dd");
 
-        jFormattedTextFieldDateEnd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("d/M/yy"))));
-        jFormattedTextFieldDateEnd.setText("d/M/yy");
+        jFormattedTextFieldDateEnd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        jFormattedTextFieldDateEnd.setToolTipText("yyyy-MM-dd");
 
-        jFormattedTextFieldMinimumPrice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00;(¤#,##0.00)"))));
+        jFormattedTextFieldMinimumPrice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        jFormattedTextFieldMinimumPrice.setText("0.0");
 
-        jFormattedTextFieldMaximumPrice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00;(¤#,##0.00)"))));
+        jFormattedTextFieldMaximumPrice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        jFormattedTextFieldMaximumPrice.setText("0.0");
+        jFormattedTextFieldMaximumPrice.setToolTipText("");
 
         jLabel6.setText("Currency Type");
 
@@ -127,6 +143,17 @@ public class JPanelSearch extends javax.swing.JPanel {
         jLabel7.setText("Number of cutomers");
         jLabel7.setToolTipText("");
 
+        jFormattedTextFieldNumberOfCustomers.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jFormattedTextFieldNumberOfCustomers.setText("0");
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Capital area", "Eastern region", "Western region", "Northern region", "Southern region", "Highlands of Iceland" }));
+
+        jLabel8.setText("Area");
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Golden Circle", "Horse Trips", "Volcano", "Glaciers", "Beer Trips", "Food Trips" }));
+
+        jLabel9.setText("Prefrence");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,34 +165,50 @@ public class JPanelSearch extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButtonToBasket, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jButtonToBasket, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBoxFlights, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBoxHotels, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBoxTrips, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextFieldNumberOfCustomers, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(146, 146, 146)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jFormattedTextFieldDateEnd)
-                                    .addComponent(jFormattedTextFieldMinimumPrice)
-                                    .addComponent(jFormattedTextFieldDateStart)
-                                    .addComponent(jFormattedTextFieldMaximumPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jCheckBoxFlights)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jFormattedTextFieldNumberOfCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jCheckBoxHotels)
+                                    .addComponent(jCheckBoxTrips)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel7)))
+                                .addGap(72, 72, 72)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel3))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jFormattedTextFieldDateEnd)
+                                            .addComponent(jFormattedTextFieldMinimumPrice)
+                                            .addComponent(jFormattedTextFieldDateStart)
+                                            .addComponent(jFormattedTextFieldMaximumPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(76, 76, 76)
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addGap(28, 28, 28)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -176,13 +219,15 @@ public class JPanelSearch extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jFormattedTextFieldDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextFieldDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jCheckBoxFlights)
-                            .addComponent(jLabel3)))
+                            .addComponent(jLabel3)
+                            .addComponent(jFormattedTextFieldNumberOfCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jFormattedTextFieldDateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -193,10 +238,7 @@ public class JPanelSearch extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addComponent(jButtonSearch)
-                        .addGap(11, 11, 11))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jCheckBoxHotels)
@@ -205,12 +247,18 @@ public class JPanelSearch extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jCheckBoxTrips))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextFieldNumberOfCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jCheckBoxTrips))))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jButtonSearch)
+                .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonToBasket)
@@ -232,7 +280,37 @@ public class JPanelSearch extends javax.swing.JPanel {
         priceRangeMax = 0;
         currencyType = null;
         preferences = null;
+        ViewModel.SearchVM vm = new SearchVM();
+        vm.setUser(user);
+        
+        String minDate = this.jFormattedTextFieldDateEnd.getText();
+        vm.setDateStart(Date.valueOf(minDate));
+        String maxDate = this.jFormattedTextFieldDateStart.getText();
+        vm.setDateEnd(Date.valueOf(maxDate));
+        
+        String minPrice = this.jFormattedTextFieldMinimumPrice.getText();
+        vm.setPriceRangeMin(Double.valueOf(minPrice));
+        String maxPrice = this.jFormattedTextFieldMaximumPrice.getText();
+        vm.setPriceRangeMax(Double.valueOf(maxPrice));
+        
+        String numberOfCustomers = this.jFormattedTextFieldNumberOfCustomers.getText();
+        vm.setPeople(Integer.valueOf(numberOfCustomers));
+        
+        String curency = this.jComboBox1.getItemAt(this.jComboBox1.getSelectedIndex());
+        vm.setCurrencyType(curency);
+        
+        Boolean searchFlights = this.jCheckBoxFlights.isSelected();
+        Boolean searchHotels  = this.jCheckBoxHotels.isSelected();
+        Boolean searchTrips   = this.jCheckBoxTrips.isSelected();
+        
+        String area = this.jComboBox2.getItemAt(this.jComboBox2.getSelectedIndex());
+        vm.setArea(area);
+        
+        String prefrence = this.jComboBox3.getItemAt(this.jComboBox3.getSelectedIndex());
+        vm.setPref(prefrence);
+        
         //search.SearchAll(dateEnd, day, priceRangeMax, priceRangeMax, currencyType, PROPERTIES, preferences, true, true, true);
+        search.SearchAll(vm,searchFlights,searchHotels,searchTrips);
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonToBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToBasketActionPerformed
@@ -248,6 +326,8 @@ public class JPanelSearch extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBoxHotels;
     private javax.swing.JCheckBox jCheckBoxTrips;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JFormattedTextField jFormattedTextFieldDateEnd;
     private javax.swing.JFormattedTextField jFormattedTextFieldDateStart;
     private javax.swing.JFormattedTextField jFormattedTextFieldMaximumPrice;
@@ -260,6 +340,8 @@ public class JPanelSearch extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jListSearchResults;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
