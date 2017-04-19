@@ -27,8 +27,10 @@ public class JFrameMain extends javax.swing.JFrame {
         searchPanel = new JPanelSearch(this);
         basketPanel = new JPanelBasket();
         testPanel = new UnitTests.JPanelTest();
-        
+                        
         initComponents();
+        
+        jMenuTest.setVisible(false);
     }
 
     /**
