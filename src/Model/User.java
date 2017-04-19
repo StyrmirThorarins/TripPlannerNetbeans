@@ -7,7 +7,7 @@ public class User {
 	// I think id should be final, if we need
 	// a new profile we need to create new instance
 	// Recommend negative int for id for "fake" profiles
-	private final int id;
+	private int id;
 	private String name;
 	private char sex;
 	private String address;
@@ -18,7 +18,11 @@ public class User {
         // preference settings
         private String preferences;                       
 
-	public User(int id) {
+	public User() {
+            
+	};
+        
+        public User(int id) {
 		this.id = id;	
 	};
 
@@ -27,9 +31,9 @@ public class User {
 		return this.id;
 	}
 
-	// public void setId(int id){
-	// this.id = id;
-	// }
+	 public void setId(int id){
+	 this.id = id;
+	 }
 
 	public String getName() {
 		return this.name;
@@ -82,7 +86,7 @@ public class User {
         }
 
 	public void setPhone(String phone) {
-		this.name = phone;
+		this.phone = phone;
 	}
 
 	public String getNationality() {

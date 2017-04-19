@@ -110,7 +110,7 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
                                     .addComponent(jLabel8))
                                 .addGap(7, 7, 7)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldRegisterNationality, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldRegisterNationality)
                                     .addComponent(jTextFieldRegisterEmail)
                                     .addComponent(jTextFieldRegisterPhone)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -134,10 +134,10 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
                                 .addGap(31, 31, 31)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldLoginEmail)
-                                    .addComponent(jTextFieldLoginName)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonLogin)))
+                                    .addComponent(jTextFieldLoginName)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 216, Short.MAX_VALUE)
+                                        .addComponent(jButtonLogin)))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -155,7 +155,7 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
                     .addComponent(jTextFieldLoginEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonLogin)
-                .addGap(18, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -194,12 +194,17 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
         String address = jTextFieldRegisterAddress.getText();
         String email = jTextFieldRegisterEmail.getText();
         String nationality = jTextFieldRegisterNationality.getText();
-        String phone = jTextFieldRegisterSex.getText();
+        String phone = jTextFieldRegisterPhone.getText();
         Controller.DBC.UserInsert(uName, sex, address, email, phone, nationality);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         // TODO add your handling code here:
+        String uName = jTextFieldLoginName.getText();
+        String email = jTextFieldLoginEmail.getText();
+        int id = Controller.DBC.CheckLoginC(uName, email);
+        Controller.DBC.SetUser(id);
+        
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
 

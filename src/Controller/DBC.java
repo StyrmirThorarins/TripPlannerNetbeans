@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Máni
@@ -171,7 +172,7 @@ public class DBC {
             conn = DriverManager.getConnection(url);
             //Command insert
             Statement stmt = conn.createStatement();
-            String SQL = "SELECT * FROM Users WHERE Users.Users LIKE '%"+ uName+"%'";
+            String SQL = "SELECT * FROM Users WHERE Users.Name LIKE '%"+ uName+"%'";
             //Hvert results fara
             ResultSet rs = stmt.executeQuery( SQL );
             int id_col = rs.getInt("Id");
@@ -198,7 +199,7 @@ public class DBC {
     {
         
         Connection con = dbConnect();
-        String sqlStr = "SELECT * FROM Users WHERE Users.Users LIKE '%"+ uName+"%'";
+        String sqlStr = "SELECT * FROM Users WHERE Users.Name LIKE '%"+ uName+"%'";
         ResultSet rs = dbQuery(con, sqlStr);
         
         int userId = 0;
@@ -232,7 +233,7 @@ public class DBC {
             //Command insert
             Statement stmt = conn.createStatement();
             String SQL = "Insert into Users values(null,'"+uName+"','"+sex+"','"+address+"','"+email+"',"
-                    + "'"+phone+"','"+nationality+"','default')";
+                    + "'"+phone+"','"+nationality+"','0')";
             //Hvert results fara
             stmt.executeUpdate(SQL);
             stmt.close();
@@ -290,24 +291,21 @@ public class DBC {
         F: TPData gagnagrunnur er til, user er strengur og email er strengur
         E: Id gögn sem tilheyra notanda name/email eru fundinn 
     */
-    
-            public int CheckLoginC(String name, String email)
+    public static int CheckLoginC(String name, String email)
     {
-        
         int id = 0;
         
         Connection conn = dbConnect();
-        String SQL = "select * from Users where Name ='"+ name +"' & Email = '"+ email +"'";
+        String SQL = "select * from Users where Name ='"+ name +"' and Email = '"+ email +"'";
         ResultSet rs = dbQuery(conn, SQL);
         
         try {
+            
+            
             id =rs.getInt("Id");
             String name1 = rs.getString("Name");
             String email1 = rs.getString("Email");
-            if (!name1.equals(name) || !email1.equals(email))
-            {
-                id = -1;
-            }
+            
             dbDisconnect(conn);
             return id;
             } catch (SQLException ex) {
@@ -344,5 +342,29 @@ public class DBC {
                 System.out.println(ex.getMessage());
             }
         dbDisconnect(conn);
+        
 }
+     public static void SetUser (int id)
+    {
+        Connection conn = dbConnect();
+        String SQL = "select * from Users where Id ='"+ id +"'";
+        ResultSet rs = dbQuery(conn, SQL);
+        Model.User user = new Model.User();
+        try{   
+            user.setId(rs.getInt("Id"));
+            user.setName(rs.getString("Name"));
+            user.setSex(rs.getString("Sex").charAt(0));
+            user.setAddress(rs.getString("Address"));
+            user.setEmail(rs.getString("Email"));
+            user.setPhone(rs.getString("Phone"));
+            user.setNationality(rs.getString("Nationality"));
+            
+            System.out.println(user.getId());
+            System.out.println(user.getName());
+            System.out.println(user.getAddress());
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        dbDisconnect(conn);     
+    }
 }
