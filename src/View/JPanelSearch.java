@@ -161,8 +161,10 @@ public class JPanelSearch extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jListSearchResultsHotels = new javax.swing.JList<>();
 
+        jCheckBoxFlights.setSelected(true);
         jCheckBoxFlights.setText("Flights");
 
+        jCheckBoxHotels.setSelected(true);
         jCheckBoxHotels.setText("Hotels");
         jCheckBoxHotels.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,6 +172,7 @@ public class JPanelSearch extends javax.swing.JPanel {
             }
         });
 
+        jCheckBoxTrips.setSelected(true);
         jCheckBoxTrips.setText("Trips");
 
         jLabel1.setText("Search For:");

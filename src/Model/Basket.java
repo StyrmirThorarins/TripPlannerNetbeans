@@ -41,18 +41,23 @@ public class Basket {
      * Merges all values from the input into this basket
      * @param basket basket where the data is taken from
      */
-    public void mergeBasket(Basket basket){
-        if(this != basket){
-            for (Flight flight : basket.getFlights()) {
-                flights.add(flight);
+    public void mergeBasket(Basket basket) {
+        if (basket != null && this != basket ) {
+            if (basket.flights != null) {
+                for (Flight flight : basket.getFlights()) {
+                    flights.add(flight);
+                }
             }
-        
-            for (Hotel hotel : basket.getHotels()) {
-                hotels.add(hotel);
+            if (basket.getHotels() != null) {
+                for (Hotel hotel : basket.getHotels()) {
+                    hotels.add(hotel);
+                }
             }
-        
-            for (Trip trip : basket.getTrips()) {
-                trips.add(trip);
+            if (basket.getTrips() != null) {
+
+                for (Trip trip : basket.getTrips()) {
+                    trips.add(trip);
+                }
             }
         }
     }
