@@ -16,6 +16,8 @@ public class Basket {
      * Creates a new basket, all values set as null
      */
     public Basket(){        
+        List<Integer> list = new ArrayList<Integer>();
+        flights = new ArrayList<Flight>();
         //flights = new ArrayList<Flight>();
         //hotels = new ArrayList<Hotel>();
         //trips = new ArrayList<Trip>();        
