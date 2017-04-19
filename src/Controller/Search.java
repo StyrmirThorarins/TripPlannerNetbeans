@@ -68,20 +68,20 @@ public class Search {
      * false
      * @return basket containing all data matching the atributes
      */
-    public Basket SearchAll(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence, boolean searchHotel, boolean searchFlight, boolean searchTrip) {
+    public Basket SearchAll(SearchVM SVM, boolean searchHotel, boolean searchFlight, boolean searchTrip) {
         Basket basket = new Basket();
 
         if (searchFlight) {
-            Basket SearchFlights = SearchFlights(startDate, endDate, minPrice, maxPrice, curency, numberOfCustomers, prefrence);
+            Basket SearchFlights = SearchFlights(SVM);
             basket.setFlights(SearchFlights.getFlights());
         }
         if (searchHotel) {
 
-            Basket hotels = SearchHotels(startDate, endDate, minPrice, maxPrice, curency, numberOfCustomers, prefrence);
+            List<Hotel> hotels = SearchHotels(SVM);
             basket.setHotels(hotels);
         }
         if (searchTrip) {
-            Basket trips = searchTrips(startDate, endDate, minPrice, maxPrice, curency, numberOfCustomers, prefrence);
+            List<Trip> trips = SearchTripsList(SVM);
             basket.setTrips(trips);
         }
 
