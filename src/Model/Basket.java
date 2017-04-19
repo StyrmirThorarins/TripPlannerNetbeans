@@ -143,6 +143,18 @@ public class Basket {
         return true;
     }
     
+    public void removeTrip(int index){
+        trips.remove(index);
+    }
+    
+    public void removeFlight(int index){
+        flights.remove(index);
+    }
+    
+    public void removeHotel(int index){
+        hotels.remove(index);
+    }
+    
     public void ClearTrips(){
         this.trips = null;
     }
