@@ -21,33 +21,30 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTextFieldRegisterSex" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldRegisterName" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextFieldRegisterAddress" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTextFieldRegisterNationality" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldRegisterEmail" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextFieldRegisterPhone" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldRegisterPhone" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldRegisterEmail" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldRegisterNationality" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jTextFieldRegisterSex" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldRegisterName" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldRegisterAddress" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -76,12 +73,12 @@
                               </Group>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTextFieldLoginEmail" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextFieldLoginName" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="0" pref="216" max="32767" attributes="0"/>
                                       <Component id="jButtonLogin" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="jTextFieldLoginEmail" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
