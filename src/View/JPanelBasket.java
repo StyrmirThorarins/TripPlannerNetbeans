@@ -5,19 +5,77 @@
  */
 package View;
 
+import Model.Flight;
+import hotel3h.Hotel;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import model.Trip;
+
 /**
  *
  * @author Hobby
  */
 public class JPanelBasket extends javax.swing.JPanel {
 
+    
+    private Model.Basket basket;
+    private DefaultListModel basketList;
     /**
      * Creates new form JPanelBasket
      */
     public JPanelBasket() {
         initComponents();
+        this.jLabel2.setVisible(false);
+        this.jComboBoxOldBaskets.setVisible(false);
+        this.jButtonReturnToCurrentBasket.setVisible(false);
+        
+        this.basket = new Model.Basket();
+        basketList = new DefaultListModel();
+        addToBasket();
     }
+    
+    public JPanelBasket(Model.Basket basket) {
+        this.basket = basket;
+                
+        initComponents();
+        this.jLabel2.setVisible(false);
+        this.jComboBoxOldBaskets.setVisible(false);
+        this.jButtonReturnToCurrentBasket.setVisible(false);
+    }    
 
+    private void addToBasket(){
+        basketList = new DefaultListModel();
+        basketList.addElement("one");
+        basketList.addElement("two");        
+        
+        this.jListBasketFlights.setModel(basketList);
+        getTotalSum();
+    }
+    
+    private void getTotalSum(){
+        /*
+            private List<Flight> flights;
+            private List<Hotel> hotels;
+            private List<Trip> trips;/*        
+        */
+        
+        double sum = 0.0;                
+        
+        /*
+        for (Hotel item : basket.getHotels()){
+            //sum += item.
+        }*/
+        
+        /*
+        for (Trip item : basket.getTrips()){
+            sum += item.getPrice();
+        }
+        */
+        this.jLabelTotalPrice.setText(String.valueOf(sum));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +86,7 @@ public class JPanelBasket extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jListBasketItems = new javax.swing.JList<>();
+        jListBasketFlights = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jButtonRemoveSelected = new javax.swing.JButton();
         jButtonBuy = new javax.swing.JButton();
@@ -37,19 +95,33 @@ public class JPanelBasket extends javax.swing.JPanel {
         jButtonReturnToCurrentBasket = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabelTotalPrice = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListBasketHotels = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jListBasketTrips = new javax.swing.JList<>();
 
-        jListBasketItems.setModel(new javax.swing.AbstractListModel<String>() {
+        jListBasketFlights.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jListBasketItems);
+        jScrollPane1.setViewportView(jListBasketFlights);
 
         jLabel1.setText("Items in the basket");
 
         jButtonRemoveSelected.setText("Remove Selected");
+        jButtonRemoveSelected.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveSelectedActionPerformed(evt);
+            }
+        });
 
         jButtonBuy.setText("Buy All in Basket");
+        jButtonBuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuyActionPerformed(evt);
+            }
+        });
 
         jComboBoxOldBaskets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -61,6 +133,20 @@ public class JPanelBasket extends javax.swing.JPanel {
 
         jLabelTotalPrice.setText("PRICE");
 
+        jListBasketHotels.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jListBasketHotels);
+
+        jListBasketTrips.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(jListBasketTrips);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -68,16 +154,23 @@ public class JPanelBasket extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonReturnToCurrentBasket)
-                                .addGap(192, 192, 192)
-                                .addComponent(jLabel2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButtonReturnToCurrentBasket)
+                                        .addGap(192, 192, 192)
+                                        .addComponent(jLabel2))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jScrollPane2)))
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBoxOldBaskets, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane3)
+                                    .addComponent(jComboBoxOldBaskets, 0, 227, Short.MAX_VALUE))))
                         .addGap(0, 8, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -101,17 +194,38 @@ public class JPanelBasket extends javax.swing.JPanel {
                         .addComponent(jLabel2))
                     .addComponent(jButtonReturnToCurrentBasket, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonRemoveSelected)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabelTotalPrice))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonBuy)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonRemoveSelected)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabelTotalPrice))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonBuy))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonBuyActionPerformed
+
+    private void jButtonRemoveSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveSelectedActionPerformed
+        int[] list = this.jListBasketFlights.getSelectedIndices();                
+        
+        for (int index : list){            
+            System.out.println(String.valueOf(index));
+            basketList.removeElementAt(index);
+        }
+        
+        
+        this.jListBasketFlights.removeAll();
+    }//GEN-LAST:event_jButtonRemoveSelectedActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -123,7 +237,11 @@ public class JPanelBasket extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelTotalPrice;
-    private javax.swing.JList<String> jListBasketItems;
+    private javax.swing.JList<String> jListBasketFlights;
+    private javax.swing.JList<String> jListBasketHotels;
+    private javax.swing.JList<String> jListBasketTrips;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }
