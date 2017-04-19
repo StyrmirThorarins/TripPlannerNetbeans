@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 public class DBC {
     
     //return connection connection to database
-    public Connection dbConnect(){
+    public static Connection dbConnect(){
         Connection conn = null;
         //attempt local DB connection
         try {            
@@ -33,7 +33,7 @@ public class DBC {
     }
     
     //disconnect database connection
-    public void dbDisconnect(Connection conn){
+    public static void dbDisconnect(Connection conn){
         try {
             if (conn != null) {
                 conn.close();
@@ -44,7 +44,7 @@ public class DBC {
         }        
     }
     
-    public void dbInsert(Connection conn, String sqlString){
+    public static void dbInsert(Connection conn, String sqlString){
         try {
             Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             stmt.executeUpdate(sqlString);
@@ -58,7 +58,7 @@ public class DBC {
         }
     }
 
-    public ResultSet dbQuery(Connection conn, String sqlString){               
+    public static ResultSet dbQuery(Connection conn, String sqlString){               
         try{
             Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = stmt.executeQuery( sqlString );
@@ -159,7 +159,7 @@ public class DBC {
     //N: CindUserId(uName);
     //F: gagnagrunnur TPData er til en ótengdur, uName er strengur
     //E: búið er að skila Id sem samsvarar User sem inniheldur strenginn uName
-    public static int GetUserId(String uName) 
+    public static int GetUserId_old(String uName) 
     {
         int foundId = 0;
         Connection conn = null;
@@ -188,6 +188,31 @@ public class DBC {
         }
         return foundId;
     }
+    
+    
+    //N: GetUserId(uName);
+    //F: gagnagrunnur TPData er til en ótengdur, uName er strengur
+    //E: búið er að skila Id sem samsvarar User sem inniheldur strenginn uName
+    public static int GetUserId(String uName) 
+    {
+        
+        Connection con = dbConnect();
+        String sqlStr = "SELECT * FROM Users WHERE Users.Users LIKE '%"+ uName+"%'";
+        ResultSet rs = dbQuery(con, sqlStr);
+        
+        int userId = 0;
+        try{
+            userId = rs.getInt("Id"); 
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+        dbDisconnect(con);
+        
+        return userId;        
+    }
+
     
     /**N:UserInsert(uName,sex,address,email,phone,nationality
      * F:TPData gagnagrunnur er til

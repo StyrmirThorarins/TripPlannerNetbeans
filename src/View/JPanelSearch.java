@@ -90,8 +90,10 @@ public class JPanelSearch extends javax.swing.JPanel {
         jLabel5.setText("Maximum Price");
 
         jFormattedTextFieldDateStart.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/yy"))));
+        jFormattedTextFieldDateStart.setText("d/M/yy");
 
         jFormattedTextFieldDateEnd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("d/M/yy"))));
+        jFormattedTextFieldDateEnd.setText("d/M/yy");
 
         jFormattedTextFieldMinimumPrice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00;(¤#,##0.00)"))));
 

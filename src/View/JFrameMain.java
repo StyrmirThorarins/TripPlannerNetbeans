@@ -17,6 +17,7 @@ public class JFrameMain extends javax.swing.JFrame {
     private JPanelLoginRegister loginPanel;
     private JPanelSearch searchPanel;
     private JPanelBasket basketPanel;
+    private UnitTests.JPanelTest testPanel;
     
     /**
      * Creates new form JFrameMain
@@ -25,6 +26,7 @@ public class JFrameMain extends javax.swing.JFrame {
         loginPanel = new JPanelLoginRegister();
         searchPanel = new JPanelSearch();
         basketPanel = new JPanelBasket();
+        testPanel = new UnitTests.JPanelTest();
         
         initComponents();
     }
@@ -48,6 +50,8 @@ public class JFrameMain extends javax.swing.JFrame {
         jMenuActions = new javax.swing.JMenu();
         jMenuItemSearch = new javax.swing.JMenuItem();
         jMenuItemBasket = new javax.swing.JMenuItem();
+        jMenuTest = new javax.swing.JMenu();
+        jMenuItemTest = new javax.swing.JMenuItem();
 
         jMenuItem5.setText("jMenuItem5");
 
@@ -100,6 +104,18 @@ public class JFrameMain extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuActions);
 
+        jMenuTest.setText("TestArea");
+
+        jMenuItemTest.setText("Test Window");
+        jMenuItemTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemTestActionPerformed(evt);
+            }
+        });
+        jMenuTest.add(jMenuItemTest);
+
+        jMenuBar1.add(jMenuTest);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,6 +163,12 @@ public class JFrameMain extends javax.swing.JFrame {
         jPanelMain.add(basketPanel);        
         repaint();        
     }//GEN-LAST:event_jMenuItemBasketActionPerformed
+
+    private void jMenuItemTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTestActionPerformed
+        clearPanel();
+        jPanelMain.add(testPanel);        
+        repaint();  
+    }//GEN-LAST:event_jMenuItemTestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,6 +227,8 @@ public class JFrameMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemLoginRegister;
     private javax.swing.JMenuItem jMenuItemSearch;
+    private javax.swing.JMenuItem jMenuItemTest;
+    private javax.swing.JMenu jMenuTest;
     private javax.swing.JPanel jPanelMain;
     // End of variables declaration//GEN-END:variables
 }
