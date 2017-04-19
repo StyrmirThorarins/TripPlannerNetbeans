@@ -30,12 +30,15 @@ public class JPanelSearch extends javax.swing.JPanel {
     Basket selectedBasket;
 
     private Controller.Search search;
+    private JFrameMain parent;
 
     /**
      * Creates new form JPanelSearch, fake user generated with id of -99, used
      * for testing
      */
-    public JPanelSearch() {
+    public JPanelSearch(JFrameMain parent) {
+        this.parent = parent;
+        
         initComponents();
 
         this.setupConfig();
@@ -451,8 +454,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         //search.SearchAll(dateEnd, day, priceRangeMax, priceRangeMax, currencyType, PROPERTIES, preferences, true, true, true);
         basket = search.SearchAll(vm, searchFlights, searchHotels, searchTrips);
         UpdateSelectPanels();
-
-
+        
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonToBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToBasketActionPerformed
@@ -460,14 +462,16 @@ public class JPanelSearch extends javax.swing.JPanel {
         int[] hotelIndex  = this.jListSearchResultsHotels.getSelectedIndices();
         int[] tripIndex   = this.jListSearchResultsTrips.getSelectedIndices();
         for(int t=0;t<tripIndex.length;t++){
-        selectedBasket.addTrip(basket.getTrip(tripIndex[t]));
+            selectedBasket.addTrip(basket.getTrip(tripIndex[t]));
         }
         for(int h=0;h<hotelIndex.length;h++){
-        selectedBasket.addHotel(basket.getHotel(hotelIndex[h]));
+            selectedBasket.addHotel(basket.getHotel(hotelIndex[h]));
         }
-        for(int f=0;f<tripIndex.length;f++){
-        selectedBasket.addFlight(basket.getFlight(flightIndex[f]));
+        for(int f=0;f<flightIndex.length;f++){
+            selectedBasket.addFlight(basket.getFlight(flightIndex[f]));
         }
+        
+        parent.toBasket(selectedBasket);
     }//GEN-LAST:event_jButtonToBasketActionPerformed
 
 

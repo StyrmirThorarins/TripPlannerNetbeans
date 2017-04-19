@@ -24,7 +24,7 @@ public class JFrameMain extends javax.swing.JFrame {
      */
     public JFrameMain() {
         loginPanel = new JPanelLoginRegister();
-        searchPanel = new JPanelSearch();
+        searchPanel = new JPanelSearch(this);
         basketPanel = new JPanelBasket();
         testPanel = new UnitTests.JPanelTest();
         
@@ -170,6 +170,13 @@ public class JFrameMain extends javax.swing.JFrame {
         repaint();  
     }//GEN-LAST:event_jMenuItemTestActionPerformed
 
+    //moving to basket window, passing in a basket with content
+    public void toBasket(Model.Basket basket){
+        clearPanel();
+        basketPanel = new JPanelBasket(basket);
+        jPanelMain.add(basketPanel);        
+        repaint();  
+    }
     /**
      * @param args the command line arguments
      */
