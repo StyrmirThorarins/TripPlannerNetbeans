@@ -113,7 +113,7 @@ public class Search {
        int day2 = cal.get(Calendar.DAY_OF_MONTH);
        int year2 = cal.get(Calendar.YEAR);
        //initializer fyrir hótel leit
-       // int type,gym,spa,pool,hottub,wifi,conference,restaurant,bar,inclusive,breakfast,cancellation,roomservice,wheelchair,elevator,flybus,minPrice,maxPrice,minSize,maxSize,minBeds,areaCode;
+       //int type,gym,spa,pool,hottub,wifi,conference,restaurant,bar,inclusive,breakfast,cancellation,roomservice,wheelchair,elevator,flybus,minPrice,maxPrice,minSize,maxSize,minBeds,areaCode;
        //int[] startDate,endDate; 
        int[] heild={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99999,0,99999,SVM.getPeople(),0,year1,month1,day1,year2,month2,day2};
        SearchManager sm = new SearchManager(heild);
