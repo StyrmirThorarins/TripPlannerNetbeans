@@ -67,11 +67,11 @@ public class JPanelBasket extends javax.swing.JPanel {
             basketFlightList.addElement(flight.getDeparture_from() + " " + flight.getArrival_to() + flight.getTicket_price());
         }
         for(Hotel hotel: basket.getHotels()){
-            basketHotelList.addElement(hotel.getName());
+            basketHotelList.addElement(hotel.getName() + " $" + hotel.getMinPrice());
         }
         for(Trip trip: basket.getTrips()){
             basketTripList.addElement(trip.getName() + " " + trip.getPrice());
-        }        
+        }               
         
         //update lists on GUI
         jListBasketFlights.setModel(basketFlightList);
@@ -94,8 +94,7 @@ public class JPanelBasket extends javax.swing.JPanel {
         for(Flight flight: basket.getFlights()){
             sum += flight.getTicket_price();
         }
-        for(Hotel hotel: basket.getHotels()){
-            //sum += hotel.getRooms().
+        for(Hotel hotel: basket.getHotels()){            
             sum += hotel.getMinPrice();
         }
         for(Trip trip: basket.getTrips()){
