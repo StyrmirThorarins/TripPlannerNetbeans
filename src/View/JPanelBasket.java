@@ -242,15 +242,31 @@ public class JPanelBasket extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonBuyActionPerformed
 
     private void jButtonRemoveSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveSelectedActionPerformed
-        int[] list = this.jListBasketFlights.getSelectedIndices();                
+        int[] flightIndex = this.jListBasketFlights.getSelectedIndices();
+        int[] tripIndex = this.jListBasketTrips.getSelectedIndices(); 
+        int[] hotelIndex = this.jListBasketHotels.getSelectedIndices(); 
         
-        for (int index : list){            
-            //System.out.println(String.valueOf(index));
-            //basketList.removeElementAt(index);
+        for(int f=0;f<flightIndex.length;f++){
+        basketFlightList.removeElementAt(flightIndex[f]);
+        basket.removeFlight(flightIndex[f]);
         }
+        for(int t=0;t<tripIndex.length;t++){
+        basketTripList.removeElementAt(tripIndex[t]);
+        basket.removeTrip(tripIndex[t]);
+        }
+        for(int h=0;h<hotelIndex.length;h++){
+        basketHotelList.removeElementAt(hotelIndex[h]);
+        basket.removeHotel(hotelIndex[h]);
+        }
+       
         
         
-        this.jListBasketFlights.removeAll();
+        jListBasketFlights.setModel(basketFlightList);
+        jListBasketHotels.setModel(basketHotelList);
+        jListBasketTrips.setModel(basketTripList);
+        
+        
+        getTotalSum();
     }//GEN-LAST:event_jButtonRemoveSelectedActionPerformed
 
 

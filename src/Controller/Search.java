@@ -97,7 +97,7 @@ public class Search {
 /*
     private List<Flight> SearchFlights(SearchVM SVM) {
         DatabaseManager DBM = new DatabaseManager();
-        List<Flight>results = DBM.findFlights(toWhere, SVM.get, numbofPpl, fromWhere);
+        List<Flight>results = DBM.findFlights(SVM, SVM.getDateStart(), numbofPpl, fromWhere);
         return List<Flight> results;
     }
 */
