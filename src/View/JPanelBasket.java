@@ -96,7 +96,7 @@ public class JPanelBasket extends javax.swing.JPanel {
         }
         for(Hotel hotel: basket.getHotels()){
             //sum += hotel.getRooms().
-            sum += 0;
+            sum += hotel.getMinPrice();
         }
         for(Trip trip: basket.getTrips()){
             sum += trip.getPrice();
