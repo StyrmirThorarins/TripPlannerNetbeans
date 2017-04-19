@@ -1,6 +1,7 @@
 package Model;
 
 import hotel3h.Hotel;
+import java.util.ArrayList;
 import model.Trip;
 import java.util.List;
 
@@ -14,7 +15,10 @@ public class Basket {
     /***
      * Creates a new basket, all values set as null
      */
-    public Basket(){
+    public Basket(){        
+        //flights = new ArrayList<Flight>();
+        //hotels = new ArrayList<Hotel>();
+        //trips = new ArrayList<Trip>();        
     }
 
 
@@ -141,6 +145,18 @@ public class Basket {
     //methods
     public boolean storeBasket(){
         return true;
+    }
+    
+    public void removeTrip(int index){
+        trips.remove(index);
+    }
+    
+    public void removeFlight(int index){
+        flights.remove(index);
+    }
+    
+    public void removeHotel(int index){
+        hotels.remove(index);
     }
     
     public void ClearTrips(){

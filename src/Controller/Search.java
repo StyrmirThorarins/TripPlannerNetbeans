@@ -283,6 +283,11 @@ public class Search {
         }
     }
 
+    public Basket SearchAll(SearchVM vm, Boolean searchFlights, Boolean searchHotels, Boolean searchTrips) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new Basket();
+    }
+
     
 
     

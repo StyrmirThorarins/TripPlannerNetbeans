@@ -7,9 +7,10 @@
 package Controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.ResultSet;
+import javax.swing.DefaultListModel;
 /**
  *
  * @author Máni
@@ -282,4 +283,66 @@ public class DBC {
             }
         }
     }
+    
+       
+    
+    /*  N: CheckLoginC(name, email)
+        F: TPData gagnagrunnur er til, user er strengur og email er strengur
+        E: Id gögn sem tilheyra notanda name/email eru fundinn 
+    */
+    
+            public int CheckLoginC(String name, String email)
+    {
+        
+        int id = 0;
+        
+        Connection conn = dbConnect();
+        String SQL = "select * from Users where Name ='"+ name +"' & Email = '"+ email +"'";
+        ResultSet rs = dbQuery(conn, SQL);
+        
+        try {
+            id =rs.getInt("Id");
+            String name1 = rs.getString("Name");
+            String email1 = rs.getString("Email");
+            if (!name1.equals(name) || !email1.equals(email))
+            {
+                id = -1;
+            }
+            dbDisconnect(conn);
+            return id;
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            return id;
+    }
+    
+    public void GetPurchasesByld(int RefId)
+    {
+        Connection conn = dbConnect();
+        
+        String SQL;
+        
+        dbDisconnect(conn); 
+    }
+    
+    
+    //hér á að vera list<>
+    public void GetUserPurchases (int id)
+    {
+        Connection conn = dbConnect();        
+        String SQL = "select BookingRefId from Booking where UserId = '"+ id +"'";
+        ResultSet rs = dbQuery(conn, SQL);
+        DefaultListModel ref = new DefaultListModel();
+        try{   
+            while (rs.next()) {
+                int bookingRefId = rs.getInt("BookingRefId");
+                ref.addElement(bookingRefId);
+                //jList1.setModel(ref);
+            }
+            
+        } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        dbDisconnect(conn);
+}
 }
