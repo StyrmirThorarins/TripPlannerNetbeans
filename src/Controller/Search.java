@@ -100,27 +100,27 @@ public class Search {
         return new Basket();
     }
 
-    /*
-    public List<Hotel> SearchHotels(){
+    
+    public List<Hotel> SearchHotels(SearchVM SVM){
        //create calander instance and get required params
        Calendar cal = Calendar.getInstance();
-       //cal.setTime(dateStart);
+       cal.setTime(SVM.getDateStart());
        int month1 = cal.get(Calendar.MONTH);
        int day1 = cal.get(Calendar.DAY_OF_MONTH);
        int year1 = cal.get(Calendar.YEAR);
-       //cal.setTime(dateEnd);
+       cal.setTime(SVM.getDateEnd());
        int month2 = cal.get(Calendar.MONTH);
        int day2 = cal.get(Calendar.DAY_OF_MONTH);
        int year2 = cal.get(Calendar.YEAR);
        //initializer fyrir hótel leit
        // int type,gym,spa,pool,hottub,wifi,conference,restaurant,bar,inclusive,breakfast,cancellation,roomservice,wheelchair,elevator,flybus,minPrice,maxPrice,minSize,maxSize,minBeds,areaCode;
        //int[] startDate,endDate; 
-       //int[] heild={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99999,0,99999,people,0,day1,month1,year1,day2,month2,year2};
-       //SearchManager sm = new SearchManager(heild);
-       //List<Hotel> results = sm.searchHotel();
+       int[] heild={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,99999,0,99999,SVM.getPeople(),0,year1,month1,day1,year2,month2,day2};
+       SearchManager sm = new SearchManager(heild);
+       List<Hotel> results = sm.searchHotel();
        return results;
        
-    }*/
+    }
     
     
     private Basket SearchHotels(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence) {
@@ -196,7 +196,7 @@ public class Search {
                             30000,
                             SVM.getPref(),
                             SVM.getArea(), 
-                            true);
+                            false);
                    // for (Trip result : results) {
                    //     t.add(result);
                    // }
@@ -271,9 +271,15 @@ public class Search {
         SVM.setDateStart(Date.valueOf("2017-06-22"));
         SVM.setPref("Horse Trips");
         SVM.setArea("Western Region");
+        SVM.setDateEnd(Date.valueOf("2017-06-23"));
+        SVM.setPeople(1);
         List<Trip> trips = search.SearchTripsList(SVM);
         for(Trip t: trips) {
             System.out.println(t.getName() + ", " + t.getAvailablePlaces() + ", " + t.getDate() + ", " + t.getTourCompany().getName() + ", " + t.getType() + ", " + t.getArea() + ", " + t.getLocation());
+        }
+        List<Hotel> hotels = search.SearchHotels(SVM);
+        for(Hotel h: hotels) {
+            System.out.println(h.getName() + ", " + ", " + h.getType() + ", " + h.getStars() + ", " + h.getMaxPrice() + ", " + h.getMinPrice() + ", " + h.getAreacode() + ", " + h.getAddress());
         }
     }
 

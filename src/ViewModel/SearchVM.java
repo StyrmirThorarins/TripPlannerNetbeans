@@ -41,11 +41,23 @@ public class SearchVM {
     public void setUser(User user){
         this.user = user;
     }
+    
+    public int getPeople(){
+        return this.people;
+    }
+    
+    public void setPeople(int people){
+        this.people = people;
+    }
 
     public Date day(){
         return this.dateStart;
     }
 
+    public Date getDateStart(){
+        return this.dateStart;
+    }
+    
     public void setDateStart(Date dateStart){
         this.dateStart = dateStart;
     }
