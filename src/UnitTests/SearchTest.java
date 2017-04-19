@@ -4,6 +4,7 @@ import model.Flight;
 import Controller.Search;
 import Model.Basket;
 import Model.DEPRECIATED_Flight;
+import ViewModel.SearchVM;
 import hotel3h.Hotel;
 import model.Trip;
 import org.junit.After;
@@ -15,9 +16,10 @@ import java.util.regex.Pattern;
 import static org.junit.Assert.*;
 
 public class SearchTest {
+    SearchVM SVM;
     private Basket basket;
     private Search search;
-    private Basket flightsearch = search.SearchFlights();
+    private Basket flightsearch;
 
     @Before
     public void setUp(){

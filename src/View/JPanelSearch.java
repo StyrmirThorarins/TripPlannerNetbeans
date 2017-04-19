@@ -256,10 +256,20 @@ public class JPanelSearch extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Capital area", "Eastern region", "Western region", "Northern region", "Southern region", "Highlands of Iceland" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Trip Area");
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Golden Circle", "Horse Trips", "Volcano", "Glaciers", "Beer Trips", "Food Trips" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Trip Type");
         jLabel9.setToolTipText("");
@@ -471,6 +481,14 @@ public class JPanelSearch extends javax.swing.JPanel {
         
         parent.toBasket(selectedBasket);
     }//GEN-LAST:event_jButtonToBasketActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

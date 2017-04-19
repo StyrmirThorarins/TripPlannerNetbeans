@@ -75,8 +75,8 @@ public class Search {
         Basket basket = new Basket();
 
         if (searchFlight) {
-            Basket SearchFlights = SearchFlights(SVM);
-            basket.setFlights(SearchFlights.getFlights());
+            List<Flight> flights = SearchFlights(SVM);
+            basket.setFlights(flights);
         }
         if (searchHotel) {
 
@@ -91,16 +91,14 @@ public class Search {
         return basket;
     }
 
-    public Basket SearchFlights() {
-        return new Basket();
-    }
-/*
+
     private List<Flight> SearchFlights(SearchVM SVM) {
         DatabaseManager DBM = new DatabaseManager();
-        List<Flight>results = DBM.findFlights(SVM, SVM.getDateStart(), numbofPpl, fromWhere);
-        return List<Flight> results;
+        List<Flight>results;
+        results = DBM.findFlights("Ísafjörður","20170424",1, "Reykjavik");
+        return results;
     }
-*/
+
     public List<Hotel> SearchHotels(SearchVM SVM) {
         //create calander instance and get required params
         Calendar cal = Calendar.getInstance();
@@ -185,15 +183,17 @@ public class Search {
      * @return
      */
     public List<Trip> SearchTripsList(SearchVM SVM) {
+        
         List<Trip> t = null;
         Trip[] results = null;
-        try {
+        if("All".equals(SVM.getPref())|"All".equals(SVM.getArea())){
+            try {
             TripController tc = new TripController();
             try {
                 //for (int i = 0; i < preferences.length; i++) {
                 results = tc.searchTrips(
                         "",
-                        SVM.day(),
+                        SVM.getDateStart(),
                         Time.valueOf("00:01:00"),
                         Time.valueOf("23:59:00"),
                         "",
@@ -214,7 +214,35 @@ public class Search {
         } catch (SQLException ex) {
             Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        }
+        else{ try {
+            TripController tc = new TripController();
+            try {
+                //for (int i = 0; i < preferences.length; i++) {
+                results = tc.searchTrips(
+                        "",
+                        SVM.getDateStart(),
+                        Time.valueOf("00:01:00"),
+                        Time.valueOf("23:59:00"),
+                        "",
+                        false,
+                        false,
+                        5000,
+                        30000,
+                        SVM.getPref(),
+                        SVM.getArea(),
+                        false);
+                // for (Trip result : results) {
+                //     t.add(result);
+                // }
+                // }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
         return Arrays.asList(results);
         //results = controller.searchTrips("tripname", days, startTime, endTime, description, familyFriendly, accessible, minPrice, maxPrice, type, location,boolean showAllFromDate);
 
@@ -277,7 +305,7 @@ public class Search {
         SearchVM SVM = new SearchVM();
         SVM.setDateStart(Date.valueOf("2017-06-22"));
         SVM.setPref("Horse Trips");
-        SVM.setArea("Western Region");
+        SVM.setArea("Western region");
         SVM.setDateEnd(Date.valueOf("2017-06-23"));
         SVM.setPeople(1);
         List<Trip> trips = search.SearchTripsList(SVM);
@@ -290,25 +318,5 @@ public class Search {
         }
     }
 
-    public Basket SearchAll(SearchVM vm, Boolean searchFlights, Boolean searchHotels, Boolean searchTrips) {
-        Basket basket = new Basket();
-        if (searchFlights) {
-            basket.mergeBasket(this.SearchFlights(vm));
-            //this.SearchFlights(vm);
-        }
-        if (searchHotels) {
-            basket.setHotels(this.SearchHotels(vm));
-            //this.SearchHotels(vm);
-        }
-        if (searchTrips) {
-            basket.setTrips(this.SearchTripsList(vm));
-            //this.SearchTripsList(vm);
-        }
-        return basket;
-    }
-
-    private Basket SearchFlights(SearchVM vm) {
-        return new Basket();
-    }
 
 }

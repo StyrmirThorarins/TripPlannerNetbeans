@@ -1,10 +1,11 @@
 package Model;
 
-import model.Flight;
+
 import hotel3h.Hotel;
 import java.util.ArrayList;
 import model.Trip;
 import java.util.List;
+import model.Flight;
 
 public class Basket {        
     private List<Flight> flights;
