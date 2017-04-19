@@ -18,9 +18,8 @@ public class Basket {
     public Basket(){        
         List<Integer> list = new ArrayList<Integer>();
         flights = new ArrayList<Flight>();
-        //flights = new ArrayList<Flight>();
-        //hotels = new ArrayList<Hotel>();
-        //trips = new ArrayList<Trip>();        
+        hotels = new ArrayList<Hotel>();
+        trips = new ArrayList<Trip>();      
     }
 
 

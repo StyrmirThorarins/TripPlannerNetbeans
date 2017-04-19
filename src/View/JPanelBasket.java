@@ -12,6 +12,9 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import model.Trip;
+import javax.swing.JOptionPane;
+import hotel3h.Hotel;
+import model.Trip;
 
 /**
  *
@@ -21,7 +24,9 @@ public class JPanelBasket extends javax.swing.JPanel {
 
     
     private Model.Basket basket;
-    private DefaultListModel basketList;
+    private DefaultListModel basketFlightList;
+    private DefaultListModel basketHotelList;
+    private DefaultListModel basketTripList;
     /**
      * Creates new form JPanelBasket
      */
@@ -32,25 +37,47 @@ public class JPanelBasket extends javax.swing.JPanel {
         this.jButtonReturnToCurrentBasket.setVisible(false);
         
         this.basket = new Model.Basket();
-        basketList = new DefaultListModel();
+        basketFlightList = new DefaultListModel();
+        basketHotelList = new DefaultListModel();
+        basketTripList = new DefaultListModel();
         addToBasket();
     }
     
     public JPanelBasket(Model.Basket basket) {
-        this.basket = basket;
-                
-        initComponents();
+        initComponents();        
+                        
         this.jLabel2.setVisible(false);
         this.jComboBoxOldBaskets.setVisible(false);
         this.jButtonReturnToCurrentBasket.setVisible(false);
+        
+        this.basket = basket;                
+        basketFlightList = new DefaultListModel();
+        basketHotelList = new DefaultListModel();
+        basketTripList = new DefaultListModel();
+        addToBasket();
     }    
 
     private void addToBasket(){
-        basketList = new DefaultListModel();
-        basketList.addElement("one");
-        basketList.addElement("two");        
+        //basketList = new DefaultListModel();
+        //basketList.addElement("one");
+        //basketList.addElement("two");        
         
-        this.jListBasketFlights.setModel(basketList);
+        //create lists
+        for(Flight flight: basket.getFlights()){
+            basketFlightList.addElement(flight.getName() + " " + flight.getPriceCurrency() + flight.getPrice());
+        }
+        for(Hotel hotel: basket.getHotels()){
+            basketHotelList.addElement(hotel.getName());
+        }
+        for(Trip trip: basket.getTrips()){
+            basketTripList.addElement(trip.getName() + " " + trip.getPrice());
+        }        
+        
+        //update lists on GUI
+        jListBasketFlights.setModel(basketFlightList);
+        jListBasketHotels.setModel(basketHotelList);
+        jListBasketTrips.setModel(basketTripList);
+        
         getTotalSum();
     }
     
@@ -63,18 +90,21 @@ public class JPanelBasket extends javax.swing.JPanel {
         
         double sum = 0.0;                
         
-        /*
-        for (Hotel item : basket.getHotels()){
-            //sum += item.
-        }*/
-        
-        /*
-        for (Trip item : basket.getTrips()){
-            sum += item.getPrice();
+        //add together price
+        for(Flight flight: basket.getFlights()){
+            sum += flight.getPrice();
         }
-        */
+        for(Hotel hotel: basket.getHotels()){
+            //sum += hotel.getRooms().
+            sum += 0;
+        }
+        for(Trip trip: basket.getTrips()){
+            sum += trip.getPrice();
+        }          
+        
         this.jLabelTotalPrice.setText(String.valueOf(sum));
     }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -156,7 +186,6 @@ public class JPanelBasket extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButtonRemoveSelected)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
@@ -171,11 +200,14 @@ public class JPanelBasket extends javax.swing.JPanel {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jComboBoxOldBaskets, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jButtonBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabelTotalPrice)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(26, 26, 26)
+                            .addComponent(jLabelTotalPrice)
+                            .addGap(364, 364, 364)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButtonRemoveSelected, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                .addComponent(jButtonBuy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -206,15 +238,16 @@ public class JPanelBasket extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuyActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog (null, "Your purchase is complete, for the total price of $" + this.jLabelTotalPrice.getText() + ", thank you!", "Purchase Complete", JOptionPane.INFORMATION_MESSAGE);
+       
     }//GEN-LAST:event_jButtonBuyActionPerformed
 
     private void jButtonRemoveSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveSelectedActionPerformed
         int[] list = this.jListBasketFlights.getSelectedIndices();                
         
         for (int index : list){            
-            System.out.println(String.valueOf(index));
-            basketList.removeElementAt(index);
+            //System.out.println(String.valueOf(index));
+            //basketList.removeElementAt(index);
         }
         
         
