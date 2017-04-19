@@ -23,97 +23,101 @@ import model.Trip;
  * @author Hobby
  */
 public class JPanelSearch extends javax.swing.JPanel {
-    
-        User user;
-        Basket basket;
-        
-    
+
+    User user;
+    Basket basket;
+
     private Controller.Search search;
 
     /**
-     * Creates new form JPanelSearch, fake user generated with id of -99, used for testing
+     * Creates new form JPanelSearch, fake user generated with id of -99, used
+     * for testing
      */
     public JPanelSearch() {
         initComponents();
-        
+
         this.setupConfig();
         user = new User(-99);
 
-        
-        
     }
-    
-    /***
+
+    /**
+     * *
      * Creates new form JPanelSearch, searches for user by id on creation
+     *
      * @param userID id of user that is searched for
      */
     public JPanelSearch(int userID) {
         initComponents();
-        
+
         this.setupConfig();
         user = new User(userID);
 
-        
-        
     }
-    
-    /***
+
+    /**
+     * *
      * Creates new form JPanelSearch,created with selected user
+     *
      * @param user selected user
      */
     public JPanelSearch(User user) {
         initComponents();
-        
+
         this.setupConfig();
         this.user = user;
-        
-        
+
     }
-    
-    /***
+
+    /**
+     * *
      * user generated configuration for JPanelSearch
      */
-    private void setupConfig(){
+    private void setupConfig() {
         search = new Search();
-        
+
         Date curDate = Date.valueOf(LocalDate.now());
         String curDateS = curDate.toString();
         this.jFormattedTextFieldDateStart.setText(curDateS);
         this.jFormattedTextFieldDateEnd.setText(curDateS);
-        
+
         basket = new Basket();
         UpdateSelectPanels();
     }
-    
-    
-    private void UpdateSelectPanels(){
+
+    private void UpdateSelectPanels() {
         this.UpdateSelectPanels(this.basket);
     }
-    
-    private void UpdateSelectPanels(Basket basket){
+
+    private void UpdateSelectPanels(Basket basket) {
         List<Flight> flights = basket.getFlights();
-        DefaultListModel<String> flightsModel = null;
-        for (Flight flight : flights) {
-            flightsModel.addElement(flight.getName());
+        DefaultListModel<String> flightsModel = new DefaultListModel<>();
+        if (flights != null) {
+            for (Flight flight : flights) {
+                flightsModel.addElement(flight.getName());
+            }
         }
         this.jListSearchResultsFlights.setModel(flightsModel);
-        
+
         List<Hotel> hotels = basket.getHotels();
-        DefaultListModel<String> hotelsModel = null;
-        for (Hotel hotel : hotels) {
-            hotelsModel.addElement(hotel.getName());
+        DefaultListModel<String> hotelsModel = new DefaultListModel<>();
+        if (hotels != null) {
+            for (Hotel hotel : hotels) {
+                hotelsModel.addElement(hotel.getName());
+            }
         }
         this.jListSearchResultsHotels.setModel(hotelsModel);
-        
-        
+
         List<Trip> trips = basket.getTrips();
-        DefaultListModel<String> tripsModel = null;
-        for (Trip trip : trips) {
-            tripsModel.addElement(trip.getName());
+        DefaultListModel<String> tripsModel = new DefaultListModel<>();
+        if (trips != null) {
+            for (Trip trip : trips) {
+                tripsModel.addElement(trip.getName());
+            }
         }
+
         this.jListSearchResultsTrips.setModel(tripsModel);
-        
-        
+
         
     }
 
@@ -320,16 +324,15 @@ public class JPanelSearch extends javax.swing.JPanel {
                                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jButtonSearch)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButtonToBasket))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonToBasket)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -401,42 +404,44 @@ public class JPanelSearch extends javax.swing.JPanel {
 
         ViewModel.SearchVM vm = new SearchVM();
         vm.setUser(user);
-        
+
         String minDate = this.jFormattedTextFieldDateEnd.getText();
         vm.setDateStart(Date.valueOf(minDate));
         String maxDate = this.jFormattedTextFieldDateStart.getText();
         vm.setDateEnd(Date.valueOf(maxDate));
-        
+
         String minPrice = this.jFormattedTextFieldMinimumPrice.getText();
         vm.setPriceRangeMin(Double.valueOf(minPrice));
         String maxPrice = this.jFormattedTextFieldMaximumPrice.getText();
         vm.setPriceRangeMax(Double.valueOf(maxPrice));
-        
+
         String numberOfCustomers = this.jFormattedTextFieldNumberOfCustomers.getText();
         vm.setPeople(Integer.valueOf(numberOfCustomers));
-        
+
         String curency = this.jComboBox1.getItemAt(this.jComboBox1.getSelectedIndex());
         vm.setCurrencyType(curency);
-        
+
         Boolean searchFlights = this.jCheckBoxFlights.isSelected();
-        Boolean searchHotels  = this.jCheckBoxHotels.isSelected();
-        Boolean searchTrips   = this.jCheckBoxTrips.isSelected();
-        
+        Boolean searchHotels = this.jCheckBoxHotels.isSelected();
+        Boolean searchTrips = this.jCheckBoxTrips.isSelected();
+
         String area = this.jComboBox2.getItemAt(this.jComboBox2.getSelectedIndex());
         vm.setArea(area);
-        
+
         String prefrence = this.jComboBox3.getItemAt(this.jComboBox3.getSelectedIndex());
         vm.setPref(prefrence);
-        
+
         //search.SearchAll(dateEnd, day, priceRangeMax, priceRangeMax, currencyType, PROPERTIES, preferences, true, true, true);
-        basket = search.SearchAll(vm,searchFlights,searchHotels,searchTrips);
-        UpdateSelectPanels(basket);
-        
-        
+        basket = search.SearchAll(vm, searchFlights, searchHotels, searchTrips);
+        UpdateSelectPanels();
+
+
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonToBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToBasketActionPerformed
-        // TODO add your handling code here:
+        int[] flightIndex = this.jListSearchResultsFlights.getSelectedIndices();
+        int[] hotelIndex  = this.jListSearchResultsHotels.getSelectedIndices();
+        int[] tripIndex   = this.jListSearchResultsTrips.getSelectedIndices();
     }//GEN-LAST:event_jButtonToBasketActionPerformed
 
 
