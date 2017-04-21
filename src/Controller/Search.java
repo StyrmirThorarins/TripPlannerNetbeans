@@ -15,7 +15,6 @@ import java.sql.Time;
 import java.sql.Date;
 import ViewModel.SearchVM;
 import Model.Basket;
-import Model.DEPRECIATED_Preference;
 import Model.User;
 
 import Controller.DBC;
@@ -71,7 +70,7 @@ public class Search {
      * false
      * @return basket containing all data matching the atributes
      */
-    public Basket SearchAll(SearchVM SVM, boolean searchHotel, boolean searchFlight, boolean searchTrip) {
+    public Basket SearchAll(SearchVM SVM, boolean searchFlight, boolean searchHotel, boolean searchTrip) {
         Basket basket = new Basket();
 
         if (searchFlight) {
@@ -95,7 +94,10 @@ public class Search {
     private List<Flight> SearchFlights(SearchVM SVM) {
         DatabaseManager DBM = new DatabaseManager();
         List<Flight>results;
-        results = DBM.findFlights("Ísafjörður","20170424",1, "Reykjavik");
+        results = DBM.findFlights("Ísafjörður","20170424",1, "Reykjavík");
+        results.addAll(DBM.findFlights("Reykjavík","20170424",1, "Ísafjörður"));
+        //results = DBM.findFlights("SVM.getToWhere","20170424",SVM.getPeople, SVM.getFromWhere);
+        //results = DBM.findFlights("SVM.getToWhere","20170424",SVM.getPeople, SVM.getFromWhere);
         return results;
     }
 
@@ -120,87 +122,36 @@ public class Search {
 
     }
 
-    private Basket SearchHotels(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return new Basket();
-    }
-
-    /**
-     * *
-     * Returns a basket containing list of all available trips
-     *
-     * @return
-     */
-    /* public Basket SearchTrips(){
-        Basket result = new Basket();
-        
-        List<Trip> t = SearchTripsList();
-        
-        for (Trip trip : t) {
-            result.addTrip(trip);
-        }
-        
-        return result;
-    }
-     */
-    /**
-     * *
-     * Inserts list of all available trips onto a basket
-     *
-     * @param oldBasket Basket that the list of Trips will be inserted into
-     * @return
-     */
-    /*  public Basket SearchTrips(Basket oldBasket){
-        
-        return SearchTrips(oldBasket,false);
-    }
-     */ /**
-     * *
-     * Inserts list of all available trips onto a basket
-     *
-     * @param oldBasket Basket that the list of Trips will be inserted into
-     * @param clearOld chose whether or not do delete old list
-     * @return
-     */
-    /* public Basket SearchTrips(Basket oldBasket, Boolean clearOld){
-        Basket result = oldBasket;
-        if (clearOld) {
-            result.ClearTrips();
-        }
-        
-        List<Trip> t = SearchTripsList();
-        
-        for (Trip trip : t) {
-            result.addTrip(trip);
-        }
-        return result;
-    }
-     */
-    /**
-     * *
-     * Returns a list of all available trips
-     *
-     * @return
-     */
     public List<Trip> SearchTripsList(SearchVM SVM) {
-        
-        List<Trip> t = null;
+        String[] area={"Capital area","Eastern region","Western region","Northern region","Southern region","Highlands of Iceland"};
+        String[] pref={"Golden Circle","Horse Trips","Volcano","Glaciers","Beer Trips","Food Trips"};
+        List<Trip> t = new ArrayList<>();
         Trip[] results = null;
-        if("All".equals(SVM.getPref())|"All".equals(SVM.getArea())){
+        if("All".equals(SVM.getArea())&& !"All".equals(SVM.getArea())){
+            try {
+            TripController tc = new TripController();
+            try {
+                for (int i = 0; i < area.length; i++) {
+                results = tc.searchTrips("",SVM.getDateStart(),Time.valueOf("00:01:00"),Time.valueOf("23:59:00"),"",false,false,0,9999999,
+                        SVM.getPref(),
+                        area[i],
+                        false);
+                if(results!=null){
+                t.addAll(Arrays.asList(results));
+            }}
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
+        else if("All".equals(SVM.getPref())&&"All".equals(SVM.getArea())){
             try {
             TripController tc = new TripController();
             try {
                 //for (int i = 0; i < preferences.length; i++) {
-                results = tc.searchTrips(
-                        "",
-                        SVM.getDateStart(),
-                        Time.valueOf("00:01:00"),
-                        Time.valueOf("23:59:00"),
-                        "",
-                        false,
-                        false,
-                        5000,
-                        30000,
+                results = tc.searchTrips("",SVM.getDateStart(),Time.valueOf("00:01:00"),Time.valueOf("23:59:00"),"",false,false,0,9999999,
                         SVM.getPref(),
                         SVM.getArea(),
                         true);
@@ -219,16 +170,7 @@ public class Search {
             TripController tc = new TripController();
             try {
                 //for (int i = 0; i < preferences.length; i++) {
-                results = tc.searchTrips(
-                        "",
-                        SVM.getDateStart(),
-                        Time.valueOf("00:01:00"),
-                        Time.valueOf("23:59:00"),
-                        "",
-                        false,
-                        false,
-                        5000,
-                        30000,
+                results = tc.searchTrips("",SVM.getDateStart(),Time.valueOf("00:01:00"),Time.valueOf("23:59:00"),"",false,false,0,9999999,
                         SVM.getPref(),
                         SVM.getArea(),
                         false);
@@ -248,10 +190,6 @@ public class Search {
 
     }
 
-    private Basket searchTrips(Date startDate, Date endDate, double minPrice, double maxPrice, String curency, int numberOfCustomers, DEPRECIATED_Preference[] prefrence) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return new Basket();
-    }
 
     public Basket SearchByUserProfileTags() {
         return new Basket();
@@ -314,8 +252,10 @@ public class Search {
         }
         List<Hotel> hotels = search.SearchHotels(SVM);
         for (Hotel h : hotels) {
-            System.out.println(h.getName() + ", " + ", " + h.getType() + ", " + h.getStars() + ", " + h.getMaxPrice() + ", " + h.getMinPrice() + ", " + h.getAreacode() + ", " + h.getAddress());
+            System.out.println(h.getName() + ", " + h.getType() + ", " + h.getStars() + ", " + h.getMaxPrice() + ", " + h.getMinPrice() + ", " + h.getAreacode() + ", " + h.getAddress());
         }
+        System.out.println(hotels.get(0).getRooms().get(0).getPrice() + ", " + hotels.get(0).getRooms().get(0).getNr() + ", " + hotels.get(0).getRooms().get(0).getBed1()
+         + ", " + hotels.get(0).getRooms().get(0).getBed2() + ", " + hotels.get(0).getRooms().get(0).getHnr());
     }
 
 

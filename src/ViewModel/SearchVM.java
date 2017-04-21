@@ -15,6 +15,8 @@ import java.sql.Date;
  */
 public class SearchVM {
   
+    private String toWhere;
+    private String fromWhere;
     private String area;
     private String pref;
     private User user;
@@ -100,6 +102,22 @@ public class SearchVM {
 
     public void setPref(String pref){
         this.pref = pref;
+    }
+    
+    public String getToWhere(){
+        return this.toWhere;
+    }
+
+    public void setToWhere(String toWhere){
+        this.toWhere = toWhere;
+    }
+    
+    public String getFromWhere(){
+        return this.fromWhere;
+    }
+
+    public void setFromWhere(String fromWhere){
+        this.fromWhere = fromWhere;
     }
     
     public String getArea(){
