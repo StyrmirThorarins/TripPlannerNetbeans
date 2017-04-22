@@ -27,6 +27,7 @@ public class JPanelBasket extends javax.swing.JPanel {
     private DefaultListModel basketFlightList;
     private DefaultListModel basketHotelList;
     private DefaultListModel basketTripList;
+    
     /**
      * Creates new form JPanelBasket
      */
@@ -237,8 +238,46 @@ public class JPanelBasket extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuyActionPerformed
+       /*
+        
+        
+        //Það sem ég reyndi 22.4.17 Ágúst
+        
+        int[] flightIndex = this.jListBasketFlights.getSelectedIndices();
+        int[] tripIndex = this.jListBasketTrips.getSelectedIndices(); 
+        int[] hotelIndex = this.jListBasketHotels.getSelectedIndices();
+        
+        //Breytur sem fara af stað í þessum evetn
+        int refId = Controller.DBC.getMaxRef()+1; //býr til nýtt RefId sem er 1 meiri en það sem kom áður
+        int userId =  //hér kemur notandinn, veit ekki hvernig ég á að tengja hann við current user
+        
+        //Lykkjunar hér fyrir neðan eiga að færa bókanir yfir í gagnagrunn.
+        //Þarf að la allt input fyrir BookingInsert
+        for(int f=0;f<flightIndex.length;f++){
+         
+        //    Controller.DBC.BookingInsert(userId, refId, bookingId  , 1);
+        }
+        for(int t=0;t<tripIndex.length;t++){
+            // hér vantar User tengingu int userId = User.getId();
+            
+            //hér vantar tengingu við sjálfa bókunina String bookingRefId;
+            
+            
+            Controller.DBC.BookingInsert(userId, refId, bookingRId, 2);
+        
+        }
+        for(int h=0;h<hotelIndex.length;h++){
+            // hér vantar User tengingu int userId = User.getId();
+            
+            //hér vantar tengingu við sjálfa bókunina String bookingRefId;
+           
+            
+            Controller.DBC.BookingInsert(userId, refId, bookingRId, 3);
+            
+        }
+        */
         JOptionPane.showMessageDialog (null, "Your purchase is complete, for the total price of $" + this.jLabelTotalPrice.getText() + ", thank you!", "Purchase Complete", JOptionPane.INFORMATION_MESSAGE);
-       
+        
     }//GEN-LAST:event_jButtonBuyActionPerformed
 
     private void jButtonRemoveSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveSelectedActionPerformed

@@ -256,7 +256,7 @@ public class DBC {
      * F:TPData gagnagrunnur er til
      * E:Búið er að bæta við gögnum í Users töfluna í TPData gagnagrunninum
      */
-    public static void BookingInsert(int userId, int refId, String bookingRefId, int catId)
+    public void BookingInsert(int userId, int refId, String bookingRefId, int catId)
     {
         Connection conn = null;
         try {
@@ -367,4 +367,21 @@ public class DBC {
             }
         dbDisconnect(conn);     
     }
+     
+         //hér á að vera list<>
+    public static int getMaxRef ()
+    {
+        Connection conn = dbConnect(); 
+        int bookingRefId = 0;
+        String SQL = "select MAX(BookingRefId) from Booking";
+        ResultSet rs = dbQuery(conn, SQL);
+        try{
+        bookingRefId = rs.getInt("BookingRefId");
+        } 
+        catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        dbDisconnect(conn);
+        return bookingRefId;
+}
 }

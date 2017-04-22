@@ -11,6 +11,8 @@ public class Basket {
     private List<Flight> flights;
     private List<Hotel> hotels;
     private List<Trip> trips;
+    
+    private int refNumber;
 
 
     //constructors
@@ -82,6 +84,8 @@ public class Basket {
     public void setTrips(Basket trips){
         this.trips = trips.getTrips();
     }
+    
+    
 
     public List<Flight> getFlights(){
         return this.flights;
@@ -106,6 +110,8 @@ public class Basket {
     public Trip getTrip(int index){
         return trips.get(index);
     }
+    
+            
     
 
 /*
@@ -174,4 +180,12 @@ public class Basket {
     public void setFlights() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    	public int getRefNumber() {
+		return this.refNumber;
+	}
+
+	 public void setRefNumber(int refNumber){
+	 this.refNumber = refNumber;
+	 }
 }
