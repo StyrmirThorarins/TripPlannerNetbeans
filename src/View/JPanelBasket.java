@@ -241,10 +241,7 @@ public class JPanelBasket extends javax.swing.JPanel {
 
     private void jButtonBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuyActionPerformed
 
-        //Það sem ég reyndi 22.4.17 Ágúst
-        int[] flightIndex = this.jListBasketFlights.getSelectedIndices();
-        int[] tripIndex = this.jListBasketTrips.getSelectedIndices();
-        int[] hotelIndex = this.jListBasketHotels.getSelectedIndices();
+        
 
         //Breytur sem fara af stað í þessum evetn
         int refId = Controller.DBC.getMaxReference() + 1; //býr til nýtt RefId sem er 1 meiri en það sem kom áður
@@ -257,14 +254,17 @@ public class JPanelBasket extends javax.swing.JPanel {
 
         //Lykkjunar hér fyrir neðan eiga að færa bókanir yfir í gagnagrunn.
         //Þarf að la allt input fyrir BookingInsert
-        for (int f = 0; f < flightIndex.length; f++) {
+        for (int f = 0; f < basket.getFlights().size() ; f++) {
+            basket.getFlight(f);
             Controller.DBC.bookingInsert(userId, refId, bookingId, 1);
         }
-        for (int t = 0; t < tripIndex.length; t++) {
+        for (int t = 0; t < basket.getTrips().size(); t++) {
+            basket.getTrip(t);
             Controller.DBC.bookingInsert(userId, refId, bookingId, 2);
 
         }
-        for (int h = 0; h < hotelIndex.length; h++) {
+        for (int h = 0; h < basket.getHotels().size(); h++) {
+            basket.getHotel(h);
             Controller.DBC.bookingInsert(userId, refId, bookingId, 3);
 
         }
