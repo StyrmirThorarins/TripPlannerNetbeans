@@ -44,7 +44,6 @@ public class JPanelSearch extends javax.swing.JPanel {
         this.setupConfig();
         user = new User(-99);
 
-        //hide currently unused elements
         this.jLabel4.setVisible(false);
         this.jFormattedTextFieldMinimumPrice.setVisible(false);
         this.jLabel5.setVisible(false);
@@ -114,13 +113,12 @@ public class JPanelSearch extends javax.swing.JPanel {
         return(this.selectedBasket);
     }
 
-    //updates the content of the panels
     private void UpdateSelectPanels(Basket basket) {
         List<Flight> flights = basket.getFlights();
         DefaultListModel<String> flightsModel = new DefaultListModel<>();
         if (flights != null) {
             for (Flight flight : flights) {
-                flightsModel.addElement(flight.getAirline());
+                flightsModel.addElement(flight.getAirline() + ", " + flight.getDeparture_from() + ", " + flight.getArrival_to() + ", " + flight.getTicket_price());
             }
         }
         this.jListSearchResultsFlights.setModel(flightsModel);
@@ -129,7 +127,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         DefaultListModel<String> hotelsModel = new DefaultListModel<>();
         if (hotels != null) {
             for (Hotel hotel : hotels) {
-                hotelsModel.addElement(hotel.getName());
+                hotelsModel.addElement(hotel.getName() + ", " + hotel.getMinPrice()*100);
             }
         }
         this.jListSearchResultsHotels.setModel(hotelsModel);
@@ -138,7 +136,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         DefaultListModel<String> tripsModel = new DefaultListModel<>();
         if (trips != null) {
             for (Trip trip : trips) {
-                tripsModel.addElement(trip.getName());
+                tripsModel.addElement(trip.getName() + ", " + trip.getPrice());
             }
         }
 
@@ -157,7 +155,7 @@ public class JPanelSearch extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jCheckBoxFlights = new javax.swing.JCheckBox();
+        jCheckBoxTwoWay = new javax.swing.JCheckBox();
         jCheckBoxHotels = new javax.swing.JCheckBox();
         jCheckBoxTrips = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
@@ -170,7 +168,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         jFormattedTextFieldMinimumPrice = new javax.swing.JFormattedTextField();
         jFormattedTextFieldMaximumPrice = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
-        jComboBoxCurrencyType = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jButtonSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListSearchResultsFlights = new javax.swing.JList<>();
@@ -186,9 +184,20 @@ public class JPanelSearch extends javax.swing.JPanel {
         jListSearchResultsTrips = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jListSearchResultsHotels = new javax.swing.JList<>();
+        jComboBoxFlightTo = new javax.swing.JComboBox<>();
+        jComboBoxFlightFrom = new javax.swing.JComboBox<>();
+        jLabelFrom = new javax.swing.JLabel();
+        jLabelTo = new javax.swing.JLabel();
+        jLabelFlight = new javax.swing.JLabel();
+        jCheckBoxFlights = new javax.swing.JCheckBox();
 
-        jCheckBoxFlights.setSelected(true);
-        jCheckBoxFlights.setText("Flights");
+        jCheckBoxTwoWay.setSelected(true);
+        jCheckBoxTwoWay.setText("Two Way");
+        jCheckBoxTwoWay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxTwoWayActionPerformed(evt);
+            }
+        });
 
         jCheckBoxHotels.setSelected(true);
         jCheckBoxHotels.setText("Hotels");
@@ -226,7 +235,7 @@ public class JPanelSearch extends javax.swing.JPanel {
 
         jLabel6.setText("Currency Type");
 
-        jComboBoxCurrencyType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ISK", "EUR", "GBP", "$" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ISK", "EUR", "GBP", "$" }));
 
         jButtonSearch.setText("Search");
         jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -281,14 +290,16 @@ public class JPanelSearch extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -296,12 +307,12 @@ public class JPanelSearch extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -319,6 +330,31 @@ public class JPanelSearch extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jListSearchResultsHotels);
 
+        jComboBoxFlightTo.setMaximumRowCount(4);
+        jComboBoxFlightTo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Akureyri", "Reykjavík", "Vestmannaeyjar", "Ísafjörður", " " }));
+        jComboBoxFlightTo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxFlightToActionPerformed(evt);
+            }
+        });
+
+        jComboBoxFlightFrom.setMaximumRowCount(4);
+        jComboBoxFlightFrom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reykjavík", "Vestmannaeyjar", "Ísafjörður", "Akureyri", " " }));
+        jComboBoxFlightFrom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxFlightFromActionPerformed(evt);
+            }
+        });
+
+        jLabelFrom.setText("From");
+
+        jLabelTo.setText("To");
+
+        jLabelFlight.setText("Flight");
+
+        jCheckBoxFlights.setSelected(true);
+        jCheckBoxFlights.setText("Flights");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -329,70 +365,96 @@ public class JPanelSearch extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBoxHotels)
-                            .addComponent(jCheckBoxTrips)
-                            .addComponent(jCheckBoxFlights))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jFormattedTextFieldNumberOfCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel4)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxCurrencyType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jFormattedTextFieldDateEnd)
-                                        .addComponent(jFormattedTextFieldDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jFormattedTextFieldMinimumPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jFormattedTextFieldMaximumPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jCheckBoxTrips)
+                                        .addGap(8, 8, 8))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jCheckBoxHotels)
+                                        .addComponent(jCheckBoxFlights)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(69, 69, 69)
+                                        .addComponent(jLabelFlight)
+                                        .addGap(41, 41, 41))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jComboBoxFlightFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabelFrom)
+                                        .addComponent(jCheckBoxTwoWay)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxFlightTo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelTo))))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonToBasket, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(4, 4, 4)
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jFormattedTextFieldNumberOfCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel4)))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jFormattedTextFieldDateEnd)
+                                            .addComponent(jFormattedTextFieldDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jFormattedTextFieldMinimumPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jFormattedTextFieldMaximumPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButtonSearch, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(jButtonToBasket)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBoxFlights)
-                        .addGap(0, 0, 0)
-                        .addComponent(jCheckBoxHotels)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBoxTrips)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabelFlight, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jCheckBoxFlights)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jCheckBoxHotels)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jCheckBoxTrips)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabelFrom)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBoxFlightFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabelTo)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBoxFlightTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBoxTwoWay)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(jFormattedTextFieldNumberOfCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -400,11 +462,11 @@ public class JPanelSearch extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jFormattedTextFieldDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(3, 3, 3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jFormattedTextFieldDateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addGap(2, 2, 2)
+                        .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jFormattedTextFieldMinimumPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
@@ -415,14 +477,17 @@ public class JPanelSearch extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBoxCurrencyType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48)
-                        .addComponent(jButtonSearch)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonSearch)))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jButtonToBasket)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -448,12 +513,20 @@ public class JPanelSearch extends javax.swing.JPanel {
         String numberOfCustomers = this.jFormattedTextFieldNumberOfCustomers.getText();
         vm.setPeople(Integer.valueOf(numberOfCustomers));
 
-        String curency = this.jComboBoxCurrencyType.getItemAt(this.jComboBoxCurrencyType.getSelectedIndex());
+        String curency = this.jComboBox1.getItemAt(this.jComboBox1.getSelectedIndex());
         vm.setCurrencyType(curency);
+        
+        String fromWhere = this.jComboBoxFlightFrom.getItemAt(this.jComboBoxFlightFrom.getSelectedIndex());
+        vm.setFromWhere(fromWhere);
+        String toWhere = this.jComboBoxFlightTo.getItemAt(this.jComboBoxFlightTo.getSelectedIndex());
+        vm.setToWhere(toWhere);
 
         Boolean searchFlights = this.jCheckBoxFlights.isSelected();
         Boolean searchHotels = this.jCheckBoxHotels.isSelected();
         Boolean searchTrips = this.jCheckBoxTrips.isSelected();
+        Boolean twoWay = this.jCheckBoxTwoWay.isSelected();
+        vm.setTwoWay(twoWay);
+        
 
         String area = this.jComboBox2.getItemAt(this.jComboBox2.getSelectedIndex());
         vm.setArea(area);
@@ -492,6 +565,18 @@ public class JPanelSearch extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
+    private void jComboBoxFlightToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFlightToActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxFlightToActionPerformed
+
+    private void jComboBoxFlightFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxFlightFromActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxFlightFromActionPerformed
+
+    private void jCheckBoxTwoWayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxTwoWayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBoxTwoWayActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -500,9 +585,12 @@ public class JPanelSearch extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBoxFlights;
     private javax.swing.JCheckBox jCheckBoxHotels;
     private javax.swing.JCheckBox jCheckBoxTrips;
+    private javax.swing.JCheckBox jCheckBoxTwoWay;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBoxCurrencyType;
+    private javax.swing.JComboBox<String> jComboBoxFlightFrom;
+    private javax.swing.JComboBox<String> jComboBoxFlightTo;
     private javax.swing.JFormattedTextField jFormattedTextFieldDateEnd;
     private javax.swing.JFormattedTextField jFormattedTextFieldDateStart;
     private javax.swing.JFormattedTextField jFormattedTextFieldMaximumPrice;
@@ -517,6 +605,9 @@ public class JPanelSearch extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelFlight;
+    private javax.swing.JLabel jLabelFrom;
+    private javax.swing.JLabel jLabelTo;
     private javax.swing.JList<String> jListSearchResultsFlights;
     private javax.swing.JList<String> jListSearchResultsHotels;
     private javax.swing.JList<String> jListSearchResultsTrips;

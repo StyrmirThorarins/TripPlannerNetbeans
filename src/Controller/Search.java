@@ -53,7 +53,7 @@ public class Search {
 
     /**
      * *
-     * searches flights, hotels, and customers at the same time
+     * searches flights, hotels, and cutomers at the same time
      *
      * @param startDate starting date of search, inclusive
      * @param endDate ending date of search, inclusive
@@ -68,17 +68,16 @@ public class Search {
      * false
      * @param searchTrip whether or not to search in trips, returns null if
      * false
-     * @return basket containing all data matching the attributes
+     * @return basket containing all data matching the atributes
      */
     public Basket SearchAll(SearchVM SVM, boolean searchFlight, boolean searchHotel, boolean searchTrip) {
         Basket basket = new Basket();
 
         if (searchFlight) {
-            List<Flight> flights = SearchFlights(SVM);
+            List<Flight> flights = SearchFlightsTwoWay(SVM);
             basket.setFlights(flights);
         }
         if (searchHotel) {
-
             List<Hotel> hotels = SearchHotels(SVM);
             basket.setHotels(hotels);
         }
@@ -91,18 +90,18 @@ public class Search {
     }
 
 
-    //finds the flights that fit the searching criterias given by SearchVM
-    private List<Flight> SearchFlights(SearchVM SVM) {
+    private List<Flight> SearchFlightsTwoWay(SearchVM SVM) {
         DatabaseManager DBM = new DatabaseManager();
         List<Flight>results;
-        results = DBM.findFlights("Ísafjörður","20170424",1, "Reykjavík");
-        results.addAll(DBM.findFlights("Reykjavík","20170424",1, "Ísafjörður"));
-        //results = DBM.findFlights("SVM.getToWhere","20170424",SVM.getPeople, SVM.getFromWhere);
-        //results = DBM.findFlights("SVM.getToWhere","20170424",SVM.getPeople, SVM.getFromWhere);
+        //results = DBM.findFlights("Ísafjörður","20170424",SVM.getPeople(), "Reykjavík");
+        // Date is hardcoded to 2017/04/24 because it is the only date that contains flights in database
+        results = DBM.findFlights(SVM.getFromWhere(),"20170424",SVM.getPeople(), SVM.getToWhere());
+        if(SVM.getTwoWay()){
+        results.addAll(DBM.findFlights(SVM.getToWhere(),"20170424",SVM.getPeople(), SVM.getFromWhere()));
+        }
         return results;
     }
 
-    //finds the hotels that fit the searching criterias given by SearchVM
     public List<Hotel> SearchHotels(SearchVM SVM) {
         //create calander instance and get required params
         Calendar cal = Calendar.getInstance();
@@ -124,13 +123,12 @@ public class Search {
 
     }
 
-    //finds the trips that fit the searching criterias given by SearchVM
     public List<Trip> SearchTripsList(SearchVM SVM) {
         String[] area={"Capital area","Eastern region","Western region","Northern region","Southern region","Highlands of Iceland"};
         String[] pref={"Golden Circle","Horse Trips","Volcano","Glaciers","Beer Trips","Food Trips"};
         List<Trip> t = new ArrayList<>();
         Trip[] results = null;
-        if("All".equals(SVM.getArea())&& !"All".equals(SVM.getArea())){
+        if("All".equals(SVM.getArea()) && !"All".equals(SVM.getPref())){
             try {
             TripController tc = new TripController();
             try {
@@ -149,19 +147,33 @@ public class Search {
             Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
+        else if(!"All".equals(SVM.getArea()) && "All".equals(SVM.getPref())){
+            try {
+            TripController tc = new TripController();
+            try {
+                for (int i = 0; i < pref.length; i++) {
+                results = tc.searchTrips("",SVM.getDateStart(),Time.valueOf("00:01:00"),Time.valueOf("23:59:00"),"",false,false,0,9999999,
+                        pref[i],
+                        SVM.getArea(),
+                        false);
+                t.addAll(Arrays.asList(results));
+            }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
         else if("All".equals(SVM.getPref())&&"All".equals(SVM.getArea())){
             try {
             TripController tc = new TripController();
             try {
-                //for (int i = 0; i < preferences.length; i++) {
                 results = tc.searchTrips("",SVM.getDateStart(),Time.valueOf("00:01:00"),Time.valueOf("23:59:00"),"",false,false,0,9999999,
                         SVM.getPref(),
                         SVM.getArea(),
                         true);
-                // for (Trip result : results) {
-                //     t.add(result);
-                // }
-                // }
+                t.addAll(Arrays.asList(results));
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -172,15 +184,11 @@ public class Search {
         else{ try {
             TripController tc = new TripController();
             try {
-                //for (int i = 0; i < preferences.length; i++) {
                 results = tc.searchTrips("",SVM.getDateStart(),Time.valueOf("00:01:00"),Time.valueOf("23:59:00"),"",false,false,0,9999999,
                         SVM.getPref(),
                         SVM.getArea(),
                         false);
-                // for (Trip result : results) {
-                //     t.add(result);
-                // }
-                // }
+                t.addAll(Arrays.asList(results));
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -188,25 +196,22 @@ public class Search {
             Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
-        return Arrays.asList(results);
+        return t;
         //results = controller.searchTrips("tripname", days, startTime, endTime, description, familyFriendly, accessible, minPrice, maxPrice, type, location,boolean showAllFromDate);
 
     }
 
 
-    //NOT IMPLEMENTED
     public Basket SearchByUserProfileTags() {
         return new Basket();
     }
 
-    //NOT IMPLEMENTED
     public Basket SearchByCustomizedTags() {
         return new Basket();
     }
 
-    
-    
     public final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
+
     /**
      * *
      * finds the difference in number of days between dates
@@ -244,7 +249,6 @@ public class Search {
         return date;
     }
 
-    //test function
     public static void main(String[] args) {
         Search search = new Search();
         SearchVM SVM = new SearchVM();

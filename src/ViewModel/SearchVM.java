@@ -15,6 +15,8 @@ import java.sql.Date;
  */
 public class SearchVM {
   
+    
+    private boolean twoWay;
     private String toWhere;
     private String fromWhere;
     private String area;
@@ -42,6 +44,14 @@ public class SearchVM {
 
     public void setUser(User user){
         this.user = user;
+    }
+    
+    public Boolean getTwoWay(){
+        return this.twoWay;
+    }
+
+    public void setTwoWay(boolean twoWay){
+        this.twoWay = twoWay;
     }
     
     public int getPeople(){
