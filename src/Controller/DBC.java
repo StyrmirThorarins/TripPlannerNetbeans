@@ -344,7 +344,7 @@ public class DBC {
         dbDisconnect(conn);
         
 }
-     public static Model.User SetUser (int id)
+    public static Model.User SetUser (int id)
     {
         Connection conn = dbConnect();
         String SQL = "select * from Users where Id ='"+ id +"'";

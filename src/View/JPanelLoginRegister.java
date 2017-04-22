@@ -198,6 +198,18 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
         String phone = jTextFieldRegisterPhone.getText();
         Controller.DBC.UserInsert(uName, sex, address, email, phone, nationality);
         
+        //automatically log in user on register
+        Model.User loggedUser = new Model.User();
+        loggedUser.setName(uName);
+        loggedUser.setSex(sex.charAt(0));
+        loggedUser.setAddress(address);
+        loggedUser.setEmail(email);
+        loggedUser.setNationality(nationality);
+        loggedUser.setPhone(phone);
+        
+        JFrameMain mainFrame = (JFrameMain) SwingUtilities.getWindowAncestor(this);
+        mainFrame.setLoggedUser(loggedUser);        
+        
         JOptionPane.showMessageDialog (null, uName + ", you are now registered and can start using the system.", "Registration Confirmed", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonRegisterActionPerformed
 
