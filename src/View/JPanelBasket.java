@@ -24,12 +24,11 @@ import model.Trip;
  */
 public class JPanelBasket extends javax.swing.JPanel {
 
-    
     private Model.Basket basket;
     private DefaultListModel basketFlightList;
     private DefaultListModel basketHotelList;
     private DefaultListModel basketTripList;
-    
+
     /**
      * Creates new form JPanelBasket
      */
@@ -38,61 +37,61 @@ public class JPanelBasket extends javax.swing.JPanel {
         this.jLabel2.setVisible(false);
         this.jComboBoxOldBaskets.setVisible(false);
         this.jButtonReturnToCurrentBasket.setVisible(false);
-        
+
         this.basket = new Model.Basket();
         basketFlightList = new DefaultListModel();
         basketHotelList = new DefaultListModel();
         basketTripList = new DefaultListModel();
         addToBasket();
     }
-    
+
     public JPanelBasket(Model.Basket basket) {
-        initComponents();        
-                        
+        initComponents();
+
         this.jLabel2.setVisible(false);
         this.jComboBoxOldBaskets.setVisible(false);
         this.jButtonReturnToCurrentBasket.setVisible(false);
-        
-        this.basket = basket;                
+
+        this.basket = basket;
         basketFlightList = new DefaultListModel();
         basketHotelList = new DefaultListModel();
         basketTripList = new DefaultListModel();
         addToBasket();
-    }    
+    }
 
-    private void addToBasket(){
+    private void addToBasket() {
         //basketList = new DefaultListModel();
         //basketList.addElement("one");
         //basketList.addElement("two");        
-        
+
         //create lists
-        for(Flight flight: basket.getFlights()){
-            basketFlightList.addElement(flight.getDeparture_from() + " " + flight.getArrival_to() + flight.getTicket_price());
+        for (Flight flight : basket.getFlights()) {
+            basketFlightList.addElement(flight.getDeparture_from() + "  -  " + flight.getArrival_to() + "  :  " + flight.getTicket_price());
         }
-        for(Hotel hotel: basket.getHotels()){
-            basketHotelList.addElement(hotel.getName() + " $" + hotel.getMinPrice());
+        for (Hotel hotel : basket.getHotels()) {
+            basketHotelList.addElement(hotel.getName() + "  :  " + basket.USDtoISK(hotel.getMinPrice()));
         }
-        for(Trip trip: basket.getTrips()){
-            basketTripList.addElement(trip.getName() + " " + trip.getPrice());
-        }               
-        
+        for (Trip trip : basket.getTrips()) {
+            basketTripList.addElement(trip.getName() + "  :  " + trip.getPrice());
+        }
+
         //update lists on GUI
         jListBasketFlights.setModel(basketFlightList);
         jListBasketHotels.setModel(basketHotelList);
         jListBasketTrips.setModel(basketTripList);
-        
+
         getTotalSum();
     }
-    
-    private void getTotalSum(){
+
+    private void getTotalSum() {
         /*
             private List<Flight> flights;
             private List<Hotel> hotels;
             private List<Trip> trips;/*        
-        */
-        
-        double sum = 0.0;                
-        
+         */
+
+        double sum = 0.0;
+        /*
         //add together price
         for(Flight flight: basket.getFlights()){
             sum += flight.getTicket_price();
@@ -103,11 +102,11 @@ public class JPanelBasket extends javax.swing.JPanel {
         for(Trip trip: basket.getTrips()){
             sum += trip.getPrice();
         }          
-        
+         */
+        sum = basket.getPrice();
         this.jLabelTotalPrice.setText(String.valueOf(sum));
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -240,65 +239,61 @@ public class JPanelBasket extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuyActionPerformed
-                       
+
         //Það sem ég reyndi 22.4.17 Ágúst
-        
         int[] flightIndex = this.jListBasketFlights.getSelectedIndices();
-        int[] tripIndex = this.jListBasketTrips.getSelectedIndices(); 
+        int[] tripIndex = this.jListBasketTrips.getSelectedIndices();
         int[] hotelIndex = this.jListBasketHotels.getSelectedIndices();
-        
+
         //Breytur sem fara af stað í þessum evetn
-        int refId = Controller.DBC.getMaxRef()+1; //býr til nýtt RefId sem er 1 meiri en það sem kom áður
+        int refId = Controller.DBC.getMaxRef() + 1; //býr til nýtt RefId sem er 1 meiri en það sem kom áður
         JFrameMain mainFrame = (JFrameMain) SwingUtilities.getWindowAncestor(this);
         Model.User loggedUser = mainFrame.getLoggedUser();
         int userId = loggedUser.getId();
-        
+
         //bookingId should be a reference into the booking systems of the other groups
         String bookingId = "foreignRefKey";
-        
+
         //Lykkjunar hér fyrir neðan eiga að færa bókanir yfir í gagnagrunn.
         //Þarf að la allt input fyrir BookingInsert
-        for(int f=0;f<flightIndex.length;f++){         
-            Controller.DBC.BookingInsert(userId, refId, bookingId  , 1);
+        for (int f = 0; f < flightIndex.length; f++) {
+            Controller.DBC.BookingInsert(userId, refId, bookingId, 1);
         }
-        for(int t=0;t<tripIndex.length;t++){
+        for (int t = 0; t < tripIndex.length; t++) {
             Controller.DBC.BookingInsert(userId, refId, bookingId, 2);
-        
+
         }
-        for(int h=0;h<hotelIndex.length;h++){            
+        for (int h = 0; h < hotelIndex.length; h++) {
             Controller.DBC.BookingInsert(userId, refId, bookingId, 3);
-            
+
         }
-        
-        JOptionPane.showMessageDialog (null, "Your purchase is complete, for the total price of $" + this.jLabelTotalPrice.getText() + ", thank you!", "Purchase Complete", JOptionPane.INFORMATION_MESSAGE);
-        
+
+        JOptionPane.showMessageDialog(null, "Your purchase is complete, for the total price of $" + basket.getPrice() + ", thank you!", "Purchase Complete", JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_jButtonBuyActionPerformed
 
     private void jButtonRemoveSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveSelectedActionPerformed
         int[] flightIndex = this.jListBasketFlights.getSelectedIndices();
-        int[] tripIndex = this.jListBasketTrips.getSelectedIndices(); 
-        int[] hotelIndex = this.jListBasketHotels.getSelectedIndices(); 
-        
-        for(int f=0;f<flightIndex.length;f++){
-        basketFlightList.removeElementAt(flightIndex[f]);
-        basket.removeFlight(flightIndex[f]);
+        int[] tripIndex = this.jListBasketTrips.getSelectedIndices();
+        int[] hotelIndex = this.jListBasketHotels.getSelectedIndices();
+
+        for (int f = 0; f < flightIndex.length; f++) {
+            basketFlightList.removeElementAt(flightIndex[f]);
+            basket.removeFlight(flightIndex[f]);
         }
-        for(int t=0;t<tripIndex.length;t++){
-        basketTripList.removeElementAt(tripIndex[t]);
-        basket.removeTrip(tripIndex[t]);
+        for (int t = 0; t < tripIndex.length; t++) {
+            basketTripList.removeElementAt(tripIndex[t]);
+            basket.removeTrip(tripIndex[t]);
         }
-        for(int h=0;h<hotelIndex.length;h++){
-        basketHotelList.removeElementAt(hotelIndex[h]);
-        basket.removeHotel(hotelIndex[h]);
+        for (int h = 0; h < hotelIndex.length; h++) {
+            basketHotelList.removeElementAt(hotelIndex[h]);
+            basket.removeHotel(hotelIndex[h]);
         }
-       
-        
-        
+
         jListBasketFlights.setModel(basketFlightList);
         jListBasketHotels.setModel(basketHotelList);
         jListBasketTrips.setModel(basketTripList);
-        
-        
+
         getTotalSum();
     }//GEN-LAST:event_jButtonRemoveSelectedActionPerformed
 
