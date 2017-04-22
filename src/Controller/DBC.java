@@ -232,7 +232,7 @@ public class DBC {
         Connection conn = null;
         try {
             // Tenging við DB
-            String url = "jdbc:sqlite:TPData.db";
+            String url = "jdbc:sqlite:src/Data/TPData.db";
             // Tenging komið á
             conn = DriverManager.getConnection(url);
             //Command insert
