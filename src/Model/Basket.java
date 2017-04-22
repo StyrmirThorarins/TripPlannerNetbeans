@@ -1,51 +1,54 @@
 package Model;
 
-
 import hotel3h.Hotel;
 import java.util.ArrayList;
 import model.Trip;
 import java.util.List;
 import model.Flight;
 
-public class Basket {        
+public class Basket {
+
     private List<Flight> flights;
     private List<Hotel> hotels;
     private List<Trip> trips;
-    
+
     private int refNumber;
 
+    private int numberOfTravelers;
 
     //constructors
-    /***
+    /**
+     * *
      * Creates a new basket, all values set as null
      */
-    public Basket(){        
+    public Basket() {
         List<Integer> list = new ArrayList<Integer>();
         flights = new ArrayList<Flight>();
         hotels = new ArrayList<Hotel>();
-        trips = new ArrayList<Trip>();      
+        trips = new ArrayList<Trip>();
     }
 
-
     //getters, setters
-    public void addFlight(Flight flight){
+    public void addFlight(Flight flight) {
         flights.add(flight);
     }
 
-    public void addHotel(Hotel hotel){
+    public void addHotel(Hotel hotel) {
         hotels.add(hotel);
     }
 
-    public void addTrip(Trip trip){
+    public void addTrip(Trip trip) {
         trips.add(trip);
     }
-    
-    /***
+
+    /**
+     * *
      * Merges all values from the input into this basket
+     *
      * @param basket basket where the data is taken from
      */
     public void mergeBasket(Basket basket) {
-        if (basket != null && this != basket ) {
+        if (basket != null && this != basket) {
             if (basket.flights != null) {
                 for (Flight flight : basket.getFlights()) {
                     flights.add(flight);
@@ -65,67 +68,74 @@ public class Basket {
         }
     }
 
-
-    public void setFlights(List<Flight> flights){
+    public void setFlights(List<Flight> flights) {
         this.flights = flights;
     }
 
-    public void setHotels(List<Hotel> hotels){
+    public void setHotels(List<Hotel> hotels) {
         this.hotels = hotels;
     }
-    
-    public void setHotels(Basket hotels){
+
+    public void setHotels(Basket hotels) {
         this.hotels = hotels.getHotels();
     }
 
-    public void setTrips(List<Trip> trips){
+    public void setTrips(List<Trip> trips) {
         this.trips = trips;
     }
-    public void setTrips(Basket trips){
+
+    public void setTrips(Basket trips) {
         this.trips = trips.getTrips();
     }
-    
-    
 
-    public List<Flight> getFlights(){
+    public List<Flight> getFlights() {
         return this.flights;
     }
 
-    public Flight getFlight(int index){
+    public Flight getFlight(int index) {
         return flights.get(index);
     }
 
-    public List<Hotel> getHotels(){
+    public List<Hotel> getHotels() {
         return this.hotels;
     }
 
-    public Hotel getHotel(int index){
+    public Hotel getHotel(int index) {
         return hotels.get(index);
     }
 
-    public List<Trip> getTrips(){
+    public List<Trip> getTrips() {
         return this.trips;
     }
 
-    public Trip getTrip(int index){
+    public Trip getTrip(int index) {
         return trips.get(index);
     }
-    
-            
-    
 
-/*
-    public double getPrice(){
-        double priceTotal =0;
-        for(int i=0;i < flights.size();i++)
-            priceTotal =+ flights.get(i).getPrice();
-        for(int i=0;i < trips.size();i++)
-            priceTotal =+ trips.get(i).getPrice();
-        for(int i=0;i < hotels.size();i++)
-            priceTotal =+ hotels.get(i).getPrice();
+    private static final double ISK_IN_USD_EXCHANGE_RATE = 100.0;
+
+    public static double USDtoISK(double curency) {
+        return curency * ISK_IN_USD_EXCHANGE_RATE;
+    }
+
+    public static double ISKtoUSD(double curency) {
+        return curency / ISK_IN_USD_EXCHANGE_RATE;
+    }
+
+    public double getPrice() {
+        double priceTotal = 0;
+        for (int i = 0; i < flights.size(); i++) {
+            priceTotal = +flights.get(i).getTicket_price()*numberOfTravelers;
+        }
+        for (int i = 0; i < trips.size(); i++) {
+            priceTotal = +trips.get(i).getPrice()*numberOfTravelers;
+        }
+        for (int i = 0; i < hotels.size(); i++) {
+            priceTotal = +hotels.get(i).getMinPrice();
+        }
         return priceTotal;
     }
-*/
+
     /*
     public String getPriceCurrency(){
         String pricecurrency1="1";
@@ -151,41 +161,48 @@ public class Basket {
             return "Currency does not Match";
         return pricecurrency1;
     }
-*/
-    public Basket getAll(){
+     */
+    public Basket getAll() {
         return this;
     }
 
     //methods
-    public boolean storeBasket(){
+    public boolean storeBasket() {
         return true;
     }
-    
-    public void removeTrip(int index){
+
+    public void removeTrip(int index) {
         trips.remove(index);
     }
-    
-    public void removeFlight(int index){
+
+    public void removeFlight(int index) {
         flights.remove(index);
     }
-    
-    public void removeHotel(int index){
+
+    public void removeHotel(int index) {
         hotels.remove(index);
     }
-    
-    public void ClearTrips(){
+
+    public void ClearTrips() {
         this.trips = null;
     }
 
     public void setFlights() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    	public int getRefNumber() {
-		return this.refNumber;
-	}
 
-	 public void setRefNumber(int refNumber){
-	 this.refNumber = refNumber;
-	 }
+    public int getRefNumber() {
+        return this.refNumber;
+    }
+
+    public void setRefNumber(int refNumber) {
+        this.refNumber = refNumber;
+    }
+
+    public void SetNumberOfTravelers(int numberOfTravelers) {
+        this.numberOfTravelers = numberOfTravelers;
+    }
+    public int GetNumberOfTravelers(){
+        return numberOfTravelers;
+    }
 }
