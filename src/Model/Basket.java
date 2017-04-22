@@ -22,10 +22,10 @@ public class Basket {
      * Creates a new basket, all values set as null
      */
     public Basket() {
-        List<Integer> list = new ArrayList<Integer>();
-        flights = new ArrayList<Flight>();
-        hotels = new ArrayList<Hotel>();
-        trips = new ArrayList<Trip>();
+        flights = new ArrayList<>();
+        hotels = new ArrayList<>();
+        trips = new ArrayList<>();
+        numberOfTravelers = 1;
     }
 
     //getters, setters
@@ -125,13 +125,13 @@ public class Basket {
     public double getPrice() {
         double priceTotal = 0;
         for (int i = 0; i < flights.size(); i++) {
-            priceTotal = +flights.get(i).getTicket_price()*numberOfTravelers;
+            priceTotal += flights.get(i).getTicket_price() * numberOfTravelers;
         }
         for (int i = 0; i < trips.size(); i++) {
-            priceTotal = +trips.get(i).getPrice()*numberOfTravelers;
+            priceTotal += trips.get(i).getPrice() * numberOfTravelers;
         }
         for (int i = 0; i < hotels.size(); i++) {
-            priceTotal = +hotels.get(i).getMinPrice();
+            priceTotal += USDtoISK(hotels.get(i).getMinPrice());
         }
         return priceTotal;
     }
@@ -202,7 +202,8 @@ public class Basket {
     public void SetNumberOfTravelers(int numberOfTravelers) {
         this.numberOfTravelers = numberOfTravelers;
     }
-    public int GetNumberOfTravelers(){
+
+    public int GetNumberOfTravelers() {
         return numberOfTravelers;
     }
 }
