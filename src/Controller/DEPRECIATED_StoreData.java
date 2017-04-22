@@ -7,12 +7,11 @@ import Model.User;
 /**
  * Created by Styrmir on 22.3.2017.
  */
-public class StoreData {
+public class DEPRECIATED_StoreData {
     private User user;    
     private Basket basket;
 
-    //constructors
-    public StoreData(){}
+    //constructorsDEPRECIATED_StoreDataic StoreData(){}
 
     //getters, setters
     public User getUser(){

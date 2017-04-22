@@ -99,6 +99,7 @@ public class Book {
         return false;
     }
     
+    //make a room booking at a hotel and regurn a booking number
     public int BookHotel(SearchVM SVM, User user,Hotel hotel,Room room) throws SQLException{
         BookingManager BM = new BookingManager();
         Calendar cal = Calendar.getInstance();
@@ -120,6 +121,7 @@ public class Book {
         return bookingnr;
     }
     
+    //test function
     public static void main(String[] args){
         Book b = new Book();
         Trip t = new Trip(0, "", new Date(2017, 04, 04), new Time(5, 5, 5), new Time(6, 6, 6), "", 0, "", "", "", 0, true, true, new TourCompany(0, "", 0, "", ""), 0);

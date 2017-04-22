@@ -53,7 +53,7 @@ public class Search {
 
     /**
      * *
-     * searches flights, hotels, and cutomers at the same time
+     * searches flights, hotels, and customers at the same time
      *
      * @param startDate starting date of search, inclusive
      * @param endDate ending date of search, inclusive
@@ -68,7 +68,7 @@ public class Search {
      * false
      * @param searchTrip whether or not to search in trips, returns null if
      * false
-     * @return basket containing all data matching the atributes
+     * @return basket containing all data matching the attributes
      */
     public Basket SearchAll(SearchVM SVM, boolean searchFlight, boolean searchHotel, boolean searchTrip) {
         Basket basket = new Basket();
@@ -91,6 +91,7 @@ public class Search {
     }
 
 
+    //finds the flights that fit the searching criterias given by SearchVM
     private List<Flight> SearchFlights(SearchVM SVM) {
         DatabaseManager DBM = new DatabaseManager();
         List<Flight>results;
@@ -101,6 +102,7 @@ public class Search {
         return results;
     }
 
+    //finds the hotels that fit the searching criterias given by SearchVM
     public List<Hotel> SearchHotels(SearchVM SVM) {
         //create calander instance and get required params
         Calendar cal = Calendar.getInstance();
@@ -122,6 +124,7 @@ public class Search {
 
     }
 
+    //finds the trips that fit the searching criterias given by SearchVM
     public List<Trip> SearchTripsList(SearchVM SVM) {
         String[] area={"Capital area","Eastern region","Western region","Northern region","Southern region","Highlands of Iceland"};
         String[] pref={"Golden Circle","Horse Trips","Volcano","Glaciers","Beer Trips","Food Trips"};
@@ -191,16 +194,19 @@ public class Search {
     }
 
 
+    //NOT IMPLEMENTED
     public Basket SearchByUserProfileTags() {
         return new Basket();
     }
 
+    //NOT IMPLEMENTED
     public Basket SearchByCustomizedTags() {
         return new Basket();
     }
 
+    
+    
     public final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
-
     /**
      * *
      * finds the difference in number of days between dates
@@ -238,6 +244,7 @@ public class Search {
         return date;
     }
 
+    //test function
     public static void main(String[] args) {
         Search search = new Search();
         SearchVM SVM = new SearchVM();

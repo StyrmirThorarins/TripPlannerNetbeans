@@ -73,7 +73,7 @@ public class JPanelTest extends javax.swing.JPanel {
 
     private void jButtonQueryUserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQueryUserIdActionPerformed
         String str = this.jTextFieldInput1.getText();
-        int n = DBC.GetUserId(str);
+        int n = DBC.getUserId(str);
         this.jLabelQueryResult.setText(String.valueOf(n));
     }//GEN-LAST:event_jButtonQueryUserIdActionPerformed
 

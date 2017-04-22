@@ -114,6 +114,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         return(this.selectedBasket);
     }
 
+    //updates the content of the panels
     private void UpdateSelectPanels(Basket basket) {
         List<Flight> flights = basket.getFlights();
         DefaultListModel<String> flightsModel = new DefaultListModel<>();

@@ -196,7 +196,7 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
         String email = jTextFieldRegisterEmail.getText();
         String nationality = jTextFieldRegisterNationality.getText();
         String phone = jTextFieldRegisterPhone.getText();
-        Controller.DBC.UserInsert(uName, sex, address, email, phone, nationality);
+        Controller.DBC.userInsert(uName, sex, address, email, phone, nationality);
         
         //automatically log in user on register
         Model.User loggedUser = new Model.User();
@@ -216,8 +216,8 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
         String uName = jTextFieldLoginName.getText();
         String email = jTextFieldLoginEmail.getText();
-        int id = Controller.DBC.CheckLoginC(uName, email);
-        Model.User loggedUser = Controller.DBC.SetUser(id);                
+        int id = Controller.DBC.checkLoginCredentials(uName, email);
+        Model.User loggedUser = Controller.DBC.getUserById(id);                
         
         JFrameMain mainFrame = (JFrameMain) SwingUtilities.getWindowAncestor(this);
         mainFrame.setLoggedUser(loggedUser);

@@ -55,44 +55,7 @@ public class Basket {
     
     public void addTrip(Trip trip) {
         trips.add(trip);
-    }
-    
-    public List<Integer> getHotelsStayLength() {
-        return this.hotelsStayLength;
-    }
-
-    /**
-     * *
-     * Merges all values from the input into this basket
-     *
-     * @param basket basket where the data is taken from
-     */
-    public void mergeBasket(Basket basket) {
-        if (basket != null && this != basket) {
-            if (basket.getFlights() != null) {
-                for (Flight flight : basket.getFlights()) {
-                    this.flights.add(flight);
-                }
-            }
-            if (basket.getHotels() != null) {
-                for (Hotel hotel : basket.getHotels()) {
-                    this.hotels.add(hotel);
-                }
-            }
-            if (basket.getHotelsStayLength() != null) {
-                for (int stay : basket.getHotelsStayLength()) {
-                    this.hotelsStayLength.add(stay);
-                }
-                
-            }
-            if (basket.getTrips() != null) {
-                
-                for (Trip trip : basket.getTrips()) {
-                    this.trips.add(trip);
-                }
-            }
-        }
-    }
+    }   
     
     public void setFlights(List<Flight> flights) {
         this.flights = flights;
@@ -153,54 +116,6 @@ public class Basket {
         return trips.get(index);
     }
     
-    public static double USDtoISK(double curency) {
-        return curency * ISK_IN_USD_EXCHANGE_RATE;
-    }
-    
-    public static double ISKtoUSD(double curency) {
-        return curency / ISK_IN_USD_EXCHANGE_RATE;
-    }
-    
-    public double getPrice() {
-        double priceTotal = 0;
-        for (int i = 0; i < flights.size(); i++) {
-            priceTotal += flights.get(i).getTicket_price() * numberOfTravelers;
-        }
-        for (int i = 0; i < trips.size(); i++) {
-            priceTotal += trips.get(i).getPrice() * numberOfTravelers;
-        }
-        for (int i = 0; i < hotels.size(); i++) {
-            priceTotal += USDtoISK(hotels.get(i).getMinPrice()) * this.hotelsStayLength.get(i);
-        }
-        return priceTotal;
-    }
-
-    /*
-    public String getPriceCurrency(){
-        String pricecurrency1="1";
-        String pricecurrency2="2";
-        String pricecurrency3="3";
-
-        for(int i=0;i < flights.size()-1;i++) {
-            pricecurrency1 = flights.get(i).getPriceCurrency();
-            if (flights.get(i).getPriceCurrency() != flights.get(i + 1).getPriceCurrency())
-                return "Flight Currency does not Match";
-        }
-        for(int i=0;i < trips.size();i++) {
-            pricecurrency2 = flights.get(i).getPriceCurrency();
-            if (hotels.get(i).getPriceCurrency() != hotels.get(i + 1).getPriceCurrency())
-                return "Hotel Currency does not Match";
-        }
-        for(int i=0;i < hotels.size();i++) {
-            pricecurrency3 = flights.get(i).getPriceCurrency();
-            if (trips.get(i).getPriceCurrency() != trips.get(i + 1).getPriceCurrency())
-                return "Trip Currency does not Match";
-        }
-        if(pricecurrency1!=pricecurrency2||pricecurrency1!=pricecurrency2||pricecurrency2!=pricecurrency3)
-            return "Currency does not Match";
-        return pricecurrency1;
-    }
-     */
     public Basket getAll() {
         return this;
     }
@@ -245,4 +160,93 @@ public class Basket {
     public int GetNumberOfTravelers() {
         return numberOfTravelers;
     }
+    
+    public List<Integer> getHotelsStayLength() {
+        return this.hotelsStayLength;
+    }
+    
+    /**
+     * *
+     * Merges all values from the input into this basket
+     *
+     * @param basket basket where the data is taken from
+     */
+    public void mergeBasket(Basket basket) {
+        if (basket != null && this != basket) {
+            if (basket.getFlights() != null) {
+                for (Flight flight : basket.getFlights()) {
+                    this.flights.add(flight);
+                }
+            }
+            if (basket.getHotels() != null) {
+                for (Hotel hotel : basket.getHotels()) {
+                    this.hotels.add(hotel);
+                }
+            }
+            if (basket.getHotelsStayLength() != null) {
+                for (int stay : basket.getHotelsStayLength()) {
+                    this.hotelsStayLength.add(stay);
+                }
+                
+            }
+            if (basket.getTrips() != null) {
+                
+                for (Trip trip : basket.getTrips()) {
+                    this.trips.add(trip);
+                }
+            }
+        }
+    }    
+    
+    //convert from USD to ISK
+    public static double USDtoISK(double curency) {
+        return curency * ISK_IN_USD_EXCHANGE_RATE;
+    }
+    
+    //convert from ISK to USD
+    public static double ISKtoUSD(double curency) {
+        return curency / ISK_IN_USD_EXCHANGE_RATE;
+    }
+    
+    //total sum of prices for trips, hotels and flights added together, returns total sum
+    public double getPrice() {
+        double priceTotal = 0;
+        for (int i = 0; i < flights.size(); i++) {
+            priceTotal += flights.get(i).getTicket_price() * numberOfTravelers;
+        }
+        for (int i = 0; i < trips.size(); i++) {
+            priceTotal += trips.get(i).getPrice() * numberOfTravelers;
+        }
+        for (int i = 0; i < hotels.size(); i++) {
+            priceTotal += USDtoISK(hotels.get(i).getMinPrice()) * this.hotelsStayLength.get(i);
+        }
+        return priceTotal;
+    }
+
+    /*
+    public String getPriceCurrency(){
+        String pricecurrency1="1";
+        String pricecurrency2="2";
+        String pricecurrency3="3";
+
+        for(int i=0;i < flights.size()-1;i++) {
+            pricecurrency1 = flights.get(i).getPriceCurrency();
+            if (flights.get(i).getPriceCurrency() != flights.get(i + 1).getPriceCurrency())
+                return "Flight Currency does not Match";
+        }
+        for(int i=0;i < trips.size();i++) {
+            pricecurrency2 = flights.get(i).getPriceCurrency();
+            if (hotels.get(i).getPriceCurrency() != hotels.get(i + 1).getPriceCurrency())
+                return "Hotel Currency does not Match";
+        }
+        for(int i=0;i < hotels.size();i++) {
+            pricecurrency3 = flights.get(i).getPriceCurrency();
+            if (trips.get(i).getPriceCurrency() != trips.get(i + 1).getPriceCurrency())
+                return "Trip Currency does not Match";
+        }
+        if(pricecurrency1!=pricecurrency2||pricecurrency1!=pricecurrency2||pricecurrency2!=pricecurrency3)
+            return "Currency does not Match";
+        return pricecurrency1;
+    }
+     */    
 }

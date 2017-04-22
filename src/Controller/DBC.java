@@ -18,7 +18,7 @@ import javax.swing.DefaultListModel;
  */
 public class DBC {
     
-    //return connection connection to database
+    //return Connection class connection to database
     public static Connection dbConnect(){
         Connection conn = null;
         //attempt local DB connection
@@ -46,6 +46,7 @@ public class DBC {
         }        
     }
     
+    //generic call to inserting data into the connected database with a sql string
     public static void dbInsert(Connection conn, String sqlString){
         try {
             Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -60,6 +61,8 @@ public class DBC {
         }
     }
 
+    //generic function for running a sql query on a db connected with Connection clas
+    //using the passed sql string
     public static ResultSet dbQuery(Connection conn, String sqlString){               
         try{
             Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -72,11 +75,98 @@ public class DBC {
             
         return null;
     }
-  
+    
+    //N: UserAllPrint():
+    //F: gagnagrunnur TPData er til en ótengdur
+    //E: búið er að tengjast TPData gagnagrunni og Prenta út öll gögn úr honum
+    public static void userAllPrint() 
+    {
+        Connection conn = null;
+        try {
+            // Tenging við DB
+            String url = "jdbc:sqlite:src/Data/TPData.db";
+            // Tenging komið á
+            conn = DriverManager.getConnection(url);
+            //Command insert
+            Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            String SQL = "SELECT * FROM Users";
+            //Hvert results fara
+            ResultSet rs = stmt.executeQuery( SQL );
+            
+            //Prentar út gögnin línu fyrir línu
+            while(rs.next())
+            {
+            //rs.next();
+            int id_col =rs.getInt("Id");
+            String name = rs.getString("Name");
+            int image = rs.getInt("ImageId");
+            
+            String p = id_col + " " + name + " " + image;
+            System.out.println(p);
+            }
+            //System.out.println("Tenging hefur verið gerð við Sqlite.");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+    //N: findUserId(uName);
+    //F: gagnagrunnur TPData er til en ótengdur, uName er strengur
+    //E: búið er að tengjast TPData gagnagrunni og finna Id sem tengist nöfnum
+    //   sem inniheldur strenginn uName og prenta þau út.
+    public static void findUserId(String uName) 
+    {
+        Connection conn = null;
+        try {
+            // Tenging við DB
+            String url = "jdbc:sqlite:src/Data/TPData.db";
+            // Tenging komið á
+            conn = DriverManager.getConnection(url);
+            //Command insert
+            Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            String SQL = "SELECT * FROM Users WHERE Name LIKE '%"+ uName+"%'";
+            //Hvert results fara
+            ResultSet rs = stmt.executeQuery( SQL );
+            
+            //Prentar út gögnin línu fyrir línu
+            while(rs.next())
+            {
+            //rs.next();
+            int id_col =rs.getInt("Id");
+            String name = rs.getString("Name");
+            int image = rs.getInt("ImageId");
+            
+            String p = id_col + " " + name + " " + image;
+            System.out.println(p);
+            }
+            //System.out.println("Tenging hefur verið gerð við Sqlite.");
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+    
+    
     //N: GetUserId(uName);
     //F: gagnagrunnur TPData er til en ótengdur, uName er strengur
     //E: búið er að skila Id sem samsvarar User sem inniheldur strenginn uName
-    public static int GetUserId(String uName) 
+    public static int getUserId(String uName) 
     {
         
         Connection con = dbConnect();
@@ -101,7 +191,7 @@ public class DBC {
      * F:TPData gagnagrunnur er til
      * E:Búið er að bæta við gögnum í Users töfluna í TPData gagnagrunninum
      */
-      public static void UserInsert(String uName, String sex,
+    public static void userInsert(String uName, String sex,
               String address, String email, String phone, String nationality) 
     {
         int foundId = 0;
@@ -137,7 +227,7 @@ public class DBC {
      * F:TPData gagnagrunnur er til
      * E:Búið er að bæta við gögnum í Users töfluna í TPData gagnagrunninum
      */
-    public static void BookingInsert(int userId, int refId, String bookingRefId, int catId)
+    public static void bookingInsert(int userId, int refId, String bookingRefId, int catId)
     {
         Connection conn = null;
         try {
@@ -168,11 +258,11 @@ public class DBC {
     
        
     
-    /*  N: CheckLoginC(name, email)
+    /*  N: CheckLoginCredentials(name, email)
         F: TPData gagnagrunnur er til, user er strengur og email er strengur
         E: Id gögn sem tilheyra notanda name/email eru fundinn 
     */
-    public static int CheckLoginC(String name, String email)
+    public static int checkLoginCredentials(String name, String email)
     {
         int id = 0;
         
@@ -194,8 +284,43 @@ public class DBC {
             }
             return id;
     }
-
-    public static Model.User SetUser (int id)
+    
+    //NOT IMPLEMENTED
+    //should return a basket with the purchases made by the user for a certain reference id (a given cluster of orders)
+    public void getPurchasesByld(int RefId)
+    {
+        Connection conn = dbConnect();
+        
+        String SQL;
+        
+        dbDisconnect(conn); 
+    }
+    
+    
+    //NOT IMPLEMENTED
+    //should return a basket with the purchases made by the user
+    public void getUserPurchases (int id)
+    {
+        Connection conn = dbConnect();        
+        String SQL = "select BookingRefId from Booking where UserId = '"+ id +"'";
+        ResultSet rs = dbQuery(conn, SQL);
+        DefaultListModel ref = new DefaultListModel();
+        try{   
+            while (rs.next()) {
+                int bookingRefId = rs.getInt("BookingRefId");
+                ref.addElement(bookingRefId);
+                //jList1.setModel(ref);
+            }
+            
+        } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        dbDisconnect(conn);
+        
+}
+    
+    //returns a Model.User from the database by the users Id
+    public static Model.User getUserById (int id)
     {
         Connection conn = dbConnect();
         String SQL = "select * from Users where Id ='"+ id +"'";
@@ -221,20 +346,21 @@ public class DBC {
         return user;
     }
      
-         //hér á að vera list<>
-    public static int getMaxRef ()
+    
+    //returns the highest booking reference number from the database
+    public static int getMaxReference ()
     {
         Connection conn = dbConnect(); 
         int bookingRefId = 0;
-        String SQL = "select MAX(BookingRefId) from Booking";
+        String SQL = "select MAX(RefId) from Booking";
         ResultSet rs = dbQuery(conn, SQL);
         try{
-        bookingRefId = rs.getInt("BookingRefId");
+        bookingRefId = rs.getInt("MAX(RefId)");
         } 
         catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         dbDisconnect(conn);
         return bookingRefId;
-}
+    }
 }

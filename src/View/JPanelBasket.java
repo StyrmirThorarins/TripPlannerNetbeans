@@ -83,6 +83,7 @@ public class JPanelBasket extends javax.swing.JPanel {
         getTotalSum();
     }
 
+    //gets total sum of costs for purchased items
     private void getTotalSum() {
         /*
             private List<Flight> flights;
@@ -246,7 +247,7 @@ public class JPanelBasket extends javax.swing.JPanel {
         int[] hotelIndex = this.jListBasketHotels.getSelectedIndices();
 
         //Breytur sem fara af stað í þessum evetn
-        int refId = Controller.DBC.getMaxRef() + 1; //býr til nýtt RefId sem er 1 meiri en það sem kom áður
+        int refId = Controller.DBC.getMaxReference() + 1; //býr til nýtt RefId sem er 1 meiri en það sem kom áður
         JFrameMain mainFrame = (JFrameMain) SwingUtilities.getWindowAncestor(this);
         Model.User loggedUser = mainFrame.getLoggedUser();
         int userId = loggedUser.getId();
@@ -257,14 +258,14 @@ public class JPanelBasket extends javax.swing.JPanel {
         //Lykkjunar hér fyrir neðan eiga að færa bókanir yfir í gagnagrunn.
         //Þarf að la allt input fyrir BookingInsert
         for (int f = 0; f < flightIndex.length; f++) {
-            Controller.DBC.BookingInsert(userId, refId, bookingId, 1);
+            Controller.DBC.bookingInsert(userId, refId, bookingId, 1);
         }
         for (int t = 0; t < tripIndex.length; t++) {
-            Controller.DBC.BookingInsert(userId, refId, bookingId, 2);
+            Controller.DBC.bookingInsert(userId, refId, bookingId, 2);
 
         }
         for (int h = 0; h < hotelIndex.length; h++) {
-            Controller.DBC.BookingInsert(userId, refId, bookingId, 3);
+            Controller.DBC.bookingInsert(userId, refId, bookingId, 3);
 
         }
 
