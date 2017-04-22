@@ -140,11 +140,7 @@ public class Basket {
     public void ClearTrips() {
         this.trips = null;
     }
-    
-    public void setFlights() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+
     public int getRefNumber() {
         return this.refNumber;
     }
@@ -208,7 +204,10 @@ public class Basket {
         return curency / ISK_IN_USD_EXCHANGE_RATE;
     }
     
-    //total sum of prices for trips, hotels and flights added together, returns total sum
+    /**
+     * returns the price of a basket
+     * @return 
+     */
     public double getPrice() {
         double priceTotal = 0;
         for (int i = 0; i < flights.size(); i++) {
@@ -223,30 +222,4 @@ public class Basket {
         return priceTotal;
     }
 
-    /*
-    public String getPriceCurrency(){
-        String pricecurrency1="1";
-        String pricecurrency2="2";
-        String pricecurrency3="3";
-
-        for(int i=0;i < flights.size()-1;i++) {
-            pricecurrency1 = flights.get(i).getPriceCurrency();
-            if (flights.get(i).getPriceCurrency() != flights.get(i + 1).getPriceCurrency())
-                return "Flight Currency does not Match";
-        }
-        for(int i=0;i < trips.size();i++) {
-            pricecurrency2 = flights.get(i).getPriceCurrency();
-            if (hotels.get(i).getPriceCurrency() != hotels.get(i + 1).getPriceCurrency())
-                return "Hotel Currency does not Match";
-        }
-        for(int i=0;i < hotels.size();i++) {
-            pricecurrency3 = flights.get(i).getPriceCurrency();
-            if (trips.get(i).getPriceCurrency() != trips.get(i + 1).getPriceCurrency())
-                return "Trip Currency does not Match";
-        }
-        if(pricecurrency1!=pricecurrency2||pricecurrency1!=pricecurrency2||pricecurrency2!=pricecurrency3)
-            return "Currency does not Match";
-        return pricecurrency1;
-    }
-     */    
 }
