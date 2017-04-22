@@ -261,6 +261,8 @@ public class DBC {
     /*  N: CheckLoginCredentials(name, email)
         F: TPData gagnagrunnur er til, user er strengur og email er strengur
         E: Id gögn sem tilheyra notanda name/email eru fundinn 
+    
+        //returns 0 if none found
     */
     public static int checkLoginCredentials(String name, String email)
     {
@@ -270,10 +272,8 @@ public class DBC {
         String SQL = "select * from Users where Name ='"+ name +"' and Email = '"+ email +"'";
         ResultSet rs = dbQuery(conn, SQL);
         
-        try {
-            
-            
-            id =rs.getInt("Id");
+        try {                        
+            id = rs.getInt("Id");
             String name1 = rs.getString("Name");
             String email1 = rs.getString("Email");
             
@@ -282,7 +282,8 @@ public class DBC {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-            return id;
+
+        return id;
     }
     
     //NOT IMPLEMENTED

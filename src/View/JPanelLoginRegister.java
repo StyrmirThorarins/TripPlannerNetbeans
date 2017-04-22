@@ -222,7 +222,14 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
         JFrameMain mainFrame = (JFrameMain) SwingUtilities.getWindowAncestor(this);
         mainFrame.setLoggedUser(loggedUser);
         
-        JOptionPane.showMessageDialog (null, uName + ", you are now logged in, welcome!", "Login Confirmed", JOptionPane.INFORMATION_MESSAGE);
+        //display dialog window that shows if succeeded to log in or not
+        if(id == 0) {
+            JOptionPane.showMessageDialog (null, "The login credentials you typed in were not found, please try again or register.", "Login Failed", JOptionPane.INFORMATION_MESSAGE);    
+        }
+        else {
+            JOptionPane.showMessageDialog (null, uName + ", you are now logged in, welcome!", "Login Confirmed", JOptionPane.INFORMATION_MESSAGE);    
+        }
+        
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
 
