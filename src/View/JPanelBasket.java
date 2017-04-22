@@ -14,6 +14,8 @@ import javax.swing.JList;
 import model.Trip;
 import javax.swing.JOptionPane;
 import hotel3h.Hotel;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import model.Trip;
 
 /**
@@ -238,9 +240,7 @@ public class JPanelBasket extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuyActionPerformed
-       /*
-        
-        
+                       
         //Það sem ég reyndi 22.4.17 Ágúst
         
         int[] flightIndex = this.jListBasketFlights.getSelectedIndices();
@@ -249,33 +249,27 @@ public class JPanelBasket extends javax.swing.JPanel {
         
         //Breytur sem fara af stað í þessum evetn
         int refId = Controller.DBC.getMaxRef()+1; //býr til nýtt RefId sem er 1 meiri en það sem kom áður
-        int userId =  //hér kemur notandinn, veit ekki hvernig ég á að tengja hann við current user
+        JFrameMain mainFrame = (JFrameMain) SwingUtilities.getWindowAncestor(this);
+        Model.User loggedUser = mainFrame.getLoggedUser();
+        int userId = loggedUser.getId();
+        
+        //bookingId should be a reference into the booking systems of the other groups
+        String bookingId = "foreignRefKey";
         
         //Lykkjunar hér fyrir neðan eiga að færa bókanir yfir í gagnagrunn.
         //Þarf að la allt input fyrir BookingInsert
-        for(int f=0;f<flightIndex.length;f++){
-         
-        //    Controller.DBC.BookingInsert(userId, refId, bookingId  , 1);
+        for(int f=0;f<flightIndex.length;f++){         
+            Controller.DBC.BookingInsert(userId, refId, bookingId  , 1);
         }
         for(int t=0;t<tripIndex.length;t++){
-            // hér vantar User tengingu int userId = User.getId();
-            
-            //hér vantar tengingu við sjálfa bókunina String bookingRefId;
-            
-            
-            Controller.DBC.BookingInsert(userId, refId, bookingRId, 2);
+            Controller.DBC.BookingInsert(userId, refId, bookingId, 2);
         
         }
-        for(int h=0;h<hotelIndex.length;h++){
-            // hér vantar User tengingu int userId = User.getId();
-            
-            //hér vantar tengingu við sjálfa bókunina String bookingRefId;
-           
-            
-            Controller.DBC.BookingInsert(userId, refId, bookingRId, 3);
+        for(int h=0;h<hotelIndex.length;h++){            
+            Controller.DBC.BookingInsert(userId, refId, bookingId, 3);
             
         }
-        */
+        
         JOptionPane.showMessageDialog (null, "Your purchase is complete, for the total price of $" + this.jLabelTotalPrice.getText() + ", thank you!", "Purchase Complete", JOptionPane.INFORMATION_MESSAGE);
         
     }//GEN-LAST:event_jButtonBuyActionPerformed

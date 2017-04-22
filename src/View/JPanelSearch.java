@@ -44,6 +44,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         this.setupConfig();
         user = new User(-99);
 
+        //hide currently unused elements
         this.jLabel4.setVisible(false);
         this.jFormattedTextFieldMinimumPrice.setVisible(false);
         this.jLabel5.setVisible(false);
@@ -168,7 +169,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         jFormattedTextFieldMinimumPrice = new javax.swing.JFormattedTextField();
         jFormattedTextFieldMaximumPrice = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxCurrencyType = new javax.swing.JComboBox<>();
         jButtonSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListSearchResultsFlights = new javax.swing.JList<>();
@@ -224,7 +225,7 @@ public class JPanelSearch extends javax.swing.JPanel {
 
         jLabel6.setText("Currency Type");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ISK", "EUR", "GBP", "$" }));
+        jComboBoxCurrencyType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ISK", "EUR", "GBP", "$" }));
 
         jButtonSearch.setText("Search");
         jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -347,7 +348,7 @@ public class JPanelSearch extends javax.swing.JPanel {
                                         .addComponent(jLabel4)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxCurrencyType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jFormattedTextFieldDateEnd)
                                         .addComponent(jFormattedTextFieldDateStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -413,7 +414,7 @@ public class JPanelSearch extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxCurrencyType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(48, 48, 48)
                         .addComponent(jButtonSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -446,7 +447,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         String numberOfCustomers = this.jFormattedTextFieldNumberOfCustomers.getText();
         vm.setPeople(Integer.valueOf(numberOfCustomers));
 
-        String curency = this.jComboBox1.getItemAt(this.jComboBox1.getSelectedIndex());
+        String curency = this.jComboBoxCurrencyType.getItemAt(this.jComboBoxCurrencyType.getSelectedIndex());
         vm.setCurrencyType(curency);
 
         Boolean searchFlights = this.jCheckBoxFlights.isSelected();
@@ -498,9 +499,9 @@ public class JPanelSearch extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBoxFlights;
     private javax.swing.JCheckBox jCheckBoxHotels;
     private javax.swing.JCheckBox jCheckBoxTrips;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBoxCurrencyType;
     private javax.swing.JFormattedTextField jFormattedTextFieldDateEnd;
     private javax.swing.JFormattedTextField jFormattedTextFieldDateStart;
     private javax.swing.JFormattedTextField jFormattedTextFieldMaximumPrice;

@@ -6,6 +6,7 @@
 package View;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -42,7 +43,7 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
         jTextFieldRegisterEmail = new javax.swing.JTextField();
         jTextFieldRegisterNationality = new javax.swing.JTextField();
         jTextFieldRegisterPhone = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonRegister = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -69,10 +70,10 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
 
         jLabel8.setText("Nationality");
 
-        jButton1.setText("Register");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRegister.setText("Register");
+        jButtonRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonRegisterActionPerformed(evt);
             }
         });
 
@@ -115,7 +116,7 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
                                     .addComponent(jTextFieldRegisterAddress, javax.swing.GroupLayout.Alignment.TRAILING)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(jButtonRegister))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1)
@@ -182,12 +183,12 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
                     .addComponent(jLabel8)
                     .addComponent(jTextFieldRegisterNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jButtonRegister)
                 .addGap(5, 5, 5))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
         // TODO add your handling code here:
         String uName = jTextFieldRegisterName.getText();
         String sex = jTextFieldRegisterSex.getText();
@@ -198,22 +199,24 @@ public class JPanelLoginRegister extends javax.swing.JPanel {
         Controller.DBC.UserInsert(uName, sex, address, email, phone, nationality);
         
         JOptionPane.showMessageDialog (null, uName + ", you are now registered and can start using the system.", "Registration Confirmed", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonRegisterActionPerformed
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        // TODO add your handling code here:
         String uName = jTextFieldLoginName.getText();
         String email = jTextFieldLoginEmail.getText();
         int id = Controller.DBC.CheckLoginC(uName, email);
-        Controller.DBC.SetUser(id);
+        Model.User loggedUser = Controller.DBC.SetUser(id);                
+        
+        JFrameMain mainFrame = (JFrameMain) SwingUtilities.getWindowAncestor(this);
+        mainFrame.setLoggedUser(loggedUser);
         
         JOptionPane.showMessageDialog (null, uName + ", you are now logged in, welcome!", "Login Confirmed", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonLogin;
+    private javax.swing.JButton jButtonRegister;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

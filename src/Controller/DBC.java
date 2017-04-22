@@ -256,7 +256,7 @@ public class DBC {
      * F:TPData gagnagrunnur er til
      * E:Búið er að bæta við gögnum í Users töfluna í TPData gagnagrunninum
      */
-    public void BookingInsert(int userId, int refId, String bookingRefId, int catId)
+    public static void BookingInsert(int userId, int refId, String bookingRefId, int catId)
     {
         Connection conn = null;
         try {
@@ -344,7 +344,7 @@ public class DBC {
         dbDisconnect(conn);
         
 }
-     public static void SetUser (int id)
+     public static Model.User SetUser (int id)
     {
         Connection conn = dbConnect();
         String SQL = "select * from Users where Id ='"+ id +"'";
@@ -366,6 +366,8 @@ public class DBC {
                 System.out.println(ex.getMessage());
             }
         dbDisconnect(conn);     
+        
+        return user;
     }
      
          //hér á að vera list<>

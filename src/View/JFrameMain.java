@@ -5,6 +5,8 @@
  */
 package View;
 
+import Model.User;
+
 /**
  *
  * @author Hobby
@@ -19,6 +21,10 @@ public class JFrameMain extends javax.swing.JFrame {
     private JPanelBasket basketPanel;
     private UnitTests.JPanelTest testPanel;
     
+    
+   //logged in user
+    public Model.User loggedUser;
+    
     /**
      * Creates new form JFrameMain
      */
@@ -27,6 +33,8 @@ public class JFrameMain extends javax.swing.JFrame {
         searchPanel = new JPanelSearch(this);
         basketPanel = new JPanelBasket();
         testPanel = new UnitTests.JPanelTest();
+        
+        loggedUser = new Model.User();
                         
         initComponents();
         
@@ -224,6 +232,14 @@ public class JFrameMain extends javax.swing.JFrame {
         jPanelMain.invalidate();
         jPanelMain.repaint();
         jPanelMain.setVisible(true);                 
+    }
+    
+    public User getLoggedUser(){
+        return this.loggedUser;
+    }
+    
+    public void setLoggedUser(User user){
+        this.loggedUser = user;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
