@@ -8,7 +8,7 @@ import model.Flight;
 
 public class Basket {
     
-    private static final double ISK_IN_USD_EXCHANGE_RATE = 109.25; //as of 4.23.2017
+    private static final double USD_TO_ISK_EXCHANGE_RATE = 109.25; //as of 4.23.2017
     
     private List<Flight> flights;
     private List<Hotel> hotels;
@@ -187,12 +187,12 @@ public class Basket {
     
     //convert from USD to ISK
     public static double USDtoISK(double curency) {
-        return curency * ISK_IN_USD_EXCHANGE_RATE;
+        return curency * USD_TO_ISK_EXCHANGE_RATE;
     }
     
     //convert from ISK to USD
     public static double ISKtoUSD(double curency) {
-        return curency / ISK_IN_USD_EXCHANGE_RATE;
+        return curency / USD_TO_ISK_EXCHANGE_RATE;
     }
     
     /**
