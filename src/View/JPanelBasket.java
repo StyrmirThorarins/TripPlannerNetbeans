@@ -248,7 +248,7 @@ public class JPanelBasket extends javax.swing.JPanel {
 
         }
 
-        JOptionPane.showMessageDialog(null, "Your purchase is complete, for the total price of "+ df.format(basket.getTotalBasketSum()* basket.getCurrencyRate()) + " " + basket.getSearchVM().getCurrencyType() +", thank you!", "Purchase Complete", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Your purchase is complete, for the total price of "+ df.format(basket.getTotalBasketSum()) + " " + basket.getSearchVM().getCurrencyType() +", thank you!", "Purchase Complete", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_jButtonBuyActionPerformed
 
