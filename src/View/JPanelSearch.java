@@ -8,7 +8,6 @@ package View;
 import model.Flight;
 import Controller.Search;
 import Model.Basket;
-import Model.DEPRECIATED_Preference;
 import Model.*;
 import Model.User;
 import ViewModel.SearchVM;

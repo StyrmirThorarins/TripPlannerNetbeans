@@ -1,6 +1,5 @@
 package UnitTests;
 
-import Model.DEPRECIATED_Image;
 import Model.User;
 
 /**
@@ -14,7 +13,7 @@ public class UserSetupTest {
     public static void main(String[] args){
         UserSetupTest test = new UserSetupTest();
 
-        DEPRECIATED_Image image = new DEPRECIATED_Image(0);        
+                
         User user = new User(0);
 
         //Image
@@ -23,8 +22,7 @@ public class UserSetupTest {
             private String path;
             private String fileName;
         */
-        image.setFileName("UnitTests image.jpg");
-        image.setPath("../Images/");
+
 
 
         //User
