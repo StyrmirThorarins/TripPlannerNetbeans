@@ -16,7 +16,7 @@ public class Basket {
     
     private ViewModel.SearchVM searchVM;   
 
-    private List<Integer> hotelsStayLength;
+    private List<Integer> hotelsStayLength;  //not used
     
     //constructors
     /**
@@ -193,6 +193,7 @@ public class Basket {
     }
     
     
+    //converts currency in basket to selected currency type
     public double getCurrencyRate() {
         if("ISK".equals(searchVM.getCurrencyType())){
             return 1;
@@ -213,7 +214,7 @@ public class Basket {
      * returns the price of a basket
      * @return 
      */
-    public double getPrice() {
+    public double getTotalBasketSum() {
         double priceTotal = 0;
         for (int i = 0; i < flights.size(); i++) {
             priceTotal += flights.get(i).getTicket_price() * searchVM.getPeople();
@@ -222,9 +223,21 @@ public class Basket {
             priceTotal += trips.get(i).getPrice() * searchVM.getPeople();
         }
         for (int i = 0; i < hotels.size(); i++) {
-            priceTotal += USDtoISK(hotels.get(i).getMinPrice());
+            priceTotal += USDtoISK(hotels.get(i).getMinPrice()) * getNumberOfDays();
         }
-        return priceTotal;
+                
+        return priceTotal * getCurrencyRate();
     }   
+    
+    //finds the number day differnce between trip start date and end date
+    private int getNumberOfDays(){
+                
+        long diff = Math.abs(searchVM.getDateEnd().getTime() - searchVM.getDateStart().getTime());
+        long diffDays = diff / (24 * 60 * 60 * 1000);
+
+        diffDays += 1;        
+        
+        return (int) diffDays;
+    }
 
 }

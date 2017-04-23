@@ -62,10 +62,6 @@ public class SearchVM {
         this.people = people;
     }
 
-    public Date day(){
-        return this.dateStart;
-    }
-
     public Date getDateStart(){
         return this.dateStart;
     }

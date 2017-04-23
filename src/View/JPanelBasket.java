@@ -82,33 +82,12 @@ public class JPanelBasket extends javax.swing.JPanel {
         jListBasketHotels.setModel(basketHotelList);
         jListBasketTrips.setModel(basketTripList);
 
-        getTotalSum();
+        displayTotalBasketSum();
     }
 
     //gets total sum of costs for purchased items
-    private void getTotalSum() {
-        /*
-            private List<Flight> flights;
-            private List<Hotel> hotels;
-            private List<Trip> trips;/*        
-         */
-
-        double sum = 0.0;
-        /*
-        //add together price
-        for(Flight flight: basket.getFlights()){
-            sum += flight.getTicket_price();
-        }
-        for(Hotel hotel: basket.getHotels()){            
-            sum += hotel.getMinPrice();
-        }
-        for(Trip trip: basket.getTrips()){
-            sum += trip.getPrice();
-        }          
-         */
-        sum = basket.getPrice() * basket.getCurrencyRate();
-        df.format(sum);
-        this.jLabelTotalPrice.setText(String.valueOf(sum) + " " + basket.getSearchVM().getCurrencyType());
+    private void displayTotalBasketSum() {                        
+        this.jLabelTotalPrice.setText(String.valueOf(basket.getTotalBasketSum()) + " " + basket.getSearchVM().getCurrencyType());
     }
 
     /**
@@ -243,10 +222,7 @@ public class JPanelBasket extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuyActionPerformed
-
-        
-
-        //Breytur sem fara af stað í þessum evetn
+        //Breytur sem fara af stað í þessum event
         int refId = Controller.DBC.getMaxReference() + 1; //býr til nýtt RefId sem er 1 meiri en það sem kom áður
         JFrameMain mainFrame = (JFrameMain) SwingUtilities.getWindowAncestor(this);
         Model.User loggedUser = mainFrame.getLoggedUser();
@@ -272,7 +248,7 @@ public class JPanelBasket extends javax.swing.JPanel {
 
         }
 
-        JOptionPane.showMessageDialog(null, "Your purchase is complete, for the total price of "+ df.format(basket.getPrice()* basket.getCurrencyRate()) + " " + basket.getSearchVM().getCurrencyType() +", thank you!", "Purchase Complete", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Your purchase is complete, for the total price of "+ df.format(basket.getTotalBasketSum()* basket.getCurrencyRate()) + " " + basket.getSearchVM().getCurrencyType() +", thank you!", "Purchase Complete", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_jButtonBuyActionPerformed
 
@@ -298,7 +274,7 @@ public class JPanelBasket extends javax.swing.JPanel {
         jListBasketHotels.setModel(basketHotelList);
         jListBasketTrips.setModel(basketTripList);
 
-        getTotalSum();
+        displayTotalBasketSum();
     }//GEN-LAST:event_jButtonRemoveSelectedActionPerformed
 
 
