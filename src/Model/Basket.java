@@ -14,7 +14,9 @@ public class Basket {
     private List<Hotel> hotels;
     private List<Trip> trips;   
     
-    private ViewModel.SearchVM searchVM;       
+    private ViewModel.SearchVM searchVM;   
+
+    private List<Integer> hotelsStayLength;
     
     //constructors
     /**
