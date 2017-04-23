@@ -87,7 +87,7 @@ public class JPanelBasket extends javax.swing.JPanel {
 
     //gets total sum of costs for purchased items
     private void displayTotalBasketSum() {                        
-        this.jLabelTotalPrice.setText(String.valueOf(basket.getTotalBasketSum()) + " " + basket.getSearchVM().getCurrencyType());
+        this.jLabelTotalPrice.setText(String.valueOf(df.format(basket.getTotalBasketSum())) + " " + basket.getSearchVM().getCurrencyType());
     }
 
     /**
