@@ -8,7 +8,7 @@ import model.Flight;
 
 public class Basket {
     
-    private static final double ISK_IN_USD_EXCHANGE_RATE = 100.0;
+    private static final double ISK_IN_USD_EXCHANGE_RATE = 109.25; //as of 4.23.2017
     
     private List<Flight> flights;
     private List<Hotel> hotels;
@@ -211,6 +211,6 @@ public class Basket {
             priceTotal += USDtoISK(hotels.get(i).getMinPrice()) * this.hotelsStayLength.get(i);
         }
         return priceTotal;
-    }
+    }   
 
 }

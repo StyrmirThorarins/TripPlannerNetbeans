@@ -90,6 +90,7 @@ public class Search {
     }
 
 
+    //finds the flights that fit the searching criterias given by SearchVM
     private List<Flight> SearchFlightsTwoWay(SearchVM SVM) {
         DatabaseManager DBM = new DatabaseManager();
         List<Flight>results;
@@ -102,6 +103,7 @@ public class Search {
         return results;
     }
 
+    //finds the hotels that fit the searching criterias given by SearchVM    
     public List<Hotel> SearchHotels(SearchVM SVM) {
         //create calander instance and get required params
         Calendar cal = Calendar.getInstance();
@@ -123,6 +125,8 @@ public class Search {
 
     }
 
+    
+    //finds the trips that fit the searching criterias given by SearchVM    
     public List<Trip> SearchTripsList(SearchVM SVM) {
         String[] area={"Capital area","Eastern region","Western region","Northern region","Southern region","Highlands of Iceland"};
         String[] pref={"Golden Circle","Horse Trips","Volcano","Glaciers","Beer Trips","Food Trips"};
@@ -201,11 +205,12 @@ public class Search {
 
     }
 
-
+    //NOT IMPLEMENTED
     public Basket SearchByUserProfileTags() {
         return new Basket();
     }
 
+    //NOT IMPLEMENTED
     public Basket SearchByCustomizedTags() {
         return new Basket();
     }
@@ -249,6 +254,8 @@ public class Search {
         return date;
     }
 
+    
+    //test function    
     public static void main(String[] args) {
         Search search = new Search();
         SearchVM SVM = new SearchVM();
