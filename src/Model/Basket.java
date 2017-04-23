@@ -8,7 +8,7 @@ import model.Flight;
 
 public class Basket {
     
-    private static final double USD_TO_ISK_EXCHANGE_RATE = 109.25; //as of 4.23.2017
+    private static final int USD_TO_ISK_EXCHANGE_RATE = 110; //as of 4.23.2017
     
     private List<Flight> flights;
     private List<Hotel> hotels;
@@ -188,13 +188,25 @@ public class Basket {
     }    
     
     //convert from USD to ISK
-    public static double USDtoISK(double curency) {
-        return curency * USD_TO_ISK_EXCHANGE_RATE;
+    public static int USDtoISK(int currency) {
+        return currency * USD_TO_ISK_EXCHANGE_RATE;
     }
     
-    //convert from ISK to USD
-    public static double ISKtoUSD(double curency) {
-        return curency / USD_TO_ISK_EXCHANGE_RATE;
+    
+    public double getCurrencyRate() {
+        if("ISK".equals(searchVM.getCurrencyType())){
+            return 1;
+        }
+        else if("EUR".equals(searchVM.getCurrencyType())){
+            return 0.117;
+        }
+        else if("GBP".equals(searchVM.getCurrencyType())){
+            return 0.140;
+        }
+        else if("USD".equals(searchVM.getCurrencyType())){
+            return 0.110;
+        }
+        return -1;
     }
     
     /**
@@ -210,7 +222,7 @@ public class Basket {
             priceTotal += trips.get(i).getPrice() * searchVM.getPeople();
         }
         for (int i = 0; i < hotels.size(); i++) {
-            priceTotal += USDtoISK(hotels.get(i).getMinPrice()) * this.hotelsStayLength.get(i);
+            priceTotal += USDtoISK(hotels.get(i).getMinPrice());
         }
         return priceTotal;
     }   

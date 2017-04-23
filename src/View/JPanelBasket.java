@@ -14,6 +14,7 @@ import javax.swing.JList;
 import model.Trip;
 import javax.swing.JOptionPane;
 import hotel3h.Hotel;
+import java.text.DecimalFormat;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import model.Trip;
@@ -28,6 +29,7 @@ public class JPanelBasket extends javax.swing.JPanel {
     private DefaultListModel basketFlightList;
     private DefaultListModel basketHotelList;
     private DefaultListModel basketTripList;
+    DecimalFormat df = new DecimalFormat("#.0");
 
     /**
      * Creates new form JPanelBasket
@@ -62,17 +64,17 @@ public class JPanelBasket extends javax.swing.JPanel {
     private void addToBasket() {
         //basketList = new DefaultListModel();
         //basketList.addElement("one");
-        //basketList.addElement("two");        
+        //basketList.addElement("two");    
 
         //create lists
         for (Flight flight : basket.getFlights()) {
-            basketFlightList.addElement(flight.getDeparture_from() + "  -  " + flight.getArrival_to() + "  :  " + flight.getTicket_price());
+            basketFlightList.addElement(flight.getDeparture_from() + "  -  " + flight.getArrival_to() + "  :  " + df.format(flight.getTicket_price()* basket.getCurrencyRate()));
         }
         for (Hotel hotel : basket.getHotels()) {
-            basketHotelList.addElement(hotel.getName() + "  :  " + basket.USDtoISK(hotel.getMinPrice()));
+            basketHotelList.addElement(hotel.getName() + "  :  " + df.format(basket.USDtoISK(hotel.getMinPrice())* basket.getCurrencyRate()));
         }
         for (Trip trip : basket.getTrips()) {
-            basketTripList.addElement(trip.getName() + "  :  " + trip.getPrice());
+            basketTripList.addElement(trip.getName() + "  :  " + df.format(trip.getPrice()* basket.getCurrencyRate()));
         }
 
         //update lists on GUI
@@ -104,8 +106,9 @@ public class JPanelBasket extends javax.swing.JPanel {
             sum += trip.getPrice();
         }          
          */
-        sum = basket.getPrice();
-        this.jLabelTotalPrice.setText(String.valueOf(sum));
+        sum = basket.getPrice() * basket.getCurrencyRate();
+        df.format(sum);
+        this.jLabelTotalPrice.setText(String.valueOf(sum) + " " + basket.getSearchVM().getCurrencyType());
     }
 
     /**
@@ -269,7 +272,7 @@ public class JPanelBasket extends javax.swing.JPanel {
 
         }
 
-        JOptionPane.showMessageDialog(null, "Your purchase is complete, for the total price of $" + basket.getPrice() + ", thank you!", "Purchase Complete", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Your purchase is complete, for the total price of "+ df.format(basket.getPrice()* basket.getCurrencyRate()) + " " + basket.getSearchVM().getCurrencyType() +", thank you!", "Purchase Complete", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_jButtonBuyActionPerformed
 

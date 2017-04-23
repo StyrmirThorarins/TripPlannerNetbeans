@@ -287,7 +287,7 @@
             <StringItem index="0" value="ISK"/>
             <StringItem index="1" value="EUR"/>
             <StringItem index="2" value="GBP"/>
-            <StringItem index="3" value="$"/>
+            <StringItem index="3" value="USD"/>
           </StringArray>
         </Property>
       </Properties>
@@ -347,8 +347,11 @@
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
           <Format format="#0" subtype="-1" type="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="0"/>
+        <Property name="text" type="java.lang.String" value="1"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFormattedTextFieldNumberOfCustomersActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>

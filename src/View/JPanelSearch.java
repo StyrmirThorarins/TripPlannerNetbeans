@@ -14,6 +14,7 @@ import Model.User;
 import ViewModel.SearchVM;
 import hotel3h.Hotel;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -118,11 +119,12 @@ public class JPanelSearch extends javax.swing.JPanel {
     }
 
     private void UpdateSelectPanels(Basket basket) {
+        DecimalFormat df = new DecimalFormat("#.0");
         List<Flight> flights = basket.getFlights();
         DefaultListModel<String> flightsModel = new DefaultListModel<>();
         if (flights != null) {
             for (Flight flight : flights) {
-                flightsModel.addElement(flight.getAirline() + ", " + flight.getDeparture_from() + ", " + flight.getArrival_to() + ", " + flight.getTicket_price());
+                flightsModel.addElement(flight.getAirline() + ", " + flight.getDeparture_from() + ", " + flight.getArrival_to() + ", " + df.format(flight.getTicket_price()* basket.getCurrencyRate()));
             }
         }
         this.jListSearchResultsFlights.setModel(flightsModel);
@@ -131,7 +133,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         DefaultListModel<String> hotelsModel = new DefaultListModel<>();
         if (hotels != null) {
             for (Hotel hotel : hotels) {
-                hotelsModel.addElement(hotel.getName() + ", " + hotel.getMinPrice()*100);
+                hotelsModel.addElement(hotel.getName() + ", " + df.format(basket.USDtoISK(hotel.getMinPrice())* basket.getCurrencyRate()));
             }
         }
         this.jListSearchResultsHotels.setModel(hotelsModel);
@@ -140,7 +142,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         DefaultListModel<String> tripsModel = new DefaultListModel<>();
         if (trips != null) {
             for (Trip trip : trips) {
-                tripsModel.addElement(trip.getName() + ", " + trip.getPrice());
+                tripsModel.addElement(trip.getName() + ", " + df.format(trip.getPrice()* basket.getCurrencyRate()));
             }
         }
 
@@ -239,7 +241,7 @@ public class JPanelSearch extends javax.swing.JPanel {
 
         jLabel6.setText("Currency Type");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ISK", "EUR", "GBP", "$" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ISK", "EUR", "GBP", "USD" }));
 
         jButtonSearch.setText("Search");
         jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +268,12 @@ public class JPanelSearch extends javax.swing.JPanel {
         jLabel7.setToolTipText("");
 
         jFormattedTextFieldNumberOfCustomers.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextFieldNumberOfCustomers.setText("0");
+        jFormattedTextFieldNumberOfCustomers.setText("1");
+        jFormattedTextFieldNumberOfCustomers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldNumberOfCustomersActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -517,8 +524,8 @@ public class JPanelSearch extends javax.swing.JPanel {
         String numberOfCustomers = this.jFormattedTextFieldNumberOfCustomers.getText();
         vm.setPeople(Integer.valueOf(numberOfCustomers));
 
-        String curency = this.jComboBox1.getItemAt(this.jComboBox1.getSelectedIndex());
-        vm.setCurrencyType(curency);
+        String currency = this.jComboBox1.getItemAt(this.jComboBox1.getSelectedIndex());
+        vm.setCurrencyType(currency);
         
         String fromWhere = this.jComboBoxFlightFrom.getItemAt(this.jComboBoxFlightFrom.getSelectedIndex());
         vm.setFromWhere(fromWhere);
@@ -540,9 +547,10 @@ public class JPanelSearch extends javax.swing.JPanel {
 
         //search.SearchAll(dateEnd, day, priceRangeMax, priceRangeMax, currencyType, PROPERTIES, preferences, true, true, true);
         basket = search.SearchAll(vm, searchFlights, searchHotels, searchTrips);
-        UpdateSelectPanels();
-        
         this.searchVM = vm;
+        basket.setSearchVM(vm);
+        
+        UpdateSelectPanels();
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonToBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToBasketActionPerformed
@@ -559,7 +567,7 @@ public class JPanelSearch extends javax.swing.JPanel {
             selectedBasket.addFlight(basket.getFlight(flightIndex[f]));
         }
         
-        basket.setSearchVM(this.searchVM);
+        selectedBasket.setSearchVM(this.searchVM);
         parent.toBasket(selectedBasket);
     }//GEN-LAST:event_jButtonToBasketActionPerformed
 
@@ -582,6 +590,10 @@ public class JPanelSearch extends javax.swing.JPanel {
     private void jCheckBoxTwoWayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxTwoWayActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxTwoWayActionPerformed
+
+    private void jFormattedTextFieldNumberOfCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldNumberOfCustomersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldNumberOfCustomersActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
