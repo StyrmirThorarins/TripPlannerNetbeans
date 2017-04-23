@@ -12,13 +12,10 @@ public class Basket {
     
     private List<Flight> flights;
     private List<Hotel> hotels;
-    private List<Trip> trips;
-    private List<Integer> hotelsStayLength;
+    private List<Trip> trips;   
     
-    private int refNumber;
+    private ViewModel.SearchVM searchVM;       
     
-    private int numberOfTravelers;
-
     //constructors
     /**
      * *
@@ -28,8 +25,10 @@ public class Basket {
         flights = new ArrayList<>();
         hotels = new ArrayList<>();
         trips = new ArrayList<>();
-        hotelsStayLength = new ArrayList<>();
-        numberOfTravelers = 1;
+        
+        this.searchVM = new ViewModel.SearchVM();
+        
+        hotelsStayLength = new ArrayList<>();        
     }
 
     //getters, setters
@@ -140,21 +139,13 @@ public class Basket {
     public void ClearTrips() {
         this.trips = null;
     }
-
-    public int getRefNumber() {
-        return this.refNumber;
+    
+    public void setSearchVM(ViewModel.SearchVM model){
+        this.searchVM = model;
     }
     
-    public void setRefNumber(int refNumber) {
-        this.refNumber = refNumber;
-    }
-    
-    public void SetNumberOfTravelers(int numberOfTravelers) {
-        this.numberOfTravelers = numberOfTravelers;
-    }
-    
-    public int GetNumberOfTravelers() {
-        return numberOfTravelers;
+    public ViewModel.SearchVM getSearchVM(){
+        return this.searchVM;
     }
     
     public List<Integer> getHotelsStayLength() {
@@ -211,10 +202,10 @@ public class Basket {
     public double getPrice() {
         double priceTotal = 0;
         for (int i = 0; i < flights.size(); i++) {
-            priceTotal += flights.get(i).getTicket_price() * numberOfTravelers;
+            priceTotal += flights.get(i).getTicket_price() * searchVM.getPeople();
         }
         for (int i = 0; i < trips.size(); i++) {
-            priceTotal += trips.get(i).getPrice() * numberOfTravelers;
+            priceTotal += trips.get(i).getPrice() * searchVM.getPeople();
         }
         for (int i = 0; i < hotels.size(); i++) {
             priceTotal += USDtoISK(hotels.get(i).getMinPrice()) * this.hotelsStayLength.get(i);

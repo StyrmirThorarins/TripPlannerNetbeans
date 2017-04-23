@@ -28,6 +28,7 @@ public class JPanelSearch extends javax.swing.JPanel {
     User user;
     Basket basket;
     Basket selectedBasket;
+    ViewModel.SearchVM searchVM;
 
     private Controller.Search search;
     private JFrameMain parent;
@@ -38,6 +39,7 @@ public class JPanelSearch extends javax.swing.JPanel {
      */
     public JPanelSearch(JFrameMain parent) {
         this.parent = parent;
+        this.searchVM = new ViewModel.SearchVM();
         
         initComponents();
 
@@ -57,6 +59,8 @@ public class JPanelSearch extends javax.swing.JPanel {
      * @param userID id of user that is searched for
      */
     public JPanelSearch(int userID) {
+        this.searchVM = new ViewModel.SearchVM();
+        
         initComponents();
 
         this.setupConfig();
@@ -538,6 +542,7 @@ public class JPanelSearch extends javax.swing.JPanel {
         basket = search.SearchAll(vm, searchFlights, searchHotels, searchTrips);
         UpdateSelectPanels();
         
+        this.searchVM = vm;
     }//GEN-LAST:event_jButtonSearchActionPerformed
 
     private void jButtonToBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToBasketActionPerformed
@@ -554,6 +559,7 @@ public class JPanelSearch extends javax.swing.JPanel {
             selectedBasket.addFlight(basket.getFlight(flightIndex[f]));
         }
         
+        basket.setSearchVM(this.searchVM);
         parent.toBasket(selectedBasket);
     }//GEN-LAST:event_jButtonToBasketActionPerformed
 
